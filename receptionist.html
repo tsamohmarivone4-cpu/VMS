@@ -1,0 +1,158 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Receptionist Dashboard</title>
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+
+    <link rel="stylesheet" href="receptionist.css">
+</head>
+<body>
+
+<div class="container">
+
+    <!-- Sidebar -->
+    <aside class="sidebar"><Ri:a></Ri:a>
+
+        <div class="logo">
+            <h2>VMS</h2>
+            <p>Visitor Management System</p>
+        </div>
+
+        <ul>
+
+            <li class="active">
+                <a href="#"><i class="fa-solid fa-house"></i> Dashboard</a>
+            </li>
+
+            <li>
+                <a href="#"><i class="fa-solid fa-user-plus"></i> Register Visitor</a>
+            </li>
+
+            <li>
+                <a href="#"><i class="fa-solid fa-magnifying-glass"></i> Search Visitor</a>
+            </li>
+
+            <li>
+                <a href="#"><i class="fa-solid fa-calendar-check"></i> Book Appointment</a>
+            </li>
+
+            <li>
+                <a href="#"><i class="fa-solid fa-list-check"></i> Manage Appointments</a>
+            </li>
+
+            <li>
+                <a href="#"><i class="fa-solid fa-right-to-bracket"></i> Check-In</a>
+            </li>
+
+            <li>
+                <a href="#"><i class="fa-solid fa-right-from-bracket"></i> Check-Out</a>
+            </li>
+
+            <li>
+                <a href="#"><i class="fa-solid fa-right-from-bracket"></i> Logout</a>
+            </li>
+
+        </ul>
+
+    </aside>
+
+    <!-- Main Content -->
+    <main class="content">
+
+        <header>
+
+            <h1>Receptionist Dashboard</h1>
+
+            <div class="profile">
+                <i class="fa-solid fa-user"></i>
+                Receptionist
+            </div>
+
+        </header>
+
+        <!-- Dashboard Cards -->
+        <section class="cards">
+
+            <div class="card">
+                <h3>Total Visitors</h3>
+                <h2>25</h2>
+            </div>
+
+            <div class="card">
+                <h3>Pending Appointments</h3>
+                <h2>8</h2>
+            </div>
+
+            <div class="card">
+                <h3>Checked In</h3>
+                <h2>15</h2>
+            </div>
+
+            <div class="card">
+                <h3>Checked Out</h3>
+                <h2>10</h2>
+            </div>
+
+        </section>
+
+        <!-- Recent Activity -->
+        <section class="table-section">
+
+            <h2>Recent Visitor Activity</h2>
+
+            <table>
+
+                <thead>
+                    <tr>
+                        <th>Visitor</th>
+                        <th>Host</th>
+                        <th>Status</th>
+                        <th>Time</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+
+                    <tr>
+                        <td>John Smith</td>
+                        <td>ICT</td>
+                        <td>Checked In</td>
+                        <td>09:20 AM</td>
+                    </tr>
+
+                    <tr>
+                        <td>Mary Jane</td>
+                        <td>Finance</td>
+                        <td>Pending</td>
+                        <td>10:10 AM</td>
+                    </tr>
+
+                    <tr>
+                        <td>Peter Johnson</td>
+                        <td>HR</td>
+                        <td>Checked Out</td>
+                        <td>11:45 AM</td>
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </section>
+
+    </main>
+
+</div>
+
+</body>
+</html>
