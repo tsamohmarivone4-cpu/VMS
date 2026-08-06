@@ -1,31 +1,26 @@
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Receptionist Dashboard</title>
+    <title>Administrator Dashboard</title>
 
-    <!-- Google Font -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="admin.css">
 
-    <!-- Font Awesome -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
     <link rel="stylesheet"
     href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
-
-    <link rel="stylesheet" href="receptionist.css">
 </head>
 <body>
 
 <div class="container">
 
     <!-- Sidebar -->
-    <aside class="sidebar"><Ri:a></Ri:a>
+    <aside class="sidebar">
 
         <div class="logo">
             <img src="109126.jpg" alt="VMS Logo">
-            
         </div>
 
         <ul>
@@ -35,23 +30,27 @@
             </li>
 
             <li>
-                <a href="#"><i class="fa-solid fa-user-plus"></i> Register Visitor</a>
+                <a href="#"><i class="fa-solid fa-users"></i> Manage Users</a>
             </li>
 
             <li>
-                <a href="#"><i class="fa-solid fa-magnifying-glass"></i> Search Visitor</a>
+                <a href="#"><i class="fa-solid fa-building"></i> Manage Departments</a>
             </li>
 
             <li>
-                <a href="#"><i class="fa-solid fa-list-check"></i> Manage Appointments</a>
+                <a href="#"><i class="fa-solid fa-address-book"></i> Visitor Records</a>
             </li>
 
             <li>
-                <a href="#"><i class="fa-solid fa-right-to-bracket"></i> Check-In</a>
+                <a href="#"><i class="fa-solid fa-calendar-days"></i> Appointment Records</a>
             </li>
 
             <li>
-                <a href="#"><i class="fa-solid fa-right-from-bracket"></i> Check-Out</a>
+                <a href="#"><i class="fa-solid fa-chart-column"></i> Reports</a>
+            </li>
+
+            <li>
+                <a href="#"><i class="fa-solid fa-gear"></i> Settings</a>
             </li>
 
             <li>
@@ -65,20 +64,24 @@
     <!-- Main Content -->
     <main class="content">
 
-        <header>
+       <header>
 
-            <h1>Receptionist Dashboard</h1>
-
-            
+            <h1>Administrator Dashboard</h1>
 
         </header>
+        
+        <!-- Cards -->
 
-        <!-- Dashboard Cards -->
         <section class="cards">
 
             <div class="card">
                 <h3>Total Visitors</h3>
-            
+                
+            </div>
+
+            <div class="card">
+                <h3>Today's Visits</h3>
+                
             </div>
 
             <div class="card">
@@ -87,33 +90,47 @@
             </div>
 
             <div class="card">
-                <h3>Checked In</h3>
+                <h3>Total Users</h3>
                 
             </div>
 
             <div class="card">
-                <h3>Checked Out</h3>
+                <h3>Departments</h3>
                 
             </div>
+
+        </section>
+
+        <!-- Quick Actions -->
+        <section class="actions">
+
+            <h2>Quick Actions</h2>
+
+            <button>Create User</button>
+            <button>Add Department</button>
+            <button>Generate Report</button>
+            <button>View Visitor Records</button>
 
         </section>
 
         <!-- Recent Activity -->
         <section class="table-section">
 
-            <h2>Recent Visitor Activity</h2>
+            <h2>Recent Activities</h2>
 
             <table>
 
                 <thead>
+
                     <tr>
-                        <th>Visitor</th>
-                        <th>Host</th>
-                        <th>Status</th>
-                        <th>Time</th>
+                        <th>Date</th>
+                        <th>Activity</th>
+                        <th>User</th>
                     </tr>
+
                 </thead>
 
+                
 
             </table>
 

@@ -17,9 +17,7 @@ body{
     min-height: 100vh;
 }
 
-/* ===========================
-        SIDEBAR
-=========================== */
+/*  sidebar */
 
 .sidebar{
     width: 260px;
@@ -28,9 +26,16 @@ body{
     padding: 20px;
 }
 
-.logo{
-    text-align: center;
-    margin-bottom: 40px;
+.logo img{
+    width: 180%;
+    max-width: 180px;
+    height: auto;
+    display: block;
+    margin: 0 auto 20px;
+    border-radius: 10px;
+    object-fit: contain;
+
+    
 }
 
 .logo h2{
@@ -69,15 +74,13 @@ body{
     background: #2563EB;
 }
 
-/* ===========================
-        MAIN CONTENT
-=========================== */
+/* main content */
+
 
 .content{
     flex: 1;
     padding: 30px;
 }
-
 /* Header */
 
 header{
@@ -99,9 +102,7 @@ header h1{
     font-weight: 500;
 }
 
-/* ===========================
-        DASHBOARD CARDS
-=========================== */
+/* DASHBOARD CARDS*/
 
 .cards{
     display: grid;
@@ -133,9 +134,7 @@ header h1{
     font-size: 32px;
 }
 
-/* ===========================
-        TABLE
-=========================== */
+/*TABLE*/
 
 .table-section{
     background: white;
@@ -173,9 +172,7 @@ table tbody tr:hover{
     background: #e8f0ff;
 }
 
-/* ===========================
-        RESPONSIVE
-=========================== */
+/* RESPONSIVE */
 
 @media(max-width:900px){
 
