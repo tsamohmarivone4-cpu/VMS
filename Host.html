@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="Host.css">
+</head>
+<body>
+    <header>
+    <h2><img src="109126.jpg" alt="Visitor Logo" width="150" height="150">Host Dashboard</h2>
+    <button onclick="logout()">Logout</button>
+</header>
+
+<div class="container">
+   <div class="welcome-card">
+    <h2>Review Appointments</h2>
+    <p>Approve or reject visitor appointments scheduled with you.</p>
+   </div> 
+
+   <div class="tabs">
+            <div class="tab active" onclick="filterTable('all')">All</div>
+            <div class="tab" onclick="filterTable('pending')">Pending</div>
+            <div class="tab" onclick="filterTable('today')">Today</div>
+        </div>
+
+<table id="table">
+<tr>
+    <th>Visitor</th>
+    <th>Purpose</th>
+    <th>Status</th>
+    <th>Action</th>
+</tr>
+
+<tr>
+    <td>John Doe</td>
+    <td>Meeting</td>
+    <td class="status">Pending</td>
+    <td>
+        <button class="approve" onclick="changeStatus(this,'Approved')">Approve</button>
+        <button class="reject" onclick="changeStatus(this,'Rejected')">Reject</button>
+    </td>
+</tr>
+
+<tr>
+    <td>Sarah</td>
+    <td>Delivery</td>
+    <td class="status">Pending</td>
+    <td>
+        <button class="approve" onclick="changeStatus(this,'Approved')">Approve</button>
+        <button class="reject" onclick="changeStatus(this,'Rejected')">Reject</button>
+    </td>
+</tr>
+
+</table>
+
+</div>
+</body>
+</html>
