@@ -7,43 +7,37 @@
     <link rel="stylesheet" href="Reg.css">
 </head>
 <body>
- <h3>Visitor Registration Form</h3>
- <form>
+    <div class="main-container">
+        <!--Left Side-->
+        <div class="left-side">
+            <img src="109126.jpg" alt="Visitor Logo">
+        </div>
 
-    <label>Full Name:</label><br>
-    <input type="text" name="fullname"><br><br>
+        <!--Right Side-->
+        <div class="right-side">
+<form id="VisitorForm">
+ <h2>Visitor Registration Form</h2>
 
-    <label>Gender:</label><br>
+  <label>Full Name</label>
+  <input type="text" name="fullname" required>
+
+  <label>Phone Number</label>
+  <input type="text" name="phone" required>
+
+    <label>Gender:</label>
+      <div class="gender">
     <input type="radio" name="gender"> Male
     <input type="radio" name="gender"> Female
+      </div>
+
+    <label>Email Address:<a/label>
+    <input type="email" name="email" required>
     <br><br>
-
-    <label>Phone Number:</label><br>
-    <input type="tel" name="phone"><br><br>
-
-    <label>Email Address:<a/label><br>
-    <input type="email" name="email"><br><br>
-
-    <label>ID card Number</label><br>
-    <input type="text" name="idcard"><br><br>
-
-    <label>Person to Visit</label><br>
-    <input type="text" name="Person"><br><br>
-
-    <label>Department:</label><br>
-    <input type="text" name="department"><br><br>
-
-    <label>Purpose of visit:</label><br>
-    <textarea rows="4" cols="30"></textarea><br><br>
-
-    <label>Date of Visit:</label><br>
-    <input type="date"><br><br>
-
-    <Label>Time In:</Label><br>
-    <input type="time"><br><br>
-
+        
+       <!-- Register button -->
     <input type="submit" Value="Register">
-    <input type="reset" Value="Reset">
+    <!-- Reset button -->
+    <input type="reset">
  </form>   
 </body>
 </html>
