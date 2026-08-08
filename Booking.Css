@@ -1,0 +1,87 @@
+body {
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    background: #f5f5f5;
+}
+
+.appontment {
+    width: 700px;
+    margin: 60px auto;
+    padding: 30px;
+    display: flex;
+    flex-direction: row;
+    border: 4px solid navy;
+    border-radius: 15px;
+    background: white;
+    border-radius: 15px;
+}
+
+/* LOGO IS ON THE LEFT */
+.logo {
+    width: 35%;
+    text-align: center;
+    border-right: 3px solid navy;
+    padding: 40px 20px;
+}
+
+.logo img {
+    width: 140px;
+}
+
+.logo h2 {
+    color: navy;
+} 
+
+/* FORM IS ON THE RIGHT */
+.FORM {
+    width: 65%;
+    padding-left: 30px;
+}
+
+h1 {
+    color: navy;
+}
+
+label {
+    display: block;
+    margin-top: 15px;
+}
+
+select,
+input[type="date"],
+input[type="time"] {
+    width: 90%;
+    padding: 9px;
+    margin-top: 5px;
+}
+
+.nda {
+    font-size: 14px;
+} 
+
+.nda input {
+    width: auto;
+}
+
+.buttons {
+    margin-top: 25px;
+}
+
+button {
+    padding: 10px 18px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#cancel {
+    background: navy;
+}
+
+#submit {
+    background: navy;
+    color: navy;
+}
+
+#submit:hover {
+    background: navy;
+}
