@@ -8,40 +8,36 @@
 </head>
 <body>
     <div class="main-container">
-    <!-- left side -->
-     <div class="left-side">
- <h1>Visitor Registration Form</h1>
-    <img src="109126.jpg">
- </div>
-            
-      <!-- Right side -->
-        <div class="right-side">
-            <div class="login-box">
-                <h2>Fill in the required Information</h2>
-                <form>
-    <label>Full Name:</label><br>
-    <input type="text" name="fullname"><br><br>
+        <!--Left Side-->
+        <div class="left-side">
+            <img src="109126.jpg" alt="Visitor Logo">
+        </div>
 
-    <label>Gender:</label><br>
-    <div class="gender">
+        <!--Right Side-->
+        <div class="right-side">
+<form id="VisitorForm">
+ <h2>Visitor Registration Form</h2>
+
+  <label>Full Name</label>
+  <input type="text" name="fullname" required>
+
+  <label>Phone Number</label>
+  <input type="text" name="phone" required>
+
+    <label>Gender:</label>
+      <div class="gender">
     <input type="radio" name="gender"> Male
     <input type="radio" name="gender"> Female
-    </div>
+      </div>
+
+    <label>Email Address:<a/label>
+    <input type="email" name="email" required>
     <br><br>
-
-    <label>Phone Number:</label><br>
-    <input type="tel" name="phone"><br><br>
-
-    <label>Email Address:<a/label><br>
-    <input type="email" name="email"><br><br>
-
-    <Label>Time In:</Label><br>
-    <input type="time"><br><br>
-
+        
+       <!-- Register button -->
     <input type="submit" Value="Register">
-    <input type="reset" Value="Reset">
- </form>
-            </div>
-            </div>   
+    <!-- Reset button -->
+    <input type="reset">
+ </form>   
 </body>
 </html>

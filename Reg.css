@@ -1,94 +1,74 @@
-*{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: Arial, Helvetica, sans-serif;
-}
 body{
     margin: 0;
-    font-family: Georgia, 'Times New Roman', Times, serif;
-    background: white;
+    font-family: Arial, Helvetica, sans-serif;
+    background: #f4f4f4;
+    display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
-    display: flex;
 }
-.main-container {
+
+  .main-container{
     display: flex;
     width: 900px;
     background: white;
     border-radius: 15px;
-    overflow: hidden;
-    box-shadow: white;
-}
+    overflow: 0 10px 25px
+    rgba(0,0,0,0.2) ;
+  }
 
-.left-side{
+  .left-side{
     width: 40%;
-    background: gray;
+    background: #0f4c81;
     display: flex;
     justify-content: center;
     align-items: center;
     padding: 30px;
-}
+  }
 
-.left-side{
+  .left-side img{
     width: 250px;
-max-width: 100px;
+    max-width: 100%;
+  }
 
-}
-.right-side{
+  .right-side{
     width: 60%;
     padding: 40px;
-}
-.right
+  }
 
-.left img{
-width: 260px;
-height: 260px;
-object-fit: contain;
-margin-bottom: 20px;
-}
-
-.right{
-    width: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.login-box{
-    width: 400px;
-    padding: 36px;
-    border-radius: 10px;
-}
-.right-side h2{
-    color: #0F4C81;
+  .right-side h2{
+    color: navy;
     margin-bottom: 20px;
-}
+  }
 
-form{
-    width: 400px;
-    margin: auto;
-    background: #3b82f6;
-    padding: 20px;
-    border-radius: 10px;
-    border-color: #1E3A8A;
-}
+  label{
+    display: block;
+    margin-top: 15px;
+    font-weight: bold;
+  }
 
-input, textarea{
+input[ type="text" ]{
     width: 100%;
-    padding: 8px;
-    margin-top: 5px 0;
-    margin-bottom: 10px;
-    text-decoration-color: #1f2937;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    margin-top: 5px;
 }
 
 input[type=submit],
 input[type=reset]{
     width: 45%;
-    background: #3b82f6;
-    color: navy;
-    border: #1E3A8A;
+    background: navy;
+    color: white;
+    border: none;
     padding: 10px;
     cursor:pointer;
+}
+
+.gender{
+    margin-top: 10px;
+}
+
+.gender input{
+    margin-right: 8px;
 }
