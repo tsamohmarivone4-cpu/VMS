@@ -1,6 +1,5 @@
 //vms login //
 
-// Get the login form
 const loginForm = document.getElementById("loginForm");
 
 loginForm.addEventListener("submit", function(event) {
