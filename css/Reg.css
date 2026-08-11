@@ -1,0 +1,78 @@
+body{
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    background: #f4f4f4;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+  .main-container{
+    display: flex;
+    width: 900px;
+    background: white;
+    border-radius: 15px;
+    overflow: 0 10px 25px
+    rgba(0,0,0,0.2) ;
+  }
+
+  .left-side{
+    width: 40%;
+    background: #0f4c81;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 30px;
+  }
+
+  .left-side img{
+    width: 250px;
+    max-width: 100%;
+  }
+
+  .right-side{
+    width: 60%;
+    padding: 40px;
+  }
+
+  .right-side h2{
+<<<<<<< HEAD:css/Reg.css
+    color: #111010;
+=======
+    color: navy;
+>>>>>>> db57c31cf40aa3c5b80a934624132973592e0149:Reg.css
+    margin-bottom: 20px;
+  }
+
+  label{
+    display: block;
+    margin-top: 15px;
+    font-weight: bold;
+  }
+
+input[ type="text" ]{
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    margin-top: 5px;
+}
+
+input[type=submit],
+input[type=reset]{
+    width: 45%;
+    background: navy;
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor:pointer;
+}
+
+.gender{
+    margin-top: 10px;
+}
+
+.gender input{
+    margin-right: 8px;
+}
