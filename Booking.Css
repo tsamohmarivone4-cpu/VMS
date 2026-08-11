@@ -54,7 +54,6 @@ input[type="time"] {
     margin-top: 5px;
 }
 
-
 .nda {
     font-size: 14px;
 } 
@@ -76,6 +75,7 @@ button {
 
 #cancel {
     background: navy;
+    color: #f5f5f5;
 }
 
 #submit {
