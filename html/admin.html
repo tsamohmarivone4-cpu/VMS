@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Administrator Dashboard</title>
 
-    <link rel="stylesheet" href="admin.css">
+    <link rel="stylesheet" href="../css/admin.css">
 
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
@@ -20,12 +20,10 @@
     <aside class="sidebar">
 
         <div class="logo">
-            <img src="109126.jpg" alt="VMS Logo">
+            <img src="../images/109126.jpg"alt="VMS Logo">
         </div>
-
-        <ul>
-
-            <li class="active">
+      <ul>
+      <li class="active">
                 <a href="#"><i class="fa-solid fa-house"></i> Dashboard</a>
             </li>
 
@@ -54,7 +52,7 @@
             </li>
 
             <li>
-                <a href="#"><i class="fa-solid fa-right-from-bracket"></i> Logout</a>
+                <a href="#" onclick="logout()"><i class="fa-solid fa-right-from-bracket"></i> Logout</a>
             </li>
 
         </ul>
@@ -64,40 +62,41 @@
     <!-- Main Content -->
     <main class="content">
 
-       <header>
-
-            <h1>Administrator Dashboard</h1>
+        <header>
+            <div>
+                <h1>Administrator Dashboard</h1>
+                <p>Welcome, Administrator</p>
+            </div>
 
         </header>
-        
-        <!-- Cards -->
 
+        <!-- Cards -->
         <section class="cards">
 
-            <div class="card">
-                <h3>Total Visitors</h3>
-                
-            </div>
+             <div class="card">
+        <h3>Total Visitors</h3>
+        <h2 id="totalVisitors">320</h2>
+    </div>
 
-            <div class="card">
-                <h3>Today's Visits</h3>
-                
-            </div>
+    <div class="card">
+        <h3>Today's Visits</h3>
+        <h2 id="todayVisits">25</h2>
+    </div>
 
-            <div class="card">
-                <h3>Pending Appointments</h3>
-                
-            </div>
+    <div class="card">
+        <h3>Pending Appointments</h3>
+        <h2 id="pendingAppointments">8</h2>
+    </div>
 
-            <div class="card">
-                <h3>Total Users</h3>
-                
-            </div>
+    <div class="card">
+        <h3>Total Users</h3>
+        <h2 id="totalUsers">18</h2>
+    </div>
 
-            <div class="card">
-                <h3>Departments</h3>
-                
-            </div>
+    <div class="card">
+        <h3>Departments</h3>
+        <h2 id="totalDepartments">6</h2>
+    </div>
 
         </section>
 
@@ -106,10 +105,13 @@
 
             <h2>Quick Actions</h2>
 
-            <button>Create User</button>
-            <button>Add Department</button>
-            <button>Generate Report</button>
-            <button>View Visitor Records</button>
+             <button id="createUserBtn">Create User</button>
+
+            <button id="addDepartmentBtn">Add Department</button>
+
+            <button id="generateReportBtn">Generate Report</button>
+
+            <button id="viewVisitorsBtn">View Visitor Records</button>
 
         </section>
 
@@ -130,7 +132,27 @@
 
                 </thead>
 
-                
+                <tbody>
+
+                    <tr>
+                        <td>05 Aug 2026</td>
+                        <td>Visitor Registered</td>
+                        <td>Receptionist</td>
+                    </tr>
+
+                    <tr>
+                        <td>05 Aug 2026</td>
+                        <td>Appointment Approved</td>
+                        <td>Host</td>
+                    </tr>
+
+                    <tr>
+                        <td>05 Aug 2026</td>
+                        <td>Created New User</td>
+                        <td>Administrator</td>
+                    </tr>
+
+                </tbody>
 
             </table>
 
@@ -139,6 +161,6 @@
     </main>
 
 </div>
-
+<script src="../java script/admin.js"></script>
 </body>
-</html>
+</html> 

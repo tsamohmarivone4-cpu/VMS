@@ -1,0 +1,423 @@
+/* ==========================================
+   VISITOR MANAGEMENT SYSTEM - LOGIN PAGE
+   ========================================== */
+
+
+/* ---------- RESET ---------- */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+/* ---------- BODY ---------- */
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    min-height: 100vh;
+    background-color: #f4f6f8;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    padding: 20px;
+}
+
+
+/* ---------- MAIN CONTAINER ---------- */
+
+.container {
+    width: 100%;
+    max-width: 1400px;
+    min-height: 750px;
+
+    display: flex;
+
+    background-color: white;
+
+    border: 2px solid #24418f;
+    border-radius: 15px;
+
+    overflow: hidden;
+
+    box-shadow: 0 5px 25px rgba(0, 0, 0, 0.08);
+}
+
+
+/* ==========================================
+   LEFT SECTION
+   ========================================== */
+
+.left {
+    width: 50%;
+
+    background-color: #f5f7f9;
+
+    display: flex;
+    flex-direction: column;
+
+    justify-content: center;
+    align-items: center;
+
+    text-align: center;
+
+    padding: 50px;
+}
+
+
+/* ---------- LEFT HEADING ---------- */
+
+.left h1 {
+    font-size: 40px;
+
+    color: #24418f;
+
+    margin-bottom: 40px;
+
+    font-weight: 700;
+}
+
+
+/* ---------- LOGO ---------- */
+
+.left img {
+    width: 330px;
+    height: 330px;
+
+    object-fit: cover;
+
+    display: block;
+
+    border-radius: 2px;
+
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+}
+
+
+/* ==========================================
+   RIGHT SECTION
+   ========================================== */
+
+.right {
+    width: 50%;
+
+    background-color: #ffffff;
+
+    display: flex;
+
+    justify-content: center;
+    align-items: center;
+
+    padding: 50px;
+}
+
+
+/* ---------- LOGIN BOX ---------- */
+
+.login-box {
+    width: 100%;
+    max-width: 500px;
+
+    background-color: #ffffff;
+
+    padding: 45px;
+
+    border-radius: 15px;
+
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.10);
+}
+
+
+/* ---------- LOGIN HEADING ---------- */
+
+.login-box h2 {
+    color: #24418f;
+
+    text-align: center;
+
+    font-size: 32px;
+
+    margin-bottom: 35px;
+}
+
+
+/* ==========================================
+   FORM
+   ========================================== */
+
+.login-box form {
+    width: 100%;
+}
+
+
+/* ---------- LABELS ---------- */
+
+.login-box label {
+    display: block;
+
+    color: #111111;
+
+    font-size: 18px;
+
+    font-weight: 600;
+
+    margin-bottom: 10px;
+
+    margin-top: 20px;
+}
+
+
+/* First label */
+
+.login-box label:first-of-type {
+    margin-top: 0;
+}
+
+
+/* ---------- INPUTS ---------- */
+
+.login-box input {
+    width: 100%;
+
+    height: 55px;
+
+    padding: 0 15px;
+
+    border: 1px solid #999999;
+
+    border-radius: 7px;
+
+    outline: none;
+
+    font-size: 17px;
+
+    color: #333333;
+
+    background-color: #ffffff;
+
+    transition: 0.3s;
+}
+
+
+/* ---------- INPUT PLACEHOLDER ---------- */
+
+.login-box input::placeholder {
+    color: #777777;
+
+    font-size: 16px;
+}
+
+
+/* ---------- INPUT FOCUS ---------- */
+
+.login-box input:focus {
+    border-color: #24418f;
+
+    box-shadow: 0 0 0 3px rgba(36, 65, 143, 0.12);
+}
+
+
+/* ==========================================
+   LOGIN BUTTON
+   ========================================== */
+
+.login-box button {
+    width: 100%;
+
+    height: 55px;
+
+    margin-top: 30px;
+
+    border: none;
+
+    border-radius: 7px;
+
+    background-color: #24418f;
+
+    color: white;
+
+    font-size: 18px;
+
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition: all 0.3s ease;
+}
+
+
+/* ---------- BUTTON HOVER ---------- */
+
+.login-box button:hover {
+    background-color: #1b3478;
+
+    transform: translateY(-1px);
+
+    box-shadow: 0 5px 12px rgba(36, 65, 143, 0.25);
+}
+
+
+/* ---------- BUTTON ACTIVE ---------- */
+
+.login-box button:active {
+    transform: translateY(0);
+}
+
+
+/* ==========================================
+   LOGIN MESSAGE
+   ========================================== */
+
+#loginMessage {
+    text-align: center;
+
+    font-size: 14px;
+
+    margin-top: 15px;
+
+    min-height: 20px;
+}
+
+
+/* ==========================================
+   RESPONSIVE DESIGN
+   ========================================== */
+
+
+/* ---------- TABLETS ---------- */
+
+@media screen and (max-width: 900px) {
+
+    .container {
+        min-height: auto;
+    }
+
+    .left {
+        padding: 35px;
+    }
+
+    .left h1 {
+        font-size: 30px;
+    }
+
+    .left img {
+        width: 250px;
+        height: 250px;
+    }
+
+    .right {
+        padding: 30px;
+    }
+
+    .login-box {
+        padding: 35px;
+    }
+
+    .login-box h2 {
+        font-size: 27px;
+    }
+}
+
+
+/* ---------- MOBILE ---------- */
+
+@media screen and (max-width: 700px) {
+
+    body {
+        padding: 10px;
+    }
+
+    .container {
+        flex-direction: column;
+
+        min-height: auto;
+
+        border-radius: 12px;
+    }
+
+
+    .left {
+        width: 100%;
+
+        padding: 35px 20px;
+    }
+
+
+    .left h1 {
+        font-size: 28px;
+
+        margin-bottom: 25px;
+    }
+
+
+    .left img {
+        width: 220px;
+        height: 220px;
+    }
+
+
+    .right {
+        width: 100%;
+
+        padding: 30px 20px;
+    }
+
+
+    .login-box {
+        max-width: 500px;
+
+        padding: 30px 25px;
+    }
+
+
+    .login-box h2 {
+        font-size: 25px;
+
+        margin-bottom: 25px;
+    }
+
+
+    .login-box label {
+        font-size: 16px;
+    }
+
+
+    .login-box input {
+        height: 50px;
+
+        font-size: 16px;
+    }
+
+
+    .login-box button {
+        height: 50px;
+
+        font-size: 17px;
+    }
+}
+
+
+/* ---------- SMALL PHONES ---------- */
+
+@media screen and (max-width: 400px) {
+
+    .left h1 {
+        font-size: 24px;
+    }
+
+    .left img {
+        width: 180px;
+        height: 180px;
+    }
+
+    .login-box {
+        padding: 25px 20px;
+    }
+
+    .login-box h2 {
+        font-size: 22px;
+    }
+}
