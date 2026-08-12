@@ -9,7 +9,6 @@
 <body>
     <header>
     <h2><img src="../images/109126.jpg" alt="Visitor Logo" width="150" height="150">Host Dashboard</h2>
-    <button onclick="logout(Login.html)">Logout</button>
 </header>
 
 <div class="container">
@@ -19,22 +18,26 @@
    </div> 
 
    <div class="tabs">
-            <div class="tab active" onclick="filterTable('all')">All</div>
-            <div class="tab" onclick="filterTable('pending')">Pending</div>
-            <div class="tab" onclick="filterTable('today')">Today</div>
-        </div>
+            <!-- Tabs -->
+<button id="tabAll" class="tab active">All</button>
+<button id="tabPending" class="tab">Pending</button>
+<button id="tabToday" class="tab">Today</button>
 
-<table id="table">
-<tr>
-    <th>Visitor</th>
-    <th>Purpose</th>
-    <th>Status</th>
-    <th>Action</th>
-</tr>
-
-
+<!-- Table Body -->
+<table>
+  <thead>
+    <tr>
+      <th>Visitor</th><th>Purpose</th><th>Status</th><th>Action</th>
+    </tr>
+  </thead>
+  <tbody id="appointmentsTable">
+    <!-- JS will fill this -->
+  </tbody>
 </table>
 
+<button onclick="logout()">Logout</button>
+
 </div>
+<script src="../java script/host.js"></script>
 </body>
 </html>
