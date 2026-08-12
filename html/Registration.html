@@ -15,7 +15,7 @@
 
         <!--Right Side-->
         <div class="right-side">
-<form id="VisitorForm">
+<form id="VisitorForm" action="book-appointment.html" method="post">
  <h2>Visitor Registration Form</h2>
 
   <label>Full Name</label>
@@ -24,20 +24,161 @@
   <label>Phone Number</label>
   <input type="text" name="phone" required>
 
-    <label>Gender:</label>
-      <div class="gender">
-    <input type="radio" name="gender"> Male
-    <input type="radio" name="gender"> Female
-      </div>
+    <label>Gender:</label><div class="gender">
 
-    <label>Email Address:<a/label>
-    <input type="email" name="email" required>
-    <br><br>
+    <input
+        type="radio"
+        name="gender"
+        value="Male"
+        required
+    >
+    Male
+
+    <input
+        type="radio"
+        name="gender"
+        value="Female"
+    >
+    Female
+    </div>
+
+<label>Email Adress</label>
+  <input type="email" name="email" required>
+  <br><br>
+   
         
        <!-- Register button -->
     <input type="submit" Value="Register">
     <!-- Reset button -->
     <input type="reset">
- </form>   
+ </form>
+ 
+        </div>
+    
+<script>
+
+document.addEventListener("DOMContentLoaded", function () {
+
+    const visitorForm =
+        document.getElementById("VisitorForm");
+
+
+    visitorForm.addEventListener("submit", function (event) {
+
+        event.preventDefault();
+
+
+        // ============================================
+        // GET VISITOR INFORMATION
+        // ============================================
+
+        const fullName =
+            document.querySelector(
+                'input[name="fullname"]'
+            ).value.trim();
+
+
+        const phone =
+            document.querySelector(
+                'input[name="phone"]'
+            ).value.trim();
+
+
+        const genderInput =
+            document.querySelector(
+                'input[name="gender"]:checked'
+            );
+
+
+        const email =
+            document.querySelector(
+                'input[name="email"]'
+            ).value.trim();
+
+
+        // ============================================
+        // CHECK GENDER
+        // ============================================
+
+        if (!genderInput) {
+
+            alert("Please select the visitor's gender.");
+
+            return;
+        }
+
+
+        // ============================================
+        // GET EXISTING VISITORS
+        // ============================================
+
+        let visitors =
+            JSON.parse(
+                localStorage.getItem("vmsVisitors")
+            ) || [];
+
+
+        // ============================================
+        // CREATE NEW VISITOR
+        // ============================================
+
+        const newVisitor = {
+
+            id: Date.now(),
+
+            fullName: fullName,
+
+            phone: phone,
+
+            gender: genderInput.value,
+
+            email: email,
+
+            date:
+                new Date()
+                    .toISOString()
+                    .split("T")[0]
+
+        };
+
+
+        // ============================================
+        // SAVE VISITOR
+        // ============================================
+
+        visitors.push(newVisitor);
+
+
+        localStorage.setItem(
+            "vmsVisitors",
+            JSON.stringify(visitors)
+        );
+
+
+        // ============================================
+        // SAVE CURRENT VISITOR FOR APPOINTMENT
+        // ============================================
+
+        localStorage.setItem(
+            "appointmentVisitor",
+            JSON.stringify(newVisitor)
+        );
+
+
+        // ============================================
+        // GO TO APPOINTMENT BOOKING
+        // ============================================
+
+        window.location.href =
+            "appointment booking.html";
+
+    });
+
+});
+
+</script>
+
+
+
 </body>
 </html>

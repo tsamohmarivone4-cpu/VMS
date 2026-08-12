@@ -31,11 +31,11 @@
             </li>
 
             <li>
-                <a href="#"><i class="fa-solid fa-user-plus"></i> Register Visitor</a>
+                <a href="Registration.html"><i class="fa-solid fa-user-plus"></i> Register Visitor</a>
             </li>
 
             <li>
-                <a href="#"><i class="fa-solid fa-magnifying-glass"></i> Search Visitor</a>
+                <a href="#" id="searchVisitorLink" ><i class="fa-solid fa-magnifying-glass"></i> Search Visitor</a>
             </li>
 
             <li>
@@ -51,7 +51,7 @@
             </li>
 
             <li>
-                <a href="../vms/index.html"><i class="fa-solid fa-right-from-bracket"></i> Logout</a>
+                <a href="../index.html" id="logoutlink"><i class="fa-solid fa-right-from-bracket"></i> Logout</a>
             </li>
 
         </ul>
@@ -68,7 +68,7 @@
         </header>
 
 
-            <!-- Check-In Form -->
+            <!-- Check-In Form -->  
 
     <section class="checkin-panel" id="checkInPanel">
 
@@ -130,8 +130,6 @@
 
 <!-- Check-Out Form -->
 
-<!-- Check-Out Form -->
-
 <section class="checkin-panel" id="checkOutPanel">
 
     <div class="form-header">
@@ -189,7 +187,54 @@
 
 </section>
 
+<!-- Search Visitor Panel -->
 
+<section class="search-panel" id="searchPanel">
+
+    <div class="form-header">
+
+        <h2>Search Visitor</h2>
+
+        <p>
+            Search for a registered visitor by name or phone number.
+        </p>
+
+    </div>
+
+
+    <div class="search-box">
+
+        <input
+            type="text"
+            id="visitorSearch"
+            placeholder="Enter visitor name or phone number..."
+        >
+
+        <button
+            type="button"
+            id="searchVisitorBtn"
+        >
+            <i class="fa-solid fa-magnifying-glass"></i>
+            Search
+        </button>
+
+    </div>
+
+
+    <!-- Search Results -->
+
+    <div
+        class="search-results"
+        id="searchResults"
+    >
+
+        <p class="no-results">
+            Enter a visitor name or phone number to search.
+        </p>
+
+    </div>
+
+</section>
 
         <!-- Dashboard Cards -->
         <section class="cards">
@@ -234,28 +279,7 @@
 
                 <tbody id="recentActivity">
 
-                    <tr>
-                        <td>John Smith</td>
-                        <td>ICT</td>
-                        <td>Checked In</td>
-                        <td>09:20 AM</td>
-                    </tr>
-
-                    <tr>
-                        <td>Mary Jane</td>
-                        <td>Finance</td>
-                        <td>Pending</td>
-                        <td>10:10 AM</td>
-                    </tr>
-
-                    <tr>
-                        <td>Peter Johnson</td>
-                        <td>HR</td>
-                        <td>Checked Out</td>
-                        <td>11:45 AM</td>
-                    </tr>
-
-                </tbody>
+                    </tbody>
 
             </table>
 
@@ -352,6 +376,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
   });
 </script>
-<script src="../JavaScript/receptionist.j"></script>
+<script src="../java script/receptionist.js"></script>
 </body>
 </html>
