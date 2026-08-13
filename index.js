@@ -55,7 +55,11 @@ loginForm.addEventListener("submit", function(event) {
             role: "Host",
             department: "General"
         }
+<<<<<<< HEAD
 
+=======
+        
+>>>>>>> aefc5366499081bf5c55864fc9b3a67d7fcc5b24
     ];
 
 
@@ -151,5 +155,6 @@ loginForm.addEventListener("submit", function(event) {
             "html/Host.html";
 
     }
+
 
 });

@@ -1,43 +1,70 @@
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", function () {
 
-    const visitor = JSON.parse(localStorage.getItem("appointmentVisitor"));
-    const hostSelect = document.getElementById("host");
-    const form = document.getElementById("appointmentForm");
+    // ============================================
+    // GET THE REGISTERED VISITOR
+    // ============================================
 
-    // Show visitor
-    document.getElementById("visitorName").textContent =
-        visitor ? visitor.fullName : "No visitor selected";
-
-
-    // Load Hosts created by Admin
-    const users = JSON.parse(localStorage.getItem("vmsUsers")) || [];
-
-    users.filter(user => user.role === "Host").forEach(host => {
-
-        const option = document.createElement("option");
-
-        option.value = host.id;
-        option.textContent = host.fullName;
-
-        hostSelect.appendChild(option);
-    });
+    const visitorData =
+        localStorage.getItem("appointmentVisitor");
 
 
-    // Submit appointment
-    form.addEventListener("submit", e => {
+    const visitorName =
+        document.getElementById("visitorName");
 
-        e.preventDefault();
 
+    // Check if a visitor was selected
+    if (!visitorData) {
+
+        visitorName.textContent =
+            "No visitor selected";
+
+    } else {
+
+        const visitor =
+            JSON.parse(visitorData);
+
+        visitorName.textContent =
+            visitor.fullName;
+    }
+
+
+    // ============================================
+    // APPOINTMENT FORM
+    // ============================================
+
+    const appointmentForm =
+        document.getElementById("appointmentForm");
+
+
+    appointmentForm.addEventListener("submit", function (event) {
+
+        event.preventDefault();
+
+
+        // Get visitor information
+        const visitor =
+            JSON.parse(
+                localStorage.getItem("appointmentVisitor")
+            );
+
+
+        // Make sure a visitor exists
         if (!visitor) {
-            alert("No visitor has been selected.");
+
+            alert(
+                "No visitor has been selected."
+            );
+
             return;
         }
 
-        const selectedHost =
-            hostSelect.options[hostSelect.selectedIndex];
+
+        // Get appointment information
+        const host =
+            document.getElementById("host").value;
 
         const purpose =
-            document.getElementById("purpose").value.trim();
+            document.getElementById("purpose").value;
 
         const date =
             document.getElementById("appointmentDate").value;
@@ -49,46 +76,83 @@ document.addEventListener("DOMContentLoaded", () => {
             document.getElementById("nda").checked;
 
 
-        if (!selectedHost.value) {
+        // Check host
+        if (!host) {
+
             alert("Please select a host.");
+
             return;
         }
 
+
+        // Check purpose
         if (!purpose) {
-            alert("Please enter the purpose of the visit.");
+
+            alert("Please select the purpose of the visit.");
+
             return;
         }
 
+
+        // Check NDA
         if (!nda) {
-            alert("Please agree to the digital NDA.");
+
+            alert(
+                "Please agree to the digital NDA."
+            );
+
             return;
         }
 
 
-        // Create appointment
-        const appointments =
-            JSON.parse(localStorage.getItem("vmsAppointments")) || [];
+        // ============================================
+        // GET EXISTING APPOINTMENTS
+        // ============================================
 
-        appointments.push({
+        let appointments =
+            JSON.parse(
+                localStorage.getItem("vmsAppointments")
+            ) || [];
+
+
+        // ============================================
+        // CREATE APPOINTMENT
+        // ============================================
+
+        const newAppointment = {
 
             id: Date.now(),
 
             visitorId: visitor.id,
+
             visitorName: visitor.fullName,
+
             phone: visitor.phone,
+
             email: visitor.email,
+
             gender: visitor.gender,
 
-            hostId: selectedHost.value,
-            host: selectedHost.textContent,
+            host: host,
 
-            purpose,
-            date,
-            time,
-            nda,
+            purpose: purpose,
+
+            date: date,
+
+            time: time,
+
+            nda: nda,
 
             status: "Pending"
-        });
+
+        };
+
+
+        // ============================================
+        // SAVE APPOINTMENT
+        // ============================================
+
+        appointments.push(newAppointment);
 
 
         localStorage.setItem(
@@ -97,24 +161,56 @@ document.addEventListener("DOMContentLoaded", () => {
         );
 
 
+        // ============================================
+        // SUCCESS MESSAGE
+        // ============================================
+
         document.getElementById("message").textContent =
             "Appointment booked successfully!";
 
-        localStorage.removeItem("appointmentVisitor");
+
+        // ============================================
+        // REMOVE TEMPORARY VISITOR SELECTION
+        // ============================================
+
+        localStorage.removeItem(
+            "appointmentVisitor"
+        );
 
 
-        setTimeout(() => {
-            window.location.href = "receptionist.html";
+        // ============================================
+        // RETURN TO DASHBOARD
+        // ============================================
+
+        setTimeout(function () {
+
+            window.location.href =
+                "receptionist.html";
+
         }, 1000);
+
     });
 
 
-    // Cancel
-    document.getElementById("cancel").addEventListener("click", () => {
+    // ============================================
+    // CANCEL BUTTON
+    // ============================================
 
-        localStorage.removeItem("appointmentVisitor");
+    const cancelButton =
+        document.getElementById("cancel");
 
-        window.location.href = "receptionist.html";
+
+    cancelButton.addEventListener("click", function () {
+
+        // Remove temporary appointment visitor
+        localStorage.removeItem(
+            "appointmentVisitor"
+        );
+
+
+        // Return to receptionist dashboard
+        window.location.href =
+            "receptionist.html";
 
     });
 

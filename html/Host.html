@@ -7,37 +7,153 @@
     <link rel="stylesheet" href="../css/Host.css">
 </head>
 <body>
-    <header>
-    <h2><img src="../images/109126.jpg" alt="Visitor Logo" width="150" height="150">Host Dashboard</h2>
-</header>
 
-<div class="container">
-   <div class="welcome-card">
-    <h2>Review Appointments</h2>
-    <p>Approve or reject visitor appointments scheduled with you.</p>
-   </div> 
+    <div class="dashboard">
 
-   <div class="tabs">
-            <!-- Tabs -->
-<button id="tabAll" class="tab active">All</button>
-<button id="tabPending" class="tab">Pending</button>
-<button id="tabToday" class="tab">Today</button>
+        <!-- SIDEBAR -->
+        <aside class="sidebar">
 
-<!-- Table Body -->
-<table>
-  <thead>
-    <tr>
-      <th>Visitor</th><th>Purpose</th><th>Status</th><th>Action</th>
-    </tr>
-  </thead>
-  <tbody id="appointmentsTable">
-    <!-- JS will fill this -->
-  </tbody>
-</table>
+             <div class="logo">
+            <img src="../images/109126.jpg"alt="VMS Logo" width="150px" height="150px">
+            
+        </div>
 
-<button onclick="logout()">Logout</button>
+            <nav>
+                <button onclick="showSection('overview')">
+                    Dashboard
+                </button>
 
-</div>
-<script src="../java script/host.js"></script>
+                <button onclick="showSection('pending')">
+                    Pending Appointments
+                </button>
+
+                <button onclick="showSection('approved')">
+                  Approved Appointments
+                </button>
+
+                <button onclick="showSection('rejected')">
+                    Rejected Appointments
+                </button>
+
+                <button onclick="showSection('current')">
+                     Current Visitors
+                </button>
+
+                <button onclick="showSection('completed')">
+                    Completed Visits
+                </button>
+            </nav>
+
+            <button class="logout" onclick="logout()">
+                Logout
+            </button>
+
+        </aside>
+
+
+        <!-- MAIN CONTENT -->
+        <main class="main">
+
+            <header class="topbar">
+                <div>
+                    <h1>Host Dashboard</h1>
+                    <p>Welcome, Host</p>
+                </div>
+            </header>
+
+
+            <!-- OVERVIEW -->
+            <section id="overview" class="section active">
+
+                <h2>Overview</h2>
+
+                <div class="cards">
+
+                    <div class="card pending-card">
+                        <h3>Pending</h3>
+                        <p id="pendingCount">0</p>
+                    </div>
+
+                    <div class="card approved-card">
+                        <h3>Approved</h3>
+                        <p id="approvedCount">0</p>
+                    </div>
+
+                    <div class="card current-card">
+                        <h3>Current Visitors</h3>
+                        <p id="currentCount">0</p>
+                    </div>
+
+                    <div class="card completed-card">
+                        <h3>Completed</h3>
+                        <p id="completedCount">0</p>
+                    </div>
+
+                </div>
+
+                <h2 class="section-title">
+                    Pending Appointments
+                </h2>
+
+                <div id="overviewAppointments"></div>
+
+            </section>
+
+
+            <!-- PENDING -->
+            <section id="pending" class="section">
+
+                <h2>Pending Appointments</h2>
+
+                <div id="pendingAppointments"></div>
+
+            </section>
+
+
+            <!-- APPROVED -->
+            <section id="approved" class="section">
+
+                <h2>Approved Appointments</h2>
+
+                <div id="approvedAppointments"></div>
+
+            </section>
+
+
+            <!-- REJECTED -->
+            <section id="rejected" class="section">
+
+                <h2>Rejected Appointments</h2>
+
+                <div id="rejectedAppointments"></div>
+
+            </section>
+
+
+            <!-- CURRENT VISITORS -->
+            <section id="current" class="section">
+
+                <h2>Current Visitors</h2>
+
+                <div id="currentVisitors"></div>
+
+            </section>
+
+
+            <!-- COMPLETED -->
+            <section id="completed" class="section">
+
+                <h2>Completed Visits</h2>
+
+                <div id="completedVisits"></div>
+
+            </section>
+
+        </main>
+
+    </div>
+
+    <script src="host-dashboard.js"></script>
+
 </body>
 </html>
