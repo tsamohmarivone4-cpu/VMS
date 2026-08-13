@@ -1,34 +1,94 @@
-//vms login //
+// VMS LOGIN
 
 const loginForm = document.getElementById("loginForm");
+
 
 loginForm.addEventListener("submit", function(event) {
 
     event.preventDefault();
 
-    const username = document.getElementById("username").value.trim();
-    const password = document.getElementById("password").value.trim();
 
-    // Temporary accounts
-    const users = [
+    const username =
+        document.getElementById("username").value.trim();
+
+    const password =
+        document.getElementById("password").value.trim();
+
+
+    // ==========================================
+    // GET USERS CREATED BY ADMIN
+    // ==========================================
+
+    let users =
+        JSON.parse(localStorage.getItem("vmsUsers")) || [];
+
+
+    // ==========================================
+    // DEFAULT SYSTEM ACCOUNTS
+    // ==========================================
+
+    const defaultUsers = [
+
         {
+            id: "admin",
+            fullName: "Administrator",
             username: "admin",
             password: "admin123",
-            role: "Administrator"
+            role: "Administrator",
+            department: "Administration"
         },
+
         {
+            id: "reception",
+            fullName: "Receptionist",
             username: "reception",
             password: "reception123",
-            role: "Receptionist"
+            role: "Receptionist",
+            department: "Reception"
         },
+
         {
+            id: "host",
+            fullName: "Host",
             username: "host",
             password: "host123",
-            role: "Host"
+            role: "Host",
+            department: "General"
         }
+
     ];
 
-    // Find matching account
+
+    // Add default users if they don't already exist
+    defaultUsers.forEach(function(defaultUser) {
+
+        const exists = users.some(function(user) {
+
+            return user.username === defaultUser.username;
+
+        });
+
+
+        if (!exists) {
+
+            users.push(defaultUser);
+
+        }
+
+    });
+
+
+    // Save users
+    localStorage.setItem(
+        "vmsUsers",
+        JSON.stringify(users)
+    );
+
+
+    // ==========================================
+    // FIND USER
+    // ==========================================
+
     const user = users.find(function(account) {
 
         return (
@@ -39,42 +99,56 @@ loginForm.addEventListener("submit", function(event) {
     });
 
 
-    // Incorrect login
+    // ==========================================
+    // INVALID LOGIN
+    // ==========================================
+
     if (!user) {
 
-        document.getElementById("loginMessage").textContent =
+        const message =
+            document.getElementById("loginMessage");
+
+        message.textContent =
             "Invalid username or password.";
 
-        document.getElementById("loginMessage").style.color = "red";
+        message.style.color = "red";
 
         return;
     }
 
 
-    // Save logged-in user
+    // ==========================================
+    // SAVE CURRENT USER
+    // ==========================================
+
     localStorage.setItem(
         "currentUser",
         JSON.stringify(user)
     );
 
 
-    // Send user to the correct dashboard
+    // ==========================================
+    // REDIRECT USER
+    // ==========================================
 
     if (user.role === "Administrator") {
 
-        window.location.href = "html/admin.html";
+        window.location.href =
+            "html/admin.html";
 
     }
 
     else if (user.role === "Receptionist") {
 
-        window.location.href = "html/receptionist.html";
+        window.location.href =
+            "html/receptionist.html";
 
     }
 
     else if (user.role === "Host") {
 
-        window.location.href = "html/Host.html";
+        window.location.href =
+            "html/Host.html";
 
     }
 

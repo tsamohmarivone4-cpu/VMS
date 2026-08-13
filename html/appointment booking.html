@@ -14,7 +14,6 @@
 
 </head>
 
-
 <body>
 
     <div class="appointment-form">
@@ -51,6 +50,8 @@
 
             <form id="appointmentForm">
 
+
+                <!-- HOST -->
                 <label for="host">
                     Host Name
                 </label>
@@ -61,34 +62,26 @@
                         Select Host
                     </option>
 
-                    <option value="John Dd">
-                        John Dd
-                    </option>
-
-                    <option value="Mary Ss">
-                        Mary Ss
-                    </option>
+                    <!-- Hosts created by Admin
+                         will be added here using JavaScript -->
 
                 </select>
 
 
+                <!-- PURPOSE -->
                 <label for="purpose">
                     Purpose of Visit
                 </label>
 
-                <select id="purpose" required>
-
-                    <option value="">
-                        Select Purpose
-                    </option>
-
-                    <option value="Business Meeting">
-                        Business Meeting
-                    </option>
-
-                </select>
+                <textarea
+                    id="purpose"
+                    placeholder="Enter the purpose of your visit"
+                    rows="4"
+                    required
+                ></textarea>
 
 
+                <!-- DATE -->
                 <label for="appointmentDate">
                     Date
                 </label>
@@ -100,6 +93,7 @@
                 >
 
 
+                <!-- TIME -->
                 <label for="appointmentTime">
                     Time
                 </label>
@@ -111,6 +105,7 @@
                 >
 
 
+                <!-- NDA -->
                 <label class="nda">
 
                     <input
@@ -123,7 +118,8 @@
                 </label>
 
 
-               <div class="buttons">
+                <!-- BUTTONS -->
+                <div class="buttons">
 
                     <button
                         type="button"
@@ -137,7 +133,7 @@
                         id="submit"
                     >
                         Submit Booking
-                    </button> 
+                    </button>
 
                 </div>
 
