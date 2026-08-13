@@ -1,70 +1,43 @@
-document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", () => {
 
-    
-    // get the register visitor
-    
+    const visitor = JSON.parse(localStorage.getItem("appointmentVisitor"));
+    const hostSelect = document.getElementById("host");
+    const form = document.getElementById("appointmentForm");
 
-    const visitorData =
-        localStorage.getItem("appointmentVisitor");
-
-
-    const visitorName =
-        document.getElementById("visitorName");
+    // Show visitor
+    document.getElementById("visitorName").textContent =
+        visitor ? visitor.fullName : "No visitor selected";
 
 
-    // Check if a visitor was selected
-    if (!visitorData) {
+    // Load Hosts created by Admin
+    const users = JSON.parse(localStorage.getItem("vmsUsers")) || [];
 
-        visitorName.textContent =
-            "No visitor selected";
+    users.filter(user => user.role === "Host").forEach(host => {
 
-    } else {
+        const option = document.createElement("option");
 
-        const visitor =
-            JSON.parse(visitorData);
+        option.value = host.id;
+        option.textContent = host.fullName;
 
-        visitorName.textContent =
-            visitor.fullName;
-    }
+        hostSelect.appendChild(option);
+    });
 
 
-    
-    // appointment form
-    
+    // Submit appointment
+    form.addEventListener("submit", e => {
 
-    const appointmentForm =
-        document.getElementById("appointmentForm");
+        e.preventDefault();
 
-
-    appointmentForm.addEventListener("submit", function (event) {
-
-        event.preventDefault();
-
-
-        // Get visitor information
-        const visitor =
-            JSON.parse(
-                localStorage.getItem("appointmentVisitor")
-            );
-
-
-        // Make sure a visitor exists
         if (!visitor) {
-
-            alert(
-                "No visitor has been selected."
-            );
-
+            alert("No visitor has been selected.");
             return;
         }
 
-
-        // Get appointment information
-        const host =
-            document.getElementById("host").value;
+        const selectedHost =
+            hostSelect.options[hostSelect.selectedIndex];
 
         const purpose =
-            document.getElementById("purpose").value;
+            document.getElementById("purpose").value.trim();
 
         const date =
             document.getElementById("appointmentDate").value;
@@ -76,83 +49,46 @@ document.addEventListener("DOMContentLoaded", function () {
             document.getElementById("nda").checked;
 
 
-        // Check host
-        if (!host) {
-
+        if (!selectedHost.value) {
             alert("Please select a host.");
-
             return;
         }
 
-
-        // Check purpose
         if (!purpose) {
-
-            alert("Please select the purpose of the visit.");
-
+            alert("Please enter the purpose of the visit.");
             return;
         }
 
-
-        // Check NDA
         if (!nda) {
-
-            alert(
-                "Please agree to the digital NDA."
-            );
-
+            alert("Please agree to the digital NDA.");
             return;
         }
 
 
-    
-        // get existing appointment
-    
+        // Create appointment
+        const appointments =
+            JSON.parse(localStorage.getItem("vmsAppointments")) || [];
 
-        let appointments =
-            JSON.parse(
-                localStorage.getItem("vmsAppointments")
-            ) || [];
-
-
-        
-        // create appointment
-        
-
-        const newAppointment = {
+        appointments.push({
 
             id: Date.now(),
 
             visitorId: visitor.id,
-
             visitorName: visitor.fullName,
-
             phone: visitor.phone,
-
             email: visitor.email,
-
             gender: visitor.gender,
 
-            host: host,
+            hostId: selectedHost.value,
+            host: selectedHost.textContent,
 
-            purpose: purpose,
-
-            date: date,
-
-            time: time,
-
-            nda: nda,
+            purpose,
+            date,
+            time,
+            nda,
 
             status: "Pending"
-
-        };
-
-
-        
-        // save appointment
-        
-
-        appointments.push(newAppointment);
+        });
 
 
         localStorage.setItem(
@@ -161,56 +97,24 @@ document.addEventListener("DOMContentLoaded", function () {
         );
 
 
-        
-        // return massage
-        
-
         document.getElementById("message").textContent =
             "Appointment booked successfully!";
 
-
-        
-        // cancel appointment
-    
-
-        localStorage.removeItem(
-            "appointmentVisitor"
-        );
+        localStorage.removeItem("appointmentVisitor");
 
 
-        
-        // return to dashboard
-        
-
-        setTimeout(function () {
-
-            window.location.href =
-                "receptionist.html";
-
+        setTimeout(() => {
+            window.location.href = "receptionist.html";
         }, 1000);
-
     });
 
 
-    
-    // cancel button
-    
+    // Cancel
+    document.getElementById("cancel").addEventListener("click", () => {
 
-    const cancelButton =
-        document.getElementById("cancel");
+        localStorage.removeItem("appointmentVisitor");
 
-
-    cancelButton.addEventListener("click", function () {
-
-        // Remove temporary appointment visitor
-        localStorage.removeItem(
-            "appointmentVisitor"
-        );
-
-
-        // Return to receptionist dashboard
-        window.location.href =
-            "receptionist.html";
+        window.location.href = "receptionist.html";
 
     });
 
