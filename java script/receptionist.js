@@ -1,924 +1,230 @@
+document.addEventListener("DOMContentLoaded", () => {
+
+    const panels = [
+        "dashboardPanel",
+        "checkInPanel",
+        "checkOutPanel",
+        "searchPanel",
+        "appointmentPanel",
+        "registerPanel"
+    ];
+
+    function show(id) {
+        panels.forEach(p => {
+            document.getElementById(p).style.display = "none";
+        });
+
+        document.getElementById(id).style.display = "block";
+    }
+
+    function data(key) {
+        return JSON.parse(localStorage.getItem(key)) || [];
+    }
+
+
+    // SIDEBAR
+    dashboardLink.onclick = e => {
+        e.preventDefault();
+        show("dashboardPanel");
+        stats();
+    };
 
-// receptionist dashboard
+    searchVisitorLink.onclick = e => {
+        e.preventDefault();
+        show("searchPanel");
+    };
 
-document.addEventListener("DOMContentLoaded", function () {
+    appointmentLink.onclick = e => {
+        e.preventDefault();
+        show("appointmentPanel");
+        appointments();
+    };
 
-    updateDashboardCards();
+    checkInLink.onclick = e => {
+        e.preventDefault();
+        show("checkInPanel");
+        setDate("checkIn");
+    };
 
-    setupNavigation();
+    checkOutLink.onclick = e => {
+        e.preventDefault();
+        show("checkOutPanel");
+        setDate("checkOut");
+    };
 
-    setupSearch();
 
-    setupCheckIn();
+    // DATE & TIME
+    function setDate(type) {
+        const now = new Date();
 
-    setupCheckOut();
+        document.getElementById(type + "Date").value =
+            now.toISOString().split("T")[0];
 
-    loadRecentActivity();
+        document.getElementById(type + "Time").value =
+            now.toTimeString().slice(0, 5);
+    }
 
-});
 
+    // SEARCH VISITOR
+    searchVisitorBtn.onclick = () => {
 
-// ============================================
-// UPDATE DASHBOARD CARDS
-// ============================================
+        const text = visitorSearch.value.toLowerCase().trim();
 
-function updateDashboardCards() {
+        const visitors = data("vmsVisitors");
 
-    const visitors =
-        JSON.parse(localStorage.getItem("vmsVisitors")) || [];
+        const found = visitors.filter(v =>
+            v.fullName.toLowerCase().includes(text) ||
+            v.phone.includes(text)
+        );
 
-    const appointments =
-        JSON.parse(localStorage.getItem("vmsAppointments")) || [];
+        searchResults.innerHTML = found.length
+            ? found.map(v => `
+                <div class="visitor-result">
+                    <h3>${v.fullName}</h3>
+                    <p>${v.phone}</p>
 
+                    <button onclick='book(${JSON.stringify(v)})'>
+                        Book Appointment
+                    </button>
 
-    // Total visitors
-    document.getElementById("totalVisitors").textContent =
-        visitors.length;
+                    <button onclick='select(${JSON.stringify(v)},"checkIn")'>
+                        Check-In
+                    </button>
 
+                    <button onclick='select(${JSON.stringify(v)},"checkOut")'>
+                        Check-Out
+                    </button>
+                </div>
+            `).join("")
+            : "<p>Visitor not found.</p>";
+    };
 
-    // Pending appointments
-    const pendingAppointments =
-        appointments.filter(function (appointment) {
 
-            return appointment.status === "Pending";
+    // BOOK APPOINTMENT
+    window.book = visitor => {
+        localStorage.setItem(
+            "appointmentVisitor",
+            JSON.stringify(visitor)
+        );
 
-        }).length;
+        location.href = "appointment booking.html";
+    };
 
 
-    document.getElementById("pendingAppointments").textContent =
-        pendingAppointments;
+    // SELECT VISITOR
+    window.select = (visitor, type) => {
 
+        localStorage.setItem(
+            "selectedVisitor",
+            JSON.stringify(visitor)
+        );
 
-    // Checked in
-    const checkedIn =
-        visitors.filter(function (visitor) {
+        show(type + "Panel");
+        setDate(type);
+    };
 
-            return visitor.status === "Checked In";
 
-        }).length;
+    // CHECK-IN / CHECK-OUT
+    function updateStatus(type) {
 
+        const visitor =
+            JSON.parse(localStorage.getItem("selectedVisitor"));
 
-    document.getElementById("checkedIn").textContent =
-        checkedIn;
-
-
-    // Checked out
-    const checkedOut =
-        visitors.filter(function (visitor) {
-
-            return visitor.status === "Checked Out";
-
-        }).length;
-
-
-    document.getElementById("checkedOut").textContent =
-        checkedOut;
-}
-
-
-
-// sidebar navigation
-
-
-function setupNavigation() {
-
-    const dashboardLink =
-        document.getElementById("dashboardLink");
-
-    const searchVisitorLink =
-        document.getElementById("searchVisitorLink");
-
-    const checkInLink =
-        document.getElementById("checkInLink");
-
-    const checkOutLink =
-        document.getElementById("checkOutLink");
-
-
-    const cards =
-        document.querySelector(".cards");
-
-    const tableSection =
-        document.querySelector(".table-section");
-
-
-    const searchPanel =
-        document.getElementById("searchPanel");
-
-    const checkInPanel =
-        document.getElementById("checkInPanel");
-
-    const checkOutPanel =
-        document.getElementById("checkOutPanel");
-
-
-    
-    // dashboard
-    
-
-    dashboardLink.addEventListener("click", function (event) {
-
-        event.preventDefault();
-
-        cards.style.display = "grid";
-
-        tableSection.style.display = "block";
-
-        searchPanel.style.display = "none";
-
-        checkInPanel.style.display = "none";
-
-        checkOutPanel.style.display = "none";
-
-        updateDashboardCards();
-
-        loadRecentActivity();
-
-    });
-
-
-    
-    // search visitor
-    
-
-    searchVisitorLink.addEventListener("click", function (event) {
-
-        event.preventDefault();
-
-        cards.style.display = "none";
-
-        tableSection.style.display = "none";
-
-        searchPanel.style.display = "block";
-
-        checkInPanel.style.display = "none";
-
-        checkOutPanel.style.display = "none";
-
-    });
-
-
-    
-    // check-in
-    
-
-    checkInLink.addEventListener("click", function (event) {
-
-        event.preventDefault();
-
-        cards.style.display = "none";
-
-        tableSection.style.display = "none";
-
-        searchPanel.style.display = "none";
-
-        checkInPanel.style.display = "block";
-
-        checkOutPanel.style.display = "none";
-
-    });
-
-
-    
-    // check-out
-    
-
-    checkOutLink.addEventListener("click", function (event) {
-
-        event.preventDefault();
-
-        cards.style.display = "none";
-
-        tableSection.style.display = "none";
-
-        searchPanel.style.display = "none";
-
-        checkInPanel.style.display = "none";
-
-        checkOutPanel.style.display = "block";
-
-    });
-
-}
-
-
-
-// search button
-
-
-function setupSearch() {
-
-    const searchButton =
-        document.getElementById("searchVisitorBtn");
-
-    const searchInput =
-        document.getElementById("visitorSearch");
-
-    const searchResults =
-        document.getElementById("searchResults");
-
-
-    searchButton.addEventListener("click", function () {
-
-        const searchTerm =
-            searchInput.value.trim().toLowerCase();
-
-
-        if (!searchTerm) {
-
-            searchResults.innerHTML =
-                "<p class='no-results'>Please enter a visitor name or phone number.</p>";
-
+        if (!visitor) {
+            alert("Please select a visitor first.");
             return;
         }
 
+        const visitors = data("vmsVisitors");
 
-        const visitors =
-            JSON.parse(
-                localStorage.getItem("vmsVisitors")
-            ) || [];
+        const i = visitors.findIndex(v => v.id === visitor.id);
 
-
-        const matches =
-            visitors.filter(function (visitor) {
-
-                const name =
-                    (visitor.fullName || "")
-                        .toLowerCase();
-
-                const phone =
-                    (visitor.phone || "")
-                        .toLowerCase();
-
-
-                return (
-                    name.includes(searchTerm) ||
-                    phone.includes(searchTerm)
-                );
-
-            });
-
-
-        // Visitor not found
-        if (matches.length === 0) {
-
-            searchResults.innerHTML = `
-                <p class="no-results">
-                    Visitor not found.
-                </p>
-            `;
-
-            return;
-        }
-
-
-        searchResults.innerHTML = "";
-
-
-        // Display visitor
-        matches.forEach(function (visitor) {
-
-            const result =
-                document.createElement("div");
-
-            result.className =
-                "visitor-result";
-
-
-            result.innerHTML = `
-
-                <h3>${visitor.fullName}</h3>
-
-                <p>
-                    <strong>Phone:</strong>
-                    ${visitor.phone}
-                </p>
-
-                <p>
-                    <strong>Email:</strong>
-                    ${visitor.email || "Not provided"}
-                </p>
-
-                <p>
-                    <strong>Gender:</strong>
-                    ${visitor.gender || "Not provided"}
-                </p>
-
-                <p>
-                    <strong>Status:</strong>
-                    ${visitor.status || "Registered"}
-                </p>
-
-                <button
-                    type="button"
-                    class="book-appointment-btn"
-                    data-id="${visitor.id}"
-                >
-                    <i class="fa-solid fa-calendar-plus"></i>
-                    Book Appointment
-                </button>
-
-                <button
-                    type="button"
-                    class="visitor-checkin-btn"
-                    data-id="${visitor.id}"
-                >
-                    <i class="fa-solid fa-right-to-bracket"></i>
-                    Check-In
-                </button>
-
-                <button
-                    type="button"
-                    class="visitor-checkout-btn"
-                    data-id="${visitor.id}"
-                >
-                    <i class="fa-solid fa-right-from-bracket"></i>
-                    Check-Out
-                </button>
-
-            `;
-
-
-            searchResults.appendChild(result);
-
-        });
-
-
-        setupVisitorButtons();
-
-    });
-
-}
-
-
-
-// buttons
-
-
-function setupVisitorButtons() {
-
-    const bookButtons =
-        document.querySelectorAll(".book-appointment-btn");
-
-    const checkInButtons =
-        document.querySelectorAll(".visitor-checkin-btn");
-
-    const checkOutButtons =
-        document.querySelectorAll(".visitor-checkout-btn");
-
-
-    
-    // book an appointment
-    
-
-    bookButtons.forEach(function (button) {
-
-        button.addEventListener("click", function () {
-
-            const visitorId =
-                Number(
-                    button.getAttribute("data-id")
-                );
-
-
-            const visitors =
-                JSON.parse(
-                    localStorage.getItem("vmsVisitors")
-                ) || [];
-
-
-            const selectedVisitor =
-                visitors.find(function (visitor) {
-
-                    return visitor.id === visitorId;
-
-                });
-
-
-            if (!selectedVisitor) {
-
-                alert("Visitor not found.");
-
-                return;
-
-            }
-
-
-            localStorage.setItem(
-                "appointmentVisitor",
-                JSON.stringify(selectedVisitor)
-            );
-
-
-            window.location.href =
-                "appointment booking.html";
-
-        });
-
-    });
-
-
-    
-    // check in from the search bar
-    
-
-    checkInButtons.forEach(function (button) {
-
-        button.addEventListener("click", function () {
-
-            const visitorId =
-                Number(
-                    button.getAttribute("data-id")
-                );
-
-
-            selectVisitorForCheckIn(visitorId);
-
-        });
-
-    });
-
-
-    
-    // check-out from the search bar
-
-    checkOutButtons.forEach(function (button) {
-
-        button.addEventListener("click", function () {
-
-            const visitorId =
-                Number(
-                    button.getAttribute("data-id")
-                );
-
-
-            selectVisitorForCheckOut(visitorId);
-
-        });
-
-    });
-
-}
-
-
-
-// select visitor for check-in
-
-
-function selectVisitorForCheckIn(visitorId) {
-
-    localStorage.setItem(
-        "selectedCheckInVisitor",
-        visitorId
-    );
-
-
-    // Open check-in panel
-    document.querySelector(".cards").style.display =
-        "none";
-
-    document.querySelector(".table-section").style.display =
-        "none";
-
-    document.getElementById("searchPanel").style.display =
-        "none";
-
-    document.getElementById("checkOutPanel").style.display =
-        "none";
-
-    document.getElementById("checkInPanel").style.display =
-        "block";
-
-
-    alert("Visitor selected for check-in. Enter the date and time.");
-
-}
-
-
-
-// select visitor for check-out
-
-function selectVisitorForCheckOut(visitorId) {
-
-    localStorage.setItem(
-        "selectedCheckOutVisitor",
-        visitorId
-    );
-
-
-    // Open check-out panel
-    document.querySelector(".cards").style.display =
-        "none";
-
-    document.querySelector(".table-section").style.display =
-        "none";
-
-    document.getElementById("searchPanel").style.display =
-        "none";
-
-    document.getElementById("checkInPanel").style.display =
-        "none";
-
-    document.getElementById("checkOutPanel").style.display =
-        "block";
-
-
-    alert("Visitor selected for check-out. Enter the date and time.");
-
-}
-
-
-// ============================================
-// CHECK-IN FORM
-// ============================================
-
-function setupCheckIn() {
-
-    const form =
-        document.getElementById("checkInForm");
-
-
-    form.addEventListener("submit", function (event) {
-
-        event.preventDefault();
-
-
-        const visitorId =
-            Number(
-                localStorage.getItem(
-                    "selectedCheckInVisitor"
-                )
-            );
-
-
-        if (!visitorId) {
-
-            alert(
-                "Please search and select a visitor first."
-            );
-
-            return;
-
-        }
-
-
-        const date =
-            document.getElementById(
-                "checkInDate"
-            ).value;
-
-
-        const time =
-            document.getElementById(
-                "checkInTime"
-            ).value;
-
-
-        if (!date || !time) {
-
-            alert(
-                "Please enter both date and time."
-            );
-
-            return;
-
-        }
-
-
-        const visitors =
-            JSON.parse(
-                localStorage.getItem("vmsVisitors")
-            ) || [];
-
-
-        const visitorIndex =
-            visitors.findIndex(function (visitor) {
-
-                return visitor.id === visitorId;
-
-            });
-
-
-        if (visitorIndex === -1) {
-
+        if (i === -1) {
             alert("Visitor not found.");
-
             return;
-
         }
 
+        visitors[i].status =
+            type === "checkIn" ? "Checked In" : "Checked Out";
 
-        // Update visitor
-        visitors[visitorIndex].status =
-            "Checked In";
+        visitors[i][type + "Date"] =
+            document.getElementById(type + "Date").value;
 
-        visitors[visitorIndex].checkInDate =
-            date;
+        visitors[i][type + "Time"] =
+            document.getElementById(type + "Time").value;
 
-        visitors[visitorIndex].checkInTime =
-            time;
-
-
-        // Save visitors
         localStorage.setItem(
             "vmsVisitors",
             JSON.stringify(visitors)
         );
 
-
-        // Clear selected visitor
-        localStorage.removeItem(
-            "selectedCheckInVisitor"
-        );
-
+        localStorage.removeItem("selectedVisitor");
 
         alert(
-            visitors[visitorIndex].fullName +
-            " has been checked in successfully."
+            type === "checkIn"
+                ? "Visitor checked in successfully."
+                : "Visitor checked out successfully."
         );
 
-
-        form.reset();
-
-
-        updateDashboardCards();
-
-        loadRecentActivity();
-
-
-        // Return to dashboard
-        document.getElementById(
-            "dashboardLink"
-        ).click();
-
-    });
-
-}
-
-
-
-// check-out form
-
-
-function setupCheckOut() {
-
-    const form =
-        document.getElementById("checkOutForm");
-
-
-    form.addEventListener("submit", function (event) {
-
-        event.preventDefault();
-
-
-        const visitorId =
-            Number(
-                localStorage.getItem(
-                    "selectedCheckOutVisitor"
-                )
-            );
-
-
-        if (!visitorId) {
-
-            alert(
-                "Please search and select a visitor first."
-            );
-
-            return;
-
-        }
-
-
-        const date =
-            document.getElementById(
-                "checkOutDate"
-            ).value;
-
-
-        const time =
-            document.getElementById(
-                "checkOutTime"
-            ).value;
-
-
-        if (!date || !time) {
-
-            alert(
-                "Please enter both date and time."
-            );
-
-            return;
-
-        }
-
-
-        const visitors =
-            JSON.parse(
-                localStorage.getItem("vmsVisitors")
-            ) || [];
-
-
-        const visitorIndex =
-            visitors.findIndex(function (visitor) {
-
-                return visitor.id === visitorId;
-
-            });
-
-
-        if (visitorIndex === -1) {
-
-            alert("Visitor not found.");
-
-            return;
-
-        }
-
-
-        // Make sure visitor has checked in
-        if (
-            visitors[visitorIndex].status !==
-            "Checked In"
-        ) {
-
-            alert(
-                "This visitor has not been checked in."
-            );
-
-            return;
-
-        }
-
-
-        // Update visitor
-        visitors[visitorIndex].status =
-            "Checked Out";
-
-        visitors[visitorIndex].checkOutDate =
-            date;
-
-        visitors[visitorIndex].checkOutTime =
-            time;
-
-
-        // Save visitors
-        localStorage.setItem(
-            "vmsVisitors",
-            JSON.stringify(visitors)
-        );
-
-
-        // Clear selected visitor
-        localStorage.removeItem(
-            "selectedCheckOutVisitor"
-        );
-
-
-        alert(
-            visitors[visitorIndex].fullName +
-            " has been checked out successfully."
-        );
-
-
-        form.reset();
-
-
-        updateDashboardCards();
-
-        loadRecentActivity();
-
-
-        // Return to dashboard
-        document.getElementById(
-            "dashboardLink"
-        ).click();
-
-    });
-
-}
-
-
-
-// recent visitor activities
-
-
-function loadRecentActivity() {
-
-    const activityTable =
-        document.getElementById(
-            "recentActivity"
-        );
-
-
-    if (!activityTable) {
-
-        return;
-
+        show("dashboardPanel");
+        stats();
     }
 
 
-    const visitors =
-        JSON.parse(
-            localStorage.getItem("vmsVisitors")
-        ) || [];
+    checkInForm.onsubmit = e => {
+        e.preventDefault();
+        updateStatus("checkIn");
+    };
+
+    checkOutForm.onsubmit = e => {
+        e.preventDefault();
+        updateStatus("checkOut");
+    };
 
 
-    activityTable.innerHTML = "";
+    // DASHBOARD STATS
+    function stats() {
 
+        const visitors = data("vmsVisitors");
+        const appointments = data("vmsAppointments");
 
-    if (visitors.length === 0) {
+        totalVisitors.textContent = visitors.length;
 
-        activityTable.innerHTML = `
-            <tr>
-                <td colspan="4">
-                    No visitor activity yet.
-                </td>
-            </tr>
-        `;
+        pendingAppointments.textContent =
+            appointments.filter(a => a.status === "Pending").length;
 
-        return;
+        checkedIn.textContent =
+            visitors.filter(v => v.status === "Checked In").length;
 
+        checkedOut.textContent =
+            visitors.filter(v => v.status === "Checked Out").length;
     }
 
 
-    // Show newest visitors first
-    const recentVisitors =
-        visitors.slice().reverse().slice(0, 10);
+    // APPOINTMENTS
+    function appointments() {
+
+        const list = data("vmsAppointments");
+
+        appointmentContent.innerHTML = list.length
+            ? list.map(a => `
+                <p>
+                    <strong>${a.visitorName}</strong>
+                    - ${a.host}
+                    - ${a.purpose}
+                    - ${a.date} ${a.time}
+                    - ${a.status}
+                </p>
+            `).join("")
+            : "<p>No appointments found.</p>";
+    }
 
 
-    recentVisitors.forEach(function (visitor) {
+    // START
+    show("dashboardPanel");
+    stats();
 
-        let time = "—";
-
-
-        if (visitor.status === "Checked In") {
-
-            time =
-                visitor.checkInTime || "—";
-
-        }
-        else if (
-            visitor.status === "Checked Out"
-        ) {
-
-            time =
-                visitor.checkOutTime || "—";
-
-        }
-
-
-        const row =
-            document.createElement("tr");
-
-
-        row.innerHTML = `
-
-            <td>
-                ${visitor.fullName || "Unknown"}
-            </td>
-
-            <td>
-                ${visitor.host || "—"}
-            </td>
-
-            <td>
-                ${visitor.status || "Registered"}
-            </td>
-
-            <td>
-                ${time}
-            </td>
-
-        `;
-
-
-        activityTable.appendChild(row);
-
-    });
-
-}
-
-
-
-// logout
-
-
-const logoutLink =
-    document.getElementById("logoutlink");
-
-
-if (logoutLink) {
-
-    logoutLink.addEventListener(
-        "click",
-        function () {
-
-            localStorage.removeItem(
-                "currentUser"
-            );
-
-        }
-    );
-
-}
+});logoutLink.onclick = () => {
+    localStorage.removeItem("loggedInUser");
+    window.location.href = "../login.html";
+};
