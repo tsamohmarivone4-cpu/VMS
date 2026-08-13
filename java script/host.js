@@ -1,4 +1,4 @@
-// 1. DUMMY DATA - Replace this with data from your backend later
+//  DUMMY DATA - Replace this with data from your backend later
 let appointments = [
   { id: 1, visitor: "John Doe", purpose: "Meeting", date: "2026-08-11", status: "Pending" },
   { id: 2, visitor: "Jane Smith", purpose: "Interview", date: "2026-08-11", status: "Approved" },
@@ -12,7 +12,7 @@ if(!localStorage.getItem('appointments')){
 
 let currentFilter = "All";
 
-// 2. LOAD APPOINTMENTS INTO TABLE
+// load appointment
 function loadAppointments(filter = "All"){
   currentFilter = filter;
   const tableBody = document.getElementById('appointmentsTable');

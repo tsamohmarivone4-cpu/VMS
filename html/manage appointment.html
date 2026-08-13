@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Manage Appointments</title>
+
+    
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+    <link rel="stylesheet" href="../css/manage appointment.css">
+    
+</head>
+
+
+<body>
+
+    <main class="content">
+
+        <!-- header-->
+        <header class="page-header">
+
+            <h1>Manage Appointments</h1>
+
+            <p>
+                View and manage visitor appointments.
+            </p>
+
+            <!-- search bar-->
+            <div class="search-box">
+
+                <i class="fa-solid fa-magnifying-glass"></i>
+
+                <input
+                    type="text"
+                    id="appointmentSearch"
+                    placeholder="Search visitor..."
+                >
+
+            </div>
+
+        </header>
+
+
+        <!-- appointment section -->
+        <section class="appointment-section">
+
+            <h2>Visitor Appointments</h2>
+
+            <div class="table-container">
+
+                <table>
+
+                    <thead>
+                        <tr>
+                            <th>Visitor</th>
+                            <th>Host</th>
+                            <th>Purpose</th>
+                            <th>Date</th>
+                            <th>Time</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+
+                    <tbody id="appointmentTableBody">
+                        
+                    </tbody>
+
+                </table>
+
+            </div>
+
+
+            <!--result massage!--->
+            <p id="noAppointments" class="no-appointments">
+                No appointments found.
+            </p>
+
+        </section>
+
+    </main>
+
+    <script src="../java script/manage appointment.js"></script>
+
+</body>
+
+-[p;'</html>

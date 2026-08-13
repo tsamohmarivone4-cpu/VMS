@@ -1,0 +1,93 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background: #f5f7fb;
+}
+
+.content {
+    padding: 35px 40px;
+}
+
+.page-header {
+    margin-bottom: 25px;
+}
+
+h1 {
+    font-size: 28px;
+    color: #1f2937;
+}
+
+.page-header p {
+    color: #6b7280;
+    font-size: 14px;
+}
+
+.search-box {
+    position: relative;
+    width: 300px;
+    margin-top: 15px;
+}
+
+.search-box i {
+    position: absolute;
+    left: 12px;
+    top: 12px;
+    color: #999;
+}
+
+.search-box input {
+    width: 100%;
+    padding: 11px 10px 11px 38px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    outline: none;
+}
+
+.appointment-section {
+    background: white;
+    padding: 25px;
+    border-radius: 12px;
+}
+
+.appointment-section h2 {
+    margin-bottom: 20px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th,
+td {
+    padding: 13px;
+    text-align: left;
+    border-bottom: 1px solid #eee;
+    font-size: 13px;
+}
+
+th {
+    background: #f1f5f9;
+}
+
+.no-appointments {
+    display: none;
+    text-align: center;
+    padding: 25px;
+    color: #999;
+}
+
+@media (max-width: 700px) {
+    .content {
+        padding: 25px 15px;
+    }
+
+    .search-box {
+        width: 100%;
+    }
+}

@@ -1,8 +1,8 @@
 document.addEventListener("DOMContentLoaded", function () {
 
-    // ============================================
-    // GET THE REGISTERED VISITOR
-    // ============================================
+    
+    // get the register visitor
+    
 
     const visitorData =
         localStorage.getItem("appointmentVisitor");
@@ -28,9 +28,9 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
 
-    // ============================================
-    // APPOINTMENT FORM
-    // ============================================
+    
+    // appointment form
+    
 
     const appointmentForm =
         document.getElementById("appointmentForm");
@@ -105,9 +105,9 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
 
-        // ============================================
-        // GET EXISTING APPOINTMENTS
-        // ============================================
+    
+        // get existing appointment
+    
 
         let appointments =
             JSON.parse(
@@ -115,9 +115,9 @@ document.addEventListener("DOMContentLoaded", function () {
             ) || [];
 
 
-        // ============================================
-        // CREATE APPOINTMENT
-        // ============================================
+        
+        // create appointment
+        
 
         const newAppointment = {
 
@@ -148,9 +148,9 @@ document.addEventListener("DOMContentLoaded", function () {
         };
 
 
-        // ============================================
-        // SAVE APPOINTMENT
-        // ============================================
+        
+        // save appointment
+        
 
         appointments.push(newAppointment);
 
@@ -161,26 +161,26 @@ document.addEventListener("DOMContentLoaded", function () {
         );
 
 
-        // ============================================
-        // SUCCESS MESSAGE
-        // ============================================
+        
+        // return massage
+        
 
         document.getElementById("message").textContent =
             "Appointment booked successfully!";
 
 
-        // ============================================
-        // REMOVE TEMPORARY VISITOR SELECTION
-        // ============================================
+        
+        // cancel appointment
+    
 
         localStorage.removeItem(
             "appointmentVisitor"
         );
 
 
-        // ============================================
-        // RETURN TO DASHBOARD
-        // ============================================
+        
+        // return to dashboard
+        
 
         setTimeout(function () {
 
@@ -192,9 +192,9 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
 
-    // ============================================
-    // CANCEL BUTTON
-    // ============================================
+    
+    // cancel button
+    
 
     const cancelButton =
         document.getElementById("cancel");

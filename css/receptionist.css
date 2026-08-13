@@ -19,9 +19,7 @@ body {
 }
 
 
-/* ===========================
-   SIDEBAR
-=========================== */
+/* sidebar */
 
 .sidebar {
     width: 260px;
@@ -66,7 +64,7 @@ body {
 
 /* Sidebar hover */
 .sidebar ul li a:hover {
-    background: #2563EB;
+    background:red;
 }
 
 /* Active menu */
@@ -75,9 +73,7 @@ body {
 }
 
 
-/* ===========================
-   MAIN CONTENT
-=========================== */
+/* main content */
 
 .content {
     flex: 1;
@@ -99,9 +95,7 @@ header h1 {
 }
 
 
-/* ===========================
-   DASHBOARD CARDS
-=========================== */
+/* dashboard cards*/
 
 .cards {
     display: grid;
@@ -135,9 +129,7 @@ header h1 {
 }
 
 
-/* ===========================
-   TABLE
-=========================== */
+/* table*/
 
 .table-section {
     background: white;
@@ -177,9 +169,7 @@ table tbody tr:hover {
 }
 
 
-/* ===========================
-   RESPONSIVE
-=========================== */
+/*responsive */
 
 @media (max-width: 900px) {
 
@@ -199,9 +189,7 @@ table tbody tr:hover {
 }
 
 
-/* ===========================
-   MOBILE
-=========================== */
+/*mobile*/
 
 @media (max-width: 600px) {
 
@@ -223,9 +211,8 @@ table tbody tr:hover {
 
     header h1 {
         font-size: 22px;
-    }/* =========================
-   CHECK-IN PANEL
-========================= */
+    }
+    /* check-in panel */
 
 .checkin-panel {
     background: white;
@@ -252,7 +239,7 @@ table tbody tr:hover {
 }
 
 
-/* FORM GROUP */
+/* forn group */
 
 .form-group {
     margin-bottom: 20px;
@@ -267,7 +254,7 @@ table tbody tr:hover {
 }
 
 
-/* DATE AND TIME INPUTS */
+/* date and time */
 
 .form-group input {
     width: 100%;
@@ -291,7 +278,7 @@ table tbody tr:hover {
 }
 
 
-/* CHECK-IN BUTTON */
+/* check-in button*/
 
 .checkin-btn {
     width: 100%;
@@ -322,7 +309,7 @@ table tbody tr:hover {
 }
 
 
-/* MOBILE */
+/* mobile */
 
 @media (max-width: 600px) {
 
@@ -336,9 +323,8 @@ table tbody tr:hover {
 }#checkInPanel,
 #checkOutPanel {
     display: none;
-}/* =========================
-   SEARCH VISITOR
-========================= */
+}
+/*seach visitor*/
 
 #searchPanel {
     display: none;

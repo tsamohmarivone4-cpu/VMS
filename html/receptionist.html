@@ -21,10 +21,12 @@
     <!-- Sidebar -->
     <aside class="sidebar">
 
+        
         <div class="logo">
             <img src="../images/109126.jpg"alt="VMS Logo">
-            
         </div>
+           
+    
        <ul>
        <li class="active">
                 <a href="#"id="dashboardLink"><i class="fa-solid fa-house"></i> Dashboard</a>
@@ -39,7 +41,7 @@
             </li>
 
             <li>
-                <a href="#"><i class="fa-solid fa-list-check"></i> Manage Appointments</a>
+                <a href="manage appointment.html"><i class="fa-solid fa-list-check"></i> Manage Appointments</a>
             </li>
 
             <li>
@@ -289,93 +291,10 @@
 
 </div>
 
-<script>
 
 
-document.addEventListener("DOMContentLoaded", function () {
-
-    const dashboardLink =
-        document.getElementById("dashboardLink");
-
-    const checkInLink =
-        document.getElementById("checkInLink");
-
-    const checkOutLink =
-        document.getElementById("checkOutLink");
 
 
-    const checkInPanel =
-        document.getElementById("checkInPanel");
-
-    const checkOutPanel =
-        document.getElementById("checkOutPanel");
-
-
-    const cards =
-        document.querySelector(".cards");
-
-    const tableSection =
-        document.querySelector(".table-section");
-
-
-    
-    // show dashboard//
-    
-
-    dashboardLink.addEventListener("click", function (event) {
-
-        event.preventDefault();
-
-        cards.style.display = "grid";
-
-        tableSection.style.display = "block";
-
-        checkInPanel.style.display = "none";
-
-        checkOutPanel.style.display = "none";
-
-    });
-
-
-    
-    //show check-in//
-    
-
-    checkInLink.addEventListener("click", function (event) {
-
-        event.preventDefault();
-
-        cards.style.display = "none";
-
-        tableSection.style.display = "none";
-
-        checkInPanel.style.display = "block";
-
-        checkOutPanel.style.display = "none";
-
-    });
-
-
-    
-    // show check-out//
-    
-
-    checkOutLink.addEventListener("click", function (event) {
-
-        event.preventDefault();
-
-        cards.style.display = "none";
-
-        tableSection.style.display = "none";
-
-        checkInPanel.style.display = "none";
-
-        checkOutPanel.style.display = "block";
-
-    });
-
-  });
-</script>
 <script src="../java script/receptionist.js"></script>
 </body>
 </html>

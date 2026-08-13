@@ -1,6 +1,4 @@
-/* ===============================
-   GOOGLE FONT & RESET
-================================= */
+/* google font & reset */
 
 *{
     margin: 0;
@@ -13,18 +11,14 @@ body{
     background: #f4f7fc;
 }
 
-/* ===============================
-   CONTAINER
-================================= */
+/*container*/
 
 .container{
     display: flex;
     min-height: 100vh;
 }
 
-/* ===============================
-   SIDEBAR
-================================= */
+/* sidebar */
 
 .sidebar{
     width: 260px;
@@ -36,12 +30,7 @@ body{
     top: 0;
     height: 100vh;
 }
-.sidebar{
-    width: 260px;
-    background: #1E3A8A;
-    color: white;
-    padding: 20px;
-}
+
 
 .logo{
     text-align: center;
@@ -58,8 +47,6 @@ body{
     object-fit: contain;
     
 }
-
-
 
 /* Sidebar Menu */
 
@@ -84,7 +71,7 @@ body{
 }
 
 .sidebar ul li a:hover{
-    background: #2563EB;
+    background: #e91717;
 }
 
 .sidebar ul li.active a{
@@ -96,9 +83,7 @@ body{
     text-align: center;
 }
 
-/* ===============================
-   MAIN CONTENT
-================================= */
+/* main content*/
 
 .content{
     margin-left: 260px;
@@ -106,9 +91,7 @@ body{
     padding: 35px;
 }
 
-/* ===============================
-   HEADER
-================================= */
+/* header*/
 
 header{
     display: flex;
@@ -127,9 +110,7 @@ header p{
     margin-top: 5px;
 }
 
-/* ===============================
-   DASHBOARD CARDS
-================================= */
+/* dashboard cards */
 
 .cards{
     display: grid;
@@ -142,9 +123,8 @@ header p{
     background: white;
     padding: 25px;
     border-radius: 15px;
-    box-shadow: 0 8px 18px rgba(0,0,0,.08);
     transition: .3s;
-    border-left: 6px solid #4d54ae;
+    
 }
 
 .card:hover{
@@ -162,16 +142,14 @@ header p{
     font-size: 34px;
 }
 
-/* ===============================
-   QUICK ACTIONS
-================================= */
+/* quick actions */
 
 .actions{
     background: white;
     padding: 25px;
     border-radius: 15px;
     margin-bottom: 35px;
-    box-shadow: 0 8px 18px rgba(0,0,0,.08);
+
 }
 
 .actions h2{
@@ -193,12 +171,10 @@ header p{
 }
 
 .actions button:hover{
-    background: #1E40AF;
+    background: #dc4e02;
 }
 
-/* ===============================
-   TABLE
-================================= */
+/* table*/
 
 .table-section{
     background: white;
@@ -240,9 +216,7 @@ tbody tr:hover{
     background: #e8f0ff;
 }
 
-/* ===============================
-   RESPONSIVE DESIGN
-================================= */
+/* responsive design*/
 
 @media(max-width:992px){
 
