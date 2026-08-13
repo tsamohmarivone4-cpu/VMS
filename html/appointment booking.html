@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Appointment Booking Form</title>
+
+    <link rel="stylesheet" href="../css/Booking.Css">
+
+</head>
+
+
+<body>
+
+    <div class="appointment-form">
+
+        <!-- LEFT SIDE -->
+        <div class="logo">
+
+            <img
+                src="../images/109126.jpg"
+                alt="Company logo"
+            >
+
+
+        </div>
+
+
+        <!-- RIGHT SIDE -->
+        <div class="form">
+
+            <h1>Schedule an Appointment</h1>
+
+
+            <!-- Visitor information -->
+            <div id="visitorInfo">
+
+                <p>
+                    Visitor:
+                    <strong id="visitorName">
+                        Loading...
+                    </strong>
+                </p>
+
+            </div>
+
+
+            <form id="appointmentForm">
+
+                <label for="host">
+                    Host Name
+                </label>
+
+                <select id="host" required>
+
+                    <option value="">
+                        Select Host
+                    </option>
+
+                    <option value="John Dd">
+                        John Dd
+                    </option>
+
+                    <option value="Mary Ss">
+                        Mary Ss
+                    </option>
+
+                </select>
+
+
+                <label for="purpose">
+                    Purpose of Visit
+                </label>
+
+                <select id="purpose" required>
+
+                    <option value="">
+                        Select Purpose
+                    </option>
+
+                    <option value="Business Meeting">
+                        Business Meeting
+                    </option>
+
+                </select>
+
+
+                <label for="appointmentDate">
+                    Date
+                </label>
+
+                <input
+                    type="date"
+                    id="appointmentDate"
+                    required
+                >
+
+
+                <label for="appointmentTime">
+                    Time
+                </label>
+
+                <input
+                    type="time"
+                    id="appointmentTime"
+                    required
+                >
+
+
+                <label class="nda">
+
+                    <input
+                        type="checkbox"
+                        id="nda"
+                    >
+
+                    I agree to sign the digital NDA upon arrival
+
+                </label>
+
+
+               <div class="buttons">
+
+                    <button
+                        type="button"
+                        id="cancel"
+                    >
+                        Cancel
+                    </button>
+
+                    <button
+                        type="submit"
+                        id="submit"
+                    >
+                        Submit Booking
+                    </button> 
+
+                </div>
+
+            </form>
+
+
+            <p id="message"></p>
+
+        </div>
+
+    </div>
+
+
+    <script src="../java script/booking.js"></script>
+
+</body>
+
+</html>
