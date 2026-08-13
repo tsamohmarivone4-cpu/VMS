@@ -5,259 +5,220 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Receptionist Dashboard</title>
 
-    <!-- Google Font -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
-
-    <!-- Font Awesome -->
     <link rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+          href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap">
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
 
     <link rel="stylesheet" href="../css/receptionist.css">
 </head>
+
 <body>
 
 <div class="container">
 
-    <!-- Sidebar -->
+    <!-- SIDEBAR -->
     <aside class="sidebar">
 
         <div class="logo">
-            <img src="../images/109126.jpg"alt="VMS Logo">
-            
+            <img src="../images/109126.jpg" alt="VMS Logo">
         </div>
-       <ul>
-       <li class="active">
-                <a href="#"id="dashboardLink"><i class="fa-solid fa-house"></i> Dashboard</a>
+
+        <ul>
+            <li class="active">
+                <a href="#" id="dashboardLink">
+                    <i class="fa-solid fa-house"></i> Dashboard
+                </a>
             </li>
 
             <li>
-                <a href="#"><i class="fa-solid fa-user-plus"></i> Register Visitor</a>
+                <a href="Registration.html" id="registerLink">
+                    <i class="fa-solid fa-user-plus"></i> Register Visitor
+                </a>
             </li>
 
             <li>
-                <a href="#"><i class="fa-solid fa-magnifying-glass"></i> Search Visitor</a>
+                <a href="#" id="searchVisitorLink">
+                    <i class="fa-solid fa-magnifying-glass"></i> Search Visitor
+                </a>
             </li>
 
             <li>
-                <a href="#"><i class="fa-solid fa-list-check"></i> Manage Appointments</a>
+                <a href="#" id="appointmentLink">
+                    <i class="fa-solid fa-list-check"></i> Manage Appointments
+                </a>
             </li>
 
             <li>
-                <a href="#" id="checkInLink"><i class="fa-solid fa-right-to-bracket"></i> Check-In</a>
+                <a href="#" id="checkInLink">
+                    <i class="fa-solid fa-right-to-bracket"></i> Check-In
+                </a>
             </li>
 
             <li>
-                <a href="#" id="checkOutLink" ><i class="fa-solid fa-right-from-bracket"></i> Check-Out</a>
+                <a href="#" id="checkOutLink">
+                    <i class="fa-solid fa-right-from-bracket"></i> Check-Out
+                </a>
             </li>
 
             <li>
-                <a href="#" onclick="logout()"><i class="fa-solid fa-right-from-bracket"></i> Logout</a>
-            </li>
-
+                  <a href="../index.html" id="logoutLink">
+            <i class="fa-solid fa-right-from-bracket"></i> Logout
+            </a>
+                    
+             </li>
         </ul>
 
     </aside>
 
-    <!-- Main Content -->
-    <main class="content">
 
-        <header>
+    <!-- MAIN CONTENT -->
+    <main class="content" id="mainContent">
 
-            <h1>Receptionist Dashboard</h1>
+        <!-- DASHBOARD -->
+        <section id="dashboardPanel">
 
-        </header>
+            <header>
+                <h1>Receptionist Dashboard</h1>
+            </header>
+
+            <section class="cards">
+
+                <div class="card">
+                    <h3>Total Visitors</h3>
+                    <h2 id="totalVisitors">0</h2>
+                </div>
+
+                <div class="card">
+                    <h3>Pending Appointments</h3>
+                    <h2 id="pendingAppointments">0</h2>
+                </div>
+
+                <div class="card">
+                    <h3>Checked In</h3>
+                    <h2 id="checkedIn">0</h2>
+                </div>
+
+                <div class="card">
+                    <h3>Checked Out</h3>
+                    <h2 id="checkedOut">0</h2>
+                </div>
+
+            </section>
+
+            <section class="table-section">
+                <h2>Recent Visitor Activity</h2>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Visitor</th>
+                            <th>Host</th>
+                            <th>Status</th>
+                            <th>Time</th>
+                        </tr>
+                    </thead>
+
+                    <tbody id="recentActivity"></tbody>
+                </table>
+            </section>
+
+        </section>
 
 
-            <!-- Check-In Form -->
-
-    <section class="checkin-panel" id="checkInPanel">
-
-        <div class="form-header">
+        <!-- CHECK-IN -->
+        <section class="checkin-panel" id="checkInPanel">
 
             <h2>Check-In Visitor</h2>
+            <p>Record the visitor's check-in date and time.</p>
 
-            <p>
-                Record the visitor's check-in date and time.
-            </p>
+            <form id="checkInForm">
 
-        </div>
+                <label>Date</label>
+                <input type="date" id="checkInDate" required>
+
+                <label>Time</label>
+                <input type="time" id="checkInTime" required>
+
+                <button type="submit">
+                    Confirm Check-In
+                </button>
+
+            </form>
+
+        </section>
 
 
-        <form id="checkInForm">
+        <!-- CHECK-OUT -->
+        <section class="checkin-panel" id="checkOutPanel">
 
-            <div class="form-group">
+            <h2>Check-Out Visitor</h2>
+            <p>Record the visitor's check-out date and time.</p>
 
-                <label for="checkInDate">
-                    Date
-                </label>
+            <form id="checkOutForm">
+
+                <label>Date</label>
+                <input type="date" id="checkOutDate" required>
+
+                <label>Time</label>
+                <input type="time" id="checkOutTime" required>
+
+                <button type="submit">
+                    Confirm Check-Out
+                </button>
+
+            </form>
+
+        </section>
+
+
+        <!-- SEARCH VISITOR -->
+        <section class="search-panel" id="searchPanel">
+
+            <h2>Search Visitor</h2>
+            <p>Search by visitor name or phone number.</p>
+
+            <div class="search-box">
 
                 <input
-                    type="date"
-                    id="checkInDate"
-                    required
+                    type="text"
+                    id="visitorSearch"
+                    placeholder="Enter name or phone number"
                 >
+
+                <button type="button" id="searchVisitorBtn">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    Search
+                </button>
 
             </div>
 
-
-            <div class="form-group">
-
-                <label for="checkInTime">
-                    Time
-                </label>
-
-                <input
-                    type="time"
-                    id="checkInTime"
-                    required
-                >
-
+            <div id="searchResults">
+                <p>Enter a visitor name or phone number.</p>
             </div>
 
-
-            <button type="submit" class="checkin-btn">
-
-                <i class="fa-solid fa-right-to-bracket"></i>
-
-                Confirm Check-In
-
-            </button>
-
-        </form>
-
-    </section>
+        </section>
 
 
-<!-- Check-Out Form -->
+        <!-- MANAGE APPOINTMENTS -->
+        <section id="appointmentPanel">
 
-<!-- Check-Out Form -->
+            <h2>Manage Appointments</h2>
+            <p>View and manage visitor appointments.</p>
 
-<section class="checkin-panel" id="checkOutPanel">
+            <div id="appointmentContent"></div>
 
-    <div class="form-header">
-
-        <h2>Check-Out Visitor</h2>
-
-        <p>
-            Record the visitor's check-out date and time.
-        </p>
-
-    </div>
+        </section>
 
 
-    <form id="checkOutForm">
+        <!-- REGISTER VISITOR -->
+        <section id="registerPanel">
 
-        <div class="form-group">
+            <h2>Register Visitor</h2>
+            <p>Register a new visitor.</p>
 
-            <label for="checkOutDate">
-                Date
-            </label>
-
-            <input
-                type="date"
-                id="checkOutDate"
-                required
-            >
-
-        </div>
-
-
-        <div class="form-group">
-
-            <label for="checkOutTime">
-                Time
-            </label>
-
-            <input
-                type="time"
-                id="checkOutTime"
-                required
-            >
-
-        </div>
-
-
-        <button type="submit" class="checkin-btn">
-
-            <i class="fa-solid fa-right-from-bracket"></i>
-
-            Confirm Check-Out
-
-        </button>
-
-    </form>
-
-</section>
-
-
-
-        <!-- Dashboard Cards -->
-        <section class="cards">
-
-    <div class="card">
-        <h3>Total Visitors</h3>
-        <h2 id="totalVisitors">0</h2>
-    </div>
-
-    <div class="card">
-        <h3>Pending Appointments</h3>
-        <h2 id="pendingAppointments">0</h2>
-    </div>
-
-    <div class="card">
-        <h3>Checked In</h3>
-        <h2 id="checkedIn">0</h2>
-    </div>
-
-    <div class="card">
-        <h3>Checked Out</h3>
-        <h2 id="checkedOut">0</h2>
-    </div>
-
-       </section>
-
-        <!-- Recent Activity -->
-        <section class="table-section">
-
-            <h2>Recent Visitor Activity</h2>
-
-            <table>
-
-                <thead>
-                    <tr>
-                        <th>Visitor</th>
-                        <th>Host</th>
-                        <th>Status</th>
-                        <th>Time</th>
-                    </tr>
-                </thead>
-
-                <tbody id="recentActivity">
-
-                    <tr>
-                        <td>John Smith</td>
-                        <td>ICT</td>
-                        <td>Checked In</td>
-                        <td>09:20 AM</td>
-                    </tr>
-
-                    <tr>
-                        <td>Mary Jane</td>
-                        <td>Finance</td>
-                        <td>Pending</td>
-                        <td>10:10 AM</td>
-                    </tr>
-
-                    <tr>
-                        <td>Peter Johnson</td>
-                        <td>HR</td>
-                        <td>Checked Out</td>
-                        <td>11:45 AM</td>
-                    </tr>
-
-                </tbody>
-
-            </table>
+            <div id="registrationContent"></div>
 
         </section>
 
@@ -265,93 +226,7 @@
 
 </div>
 
-<script>
+<script src="../java script/receptionist.js"></script>
 
-
-document.addEventListener("DOMContentLoaded", function () {
-
-    const dashboardLink =
-        document.getElementById("dashboardLink");
-
-    const checkInLink =
-        document.getElementById("checkInLink");
-
-    const checkOutLink =
-        document.getElementById("checkOutLink");
-
-
-    const checkInPanel =
-        document.getElementById("checkInPanel");
-
-    const checkOutPanel =
-        document.getElementById("checkOutPanel");
-
-
-    const cards =
-        document.querySelector(".cards");
-
-    const tableSection =
-        document.querySelector(".table-section");
-
-
-    
-    // show dashboard//
-    
-
-    dashboardLink.addEventListener("click", function (event) {
-
-        event.preventDefault();
-
-        cards.style.display = "grid";
-
-        tableSection.style.display = "block";
-
-        checkInPanel.style.display = "none";
-
-        checkOutPanel.style.display = "none";
-
-    });
-
-
-    
-    //show check-in//
-    
-
-    checkInLink.addEventListener("click", function (event) {
-
-        event.preventDefault();
-
-        cards.style.display = "none";
-
-        tableSection.style.display = "none";
-
-        checkInPanel.style.display = "block";
-
-        checkOutPanel.style.display = "none";
-
-    });
-
-
-    
-    // show check-out//
-    
-
-    checkOutLink.addEventListener("click", function (event) {
-
-        event.preventDefault();
-
-        cards.style.display = "none";
-
-        tableSection.style.display = "none";
-
-        checkInPanel.style.display = "none";
-
-        checkOutPanel.style.display = "block";
-
-    });
-
-  });
-</script>
-<script src="../JavaScript/receptionist.j"></script>
 </body>
 </html>

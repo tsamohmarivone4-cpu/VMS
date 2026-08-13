@@ -1,52 +1,82 @@
-//vms login //
+// VMS LOGIN
 
-// Get the login form
 const loginForm = document.getElementById("loginForm");
 
-loginForm.addEventListener("submit", function(event) {
+loginForm.addEventListener("submit", function (event) {
 
     event.preventDefault();
 
     const username = document.getElementById("username").value.trim();
     const password = document.getElementById("password").value.trim();
 
-    // Temporary accounts
-    const users = [
+    let users =
+        JSON.parse(localStorage.getItem("vmsUsers")) || [];
+
+    const defaultUsers = [
+
         {
+            id: "admin",
+            fullName: "Administrator",
             username: "admin",
             password: "admin123",
-            role: "Administrator"
+            role: "Administrator",
+            department: "Administration"
         },
+
         {
+            id: "reception",
+            fullName: "Receptionist",
             username: "reception",
             password: "reception123",
-            role: "Receptionist"
+            role: "Receptionist",
+            department: "Reception"
         },
+
         {
+            id: "host",
+            fullName: "Host",
             username: "host",
             password: "host123",
-            role: "Host"
+            role: "Host",
+            department: "General"
         }
+
     ];
 
-    // Find matching account
-    const user = users.find(function(account) {
 
-        return (
-            account.username === username &&
-            account.password === password
-        );
+    // Add default users
+    defaultUsers.forEach(user => {
+
+        if (!users.some(u => u.username === user.username)) {
+            users.push(user);
+        }
 
     });
 
 
-    // Incorrect login
+    localStorage.setItem(
+        "vmsUsers",
+        JSON.stringify(users)
+    );
+
+
+    // Find user
+    const user = users.find(u =>
+        u.username === username &&
+        u.password === password
+    );
+
+
+    // Invalid login
     if (!user) {
 
-        document.getElementById("loginMessage").textContent =
+        const message =
+            document.getElementById("loginMessage");
+
+        message.textContent =
             "Invalid username or password.";
 
-        document.getElementById("loginMessage").style.color = "red";
+        message.style.color = "red";
 
         return;
     }
@@ -59,24 +89,18 @@ loginForm.addEventListener("submit", function(event) {
     );
 
 
-    // Send user to the correct dashboard
-
+    // Redirect according to role
     if (user.role === "Administrator") {
 
         window.location.href = "html/admin.html";
 
-    }
-
-    else if (user.role === "Receptionist") {
+    } else if (user.role === "Receptionist") {
 
         window.location.href = "html/receptionist.html";
 
-    }
-
-    else if (user.role === "Host") {
+    } else if (user.role === "Host") {
 
         window.location.href = "html/Host.html";
-
     }
 
 });

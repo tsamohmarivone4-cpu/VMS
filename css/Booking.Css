@@ -1,7 +1,10 @@
+<<<<<<< HEAD
 /* =========================
    APPOINTMENT PAGE
 ========================= */
 
+=======
+>>>>>>> d4716ee37786c54c1c5d774dbec0d0ee4ea12bdb
 * {
     margin: 0;
     padding: 0;
@@ -9,6 +12,7 @@
 }
 
 body {
+<<<<<<< HEAD
     font-family: "Poppins", Arial, sans-serif;
     background: #f5f7fb;
     min-height: 100vh;
@@ -325,4 +329,109 @@ body {
     .buttons {
         flex-direction: column;
     }
+=======
+    font-family: 'Poppins', sans-serif;
+    background: #f5f7fb;
+}
+
+.appointment-form {
+    display: flex;
+    max-width: 900px;
+    margin: 50px auto;
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.logo {
+    width: 35%;
+    background: #0d47a1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.logo img {
+    width: 140px;
+    height: 140px;
+    object-fit: contain;
+}
+
+.form {
+    width: 65%;
+    padding: 35px;
+}
+
+.form h1 {
+    margin-bottom: 20px;
+    color: #1f2937;
+}
+
+#visitorInfo {
+    margin-bottom: 20px;
+    color: #555;
+}
+
+label {
+    display: block;
+    margin: 12px 0 6px;
+    font-size: 14px;
+}
+
+select,
+input[type="date"],
+input[type="time"],
+textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-family: inherit;
+}
+
+textarea {
+    resize: vertical;
+}
+
+.buttons {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+button {
+    padding: 10px 18px;
+    border: 0;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+#cancel {
+    background: #ddd;
+}
+
+#submit {
+    background: #0d47a1;
+    color: white;
+}
+
+#message {
+    margin-top: 15px;
+}
+
+@media (max-width: 700px) {
+    .appointment-form {
+        margin: 20px;
+        flex-direction: column;
+    }
+
+    .logo,
+    .form {
+        width: 100%;
+    }
+
+    .logo {
+        padding: 25px;
+    }
+>>>>>>> d4716ee37786c54c1c5d774dbec0d0ee4ea12bdb
 }

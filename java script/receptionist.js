@@ -1,67 +1,230 @@
-// receptionist dashboard//
+document.addEventListener("DOMContentLoaded", () => {
 
-document.addEventListener("DOMContentLoaded", function () {
+    const panels = [
+        "dashboardPanel",
+        "checkInPanel",
+        "checkOutPanel",
+        "searchPanel",
+        "appointmentPanel",
+        "registerPanel"
+    ];
 
-    updateDashboardCards();
+    function show(id) {
+        panels.forEach(p => {
+            document.getElementById(p).style.display = "none";
+        });
 
-});
+        document.getElementById(id).style.display = "block";
+    }
 
-
-//update dashboard cards//
-
-function updateDashboardCards() {
-
-    // Get visitors from Local Storage
-    const visitors =
-        JSON.parse(localStorage.getItem("vmsVisitors")) || [];
-
-
-    // Get appointments from Local Storage
-    const appointments =
-        JSON.parse(localStorage.getItem("vmsAppointments")) || [];
-
-
-    // Count total visitors
-    const totalVisitors = visitors.length;
+    function data(key) {
+        return JSON.parse(localStorage.getItem(key)) || [];
+    }
 
 
-    // Count pending appointments
-    const pendingAppointments =
-        appointments.filter(function (appointment) {
+    // SIDEBAR
+    dashboardLink.onclick = e => {
+        e.preventDefault();
+        show("dashboardPanel");
+        stats();
+    };
 
-            return appointment.status === "Pending";
+    searchVisitorLink.onclick = e => {
+        e.preventDefault();
+        show("searchPanel");
+    };
 
-        }).length;
+    appointmentLink.onclick = e => {
+        e.preventDefault();
+        show("appointmentPanel");
+        appointments();
+    };
+
+    checkInLink.onclick = e => {
+        e.preventDefault();
+        show("checkInPanel");
+        setDate("checkIn");
+    };
+
+    checkOutLink.onclick = e => {
+        e.preventDefault();
+        show("checkOutPanel");
+        setDate("checkOut");
+    };
 
 
-    // Count checked-in visitors
-    const checkedIn =
-        visitors.filter(function (visitor) {
+    // DATE & TIME
+    function setDate(type) {
+        const now = new Date();
 
-            return visitor.status === "Checked In";
+        document.getElementById(type + "Date").value =
+            now.toISOString().split("T")[0];
 
-        }).length;
-
-
-    // Count checked-out visitors
-    const checkedOut =
-        visitors.filter(function (visitor) {
-
-            return visitor.status === "Checked Out";
-
-        }).length;
+        document.getElementById(type + "Time").value =
+            now.toTimeString().slice(0, 5);
+    }
 
 
-    // Display the numbers
-    document.getElementById("totalVisitors").textContent =
-        totalVisitors;
+    // SEARCH VISITOR
+    searchVisitorBtn.onclick = () => {
 
-    document.getElementById("pendingAppointments").textContent =
-        pendingAppointments;
+        const text = visitorSearch.value.toLowerCase().trim();
 
-    document.getElementById("checkedIn").textContent =
-        checkedIn;
+        const visitors = data("vmsVisitors");
 
-    document.getElementById("checkedOut").textContent =
-        checkedOut;
-}
+        const found = visitors.filter(v =>
+            v.fullName.toLowerCase().includes(text) ||
+            v.phone.includes(text)
+        );
+
+        searchResults.innerHTML = found.length
+            ? found.map(v => `
+                <div class="visitor-result">
+                    <h3>${v.fullName}</h3>
+                    <p>${v.phone}</p>
+
+                    <button onclick='book(${JSON.stringify(v)})'>
+                        Book Appointment
+                    </button>
+
+                    <button onclick='select(${JSON.stringify(v)},"checkIn")'>
+                        Check-In
+                    </button>
+
+                    <button onclick='select(${JSON.stringify(v)},"checkOut")'>
+                        Check-Out
+                    </button>
+                </div>
+            `).join("")
+            : "<p>Visitor not found.</p>";
+    };
+
+
+    // BOOK APPOINTMENT
+    window.book = visitor => {
+        localStorage.setItem(
+            "appointmentVisitor",
+            JSON.stringify(visitor)
+        );
+
+        location.href = "appointment booking.html";
+    };
+
+
+    // SELECT VISITOR
+    window.select = (visitor, type) => {
+
+        localStorage.setItem(
+            "selectedVisitor",
+            JSON.stringify(visitor)
+        );
+
+        show(type + "Panel");
+        setDate(type);
+    };
+
+
+    // CHECK-IN / CHECK-OUT
+    function updateStatus(type) {
+
+        const visitor =
+            JSON.parse(localStorage.getItem("selectedVisitor"));
+
+        if (!visitor) {
+            alert("Please select a visitor first.");
+            return;
+        }
+
+        const visitors = data("vmsVisitors");
+
+        const i = visitors.findIndex(v => v.id === visitor.id);
+
+        if (i === -1) {
+            alert("Visitor not found.");
+            return;
+        }
+
+        visitors[i].status =
+            type === "checkIn" ? "Checked In" : "Checked Out";
+
+        visitors[i][type + "Date"] =
+            document.getElementById(type + "Date").value;
+
+        visitors[i][type + "Time"] =
+            document.getElementById(type + "Time").value;
+
+        localStorage.setItem(
+            "vmsVisitors",
+            JSON.stringify(visitors)
+        );
+
+        localStorage.removeItem("selectedVisitor");
+
+        alert(
+            type === "checkIn"
+                ? "Visitor checked in successfully."
+                : "Visitor checked out successfully."
+        );
+
+        show("dashboardPanel");
+        stats();
+    }
+
+
+    checkInForm.onsubmit = e => {
+        e.preventDefault();
+        updateStatus("checkIn");
+    };
+
+    checkOutForm.onsubmit = e => {
+        e.preventDefault();
+        updateStatus("checkOut");
+    };
+
+
+    // DASHBOARD STATS
+    function stats() {
+
+        const visitors = data("vmsVisitors");
+        const appointments = data("vmsAppointments");
+
+        totalVisitors.textContent = visitors.length;
+
+        pendingAppointments.textContent =
+            appointments.filter(a => a.status === "Pending").length;
+
+        checkedIn.textContent =
+            visitors.filter(v => v.status === "Checked In").length;
+
+        checkedOut.textContent =
+            visitors.filter(v => v.status === "Checked Out").length;
+    }
+
+
+    // APPOINTMENTS
+    function appointments() {
+
+        const list = data("vmsAppointments");
+
+        appointmentContent.innerHTML = list.length
+            ? list.map(a => `
+                <p>
+                    <strong>${a.visitorName}</strong>
+                    - ${a.host}
+                    - ${a.purpose}
+                    - ${a.date} ${a.time}
+                    - ${a.status}
+                </p>
+            `).join("")
+            : "<p>No appointments found.</p>";
+    }
+
+
+    // START
+    show("dashboardPanel");
+    stats();
+
+});logoutLink.onclick = () => {
+    localStorage.removeItem("loggedInUser");
+    window.location.href = "../login.html";
+};

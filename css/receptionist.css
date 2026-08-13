@@ -19,9 +19,7 @@ body {
 }
 
 
-/* ===========================
-   SIDEBAR
-=========================== */
+/* sidebar */
 
 .sidebar {
     width: 260px;
@@ -66,7 +64,7 @@ body {
 
 /* Sidebar hover */
 .sidebar ul li a:hover {
-    background: #2563EB;
+    background:red;
 }
 
 /* Active menu */
@@ -75,9 +73,7 @@ body {
 }
 
 
-/* ===========================
-   MAIN CONTENT
-=========================== */
+/* main content */
 
 .content {
     flex: 1;
@@ -99,9 +95,7 @@ header h1 {
 }
 
 
-/* ===========================
-   DASHBOARD CARDS
-=========================== */
+/* dashboard cards*/
 
 .cards {
     display: grid;
@@ -135,9 +129,7 @@ header h1 {
 }
 
 
-/* ===========================
-   TABLE
-=========================== */
+/* table*/
 
 .table-section {
     background: white;
@@ -177,9 +169,7 @@ table tbody tr:hover {
 }
 
 
-/* ===========================
-   RESPONSIVE
-=========================== */
+/*responsive */
 
 @media (max-width: 900px) {
 
@@ -199,9 +189,7 @@ table tbody tr:hover {
 }
 
 
-/* ===========================
-   MOBILE
-=========================== */
+/*mobile*/
 
 @media (max-width: 600px) {
 
@@ -223,9 +211,8 @@ table tbody tr:hover {
 
     header h1 {
         font-size: 22px;
-    }/* =========================
-   CHECK-IN PANEL
-========================= */
+    }
+    /* check-in panel */
 
 .checkin-panel {
     background: white;
@@ -252,7 +239,7 @@ table tbody tr:hover {
 }
 
 
-/* FORM GROUP */
+/* forn group */
 
 .form-group {
     margin-bottom: 20px;
@@ -267,7 +254,7 @@ table tbody tr:hover {
 }
 
 
-/* DATE AND TIME INPUTS */
+/* date and time */
 
 .form-group input {
     width: 100%;
@@ -291,7 +278,7 @@ table tbody tr:hover {
 }
 
 
-/* CHECK-IN BUTTON */
+/* check-in button*/
 
 .checkin-btn {
     width: 100%;
@@ -322,7 +309,7 @@ table tbody tr:hover {
 }
 
 
-/* MOBILE */
+/* mobile */
 
 @media (max-width: 600px) {
 
@@ -336,4 +323,154 @@ table tbody tr:hover {
 }#checkInPanel,
 #checkOutPanel {
     display: none;
+}
+/*seach visitor*/
+
+#searchPanel {
+    display: none;
+
+    background: white;
+
+    padding: 30px;
+
+    border-radius: 12px;
+
+    box-shadow:
+        0 5px 15px rgba(0, 0, 0, 0.08);
+
+    margin-bottom: 30px;
+}
+
+
+.search-box {
+    display: flex;
+
+    gap: 10px;
+
+    margin-top: 20px;
+}
+
+
+.search-box input {
+    flex: 1;
+
+    padding: 13px 15px;
+
+    border: 1px solid #d1d5db;
+
+    border-radius: 8px;
+
+    font-family: "Poppins", sans-serif;
+
+    font-size: 14px;
+
+    outline: none;
+}
+
+
+.search-box input:focus {
+    border-color: #2563EB;
+
+    box-shadow:
+        0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+
+.search-box button {
+    padding: 13px 20px;
+
+    background: #2563EB;
+
+    color: white;
+
+    border: none;
+
+    border-radius: 8px;
+
+    font-family: "Poppins", sans-serif;
+
+    cursor: pointer;
+}
+
+
+.search-box button:hover {
+    background: #1E3A8A;
+}
+
+
+.search-results {
+    margin-top: 25px;
+}
+
+
+.visitor-result {
+    border: 1px solid #e1e5eb;
+
+    border-radius: 10px;
+
+    padding: 20px;
+
+    margin-bottom: 15px;
+
+    background: #fafbff;
+}
+
+
+.visitor-result h3 {
+    color: #1E3A8A;
+
+    margin-bottom: 10px;
+}
+
+
+.visitor-result p {
+    margin: 5px 0;
+
+    color: #555;
+
+    font-size: 14px;
+}
+
+
+.book-appointment-btn {
+    margin-top: 15px;
+
+    padding: 10px 18px;
+
+    background: #2563EB;
+
+    color: white;
+
+    border: none;
+
+    border-radius: 7px;
+
+    font-family: "Poppins", sans-serif;
+
+    cursor: pointer;
+}
+
+
+.book-appointment-btn:hover {
+    background: #1E3A8A;
+}
+
+
+.no-results {
+    color: #777;
+
+    font-size: 14px;
+}
+
+
+@media (max-width: 600px) {
+
+    .search-box {
+        flex-direction: column;
+    }
+
+    .search-box button {
+        width: 100%;
+    }
+
 }
