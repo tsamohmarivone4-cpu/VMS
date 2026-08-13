@@ -26,6 +26,7 @@ loginForm.addEventListener("submit", function(event) {
             password: "host123",
             role: "Host"
         }
+        
     ];
 
     // Find matching account
@@ -77,5 +78,6 @@ loginForm.addEventListener("submit", function(event) {
         window.location.href = "html/Host.html";
 
     }
+
 
 });
