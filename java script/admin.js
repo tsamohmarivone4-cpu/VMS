@@ -1,430 +1,270 @@
-// admin dashboard//
+document.addEventListener("DOMContentLoaded", () => {
+
+    const $ = id => document.getElementById(id);
+    const get = key => JSON.parse(localStorage.getItem(key)) || [];
+    const save = (key, data) => localStorage.setItem(key, JSON.stringify(data));
+
+    const pages = [
+        "dashboardSection",
+        "manageUsersSection",
+        "manageDepartmentsSection",
+        "visitorRecordsSection",
+        "appointmentRecordsSection",
+        "reportsSection",
+        "settingsSection"
+    ];
+
+    function show(page) {
+        pages.forEach(p => $(p).style.display = p === page ? "block" : "none");
+        document.querySelectorAll(".sidebar li").forEach(li => li.classList.remove("active"));
+
+        const link = $(page.replace("Section", "Link"));
+        if (link) link.parentElement.classList.add("active");
+    }
 
 
-// Run JavaScript after the page has loaded
-document.addEventListener("DOMContentLoaded", function () {
+    // dashboard stats
+    function stats() {
+        const v = get("vmsVisitors");
+        const a = get("vmsAppointments");
 
-    loadDashboardStatistics();
+        $("totalVisitors").textContent = v.length;
+        $("totalUsers").textContent = get("vmsUsers").length;
+        $("totalDepartments").textContent = get("vmsDepartments").length;
 
-    setupQuickActions();
+        const today = new Date().toISOString().split("T")[0];
 
-    setupSidebar();
+        $("todayVisits").textContent =
+            v.filter(x => x.date === today).length;
 
-});
-
-
-// dashboard statistics
-
-function loadDashboardStatistics() {
-
-    // Get saved users
-    const users =
-        JSON.parse(localStorage.getItem("vmsUsers")) || [];
-
-    // Get saved departments
-    const departments =
-        JSON.parse(localStorage.getItem("vmsDepartments")) || [];
-
-    // Get saved visitors
-    const visitors =
-        JSON.parse(localStorage.getItem("vmsVisitors")) || [];
-
-    // Get saved appointments
-    const appointments =
-        JSON.parse(localStorage.getItem("vmsAppointments")) || [];
+        $("pendingAppointments").textContent =
+            a.filter(x => x.status === "Pending").length;
+    }
 
 
-    // Total users
-    document.getElementById("totalUsers").textContent =
-        users.length;
+    // sidebar navigation
+    $("dashboardLink").onclick = e => {
+        e.preventDefault();
+        show("dashboardSection");
+    };
+
+    $("manageUsersLink").onclick = e => {
+        e.preventDefault();
+        show("manageUsersSection");
+        users();
+    };
+
+    $("manageDepartmentsLink").onclick = e => {
+        e.preventDefault();
+        show("manageDepartmentsSection");
+        departments();
+    };
+
+    $("visitorRecordsLink").onclick = e => {
+        e.preventDefault();
+        show("visitorRecordsSection");
+        visitors();
+    };
+
+    $("appointmentRecordsLink").onclick = e => {
+        e.preventDefault();
+        show("appointmentRecordsSection");
+        appointments();
+    };
+
+    $("reportsLink").onclick = e => {
+        e.preventDefault();
+        show("reportsSection");
+    };
+
+    $("settingsLink").onclick = e => {
+        e.preventDefault();
+        show("settingsSection");
+    };
 
 
-    // Total departments
-    document.getElementById("totalDepartments").textContent =
-        departments.length;
+    // users
+    function users() {
+        const list = get("vmsUsers");
+
+        $("userTableBody").innerHTML = list.map(u => `
+            <tr>
+                <td>${u.fullName}</td>
+                <td>${u.username}</td>
+                <td>${u.role}</td>
+                <td>${u.department}</td>
+                <td><button onclick="deleteUser(${u.id})">Delete</button></td>
+            </tr>
+        `).join("");
+    }
+
+    function addUser() {
+        const fullName = prompt("Full name:");
+        const username = prompt("Username:");
+        const password = prompt("Password:");
+        const role = prompt("Role:");
+        const department = prompt("Department:");
+
+        if (!fullName || !username || !password || !role || !department)
+            return alert("Complete all fields.");
+
+        const list = get("vmsUsers");
+
+        if (list.some(u => u.username === username))
+            return alert("Username already exists.");
+
+        list.push({
+            id: Date.now(),
+            fullName,
+            username,
+            password,
+            role,
+            department
+        });
+
+        save("vmsUsers", list);
+        users();
+        stats();
+        alert("User created.");
+    }
+
+    $("addUserBtn").onclick = addUser;
+    $("createUserBtn").onclick = () => {
+        show("manageUsersSection");
+        addUser();
+    };
+
+    window.deleteUser = id => {
+        save("vmsUsers", get("vmsUsers").filter(u => u.id != id));
+        users();
+        stats();
+    };
 
 
-    // Total visitors
-    document.getElementById("totalVisitors").textContent =
-        visitors.length;
+    // departments
+    function departments() {
+        const list = get("vmsDepartments");
 
+        $("departmentTableBody").innerHTML = list.map(d => `
+            <tr>
+                <td>${d.name}</td>
+                <td><button onclick="deleteDepartment(${d.id})">Delete</button></td>
+            </tr>
+        `).join("");
+    }
 
-    // Today's visitors
-    const today = new Date().toISOString().split("T")[0];
+    function addDepartment() {
+        const name = prompt("Department name:");
+        if (!name) return;
 
-    const todayVisitors = visitors.filter(function (visitor) {
+        const list = get("vmsDepartments");
 
-        return visitor.date === today;
+        if (list.some(d => d.name.toLowerCase() === name.toLowerCase()))
+            return alert("Department already exists.");
 
-    });
+        list.push({ id: Date.now(), name });
 
-    document.getElementById("todayVisits").textContent =
-        todayVisitors.length;
+        save("vmsDepartments", list);
+        departments();
+        stats();
+    }
 
-
-    // Pending appointments
-    const pendingAppointments = appointments.filter(function (appointment) {
-
-        return appointment.status === "Pending";
-
-    });
-
-    document.getElementById("pendingAppointments").textContent =
-        pendingAppointments.length;
-}
-
-
-// quick action
-
-function setupQuickActions() {
-
-    // create user
-    const createUserBtn =
-        document.getElementById("createUserBtn");
-
-    createUserBtn.addEventListener("click", function () {
-
-        createUser();
-
-    });
-
-
-    // add department
-    const addDepartmentBtn =
-        document.getElementById("addDepartmentBtn");
-
-    addDepartmentBtn.addEventListener("click", function () {
-
+    $("newDepartmentBtn").onclick = addDepartment;
+    $("addDepartmentBtn").onclick = () => {
+        show("manageDepartmentsSection");
         addDepartment();
+    };
 
-    });
-
-
-    //generate report
-    const generateReportBtn =
-        document.getElementById("generateReportBtn");
-
-    generateReportBtn.addEventListener("click", function () {
-
-        generateReport();
-
-    });
-
-
-    // view visitors records
-    const viewVisitorsBtn =
-        document.getElementById("viewVisitorsBtn");
-
-    viewVisitorsBtn.addEventListener("click", function () {
-
-        window.location.href = "visitor-records.html";
-
-    });
-
-}
-
-
-// create user//
-
-function createUser() {
-
-    const fullName =
-        prompt("Enter the user's full name:");
-
-    if (!fullName) {
-        return;
-    }
-
-
-    const username =
-        prompt("Enter username:");
-
-    if (!username) {
-        return;
-    }
-
-
-    const password =
-        prompt("Enter password:");
-
-    if (!password) {
-        return;
-    }
-
-
-    const role =
-        prompt(
-            "Enter role:\nAdministrator\nReceptionist\nHost"
-        );
-
-    if (!role) {
-        return;
-    }
-
-
-    const department =
-        prompt("Enter department:");
-
-    if (!department) {
-        return;
-    }
-
-
-    // Get existing users
-    let users =
-        JSON.parse(localStorage.getItem("vmsUsers")) || [];
-
-
-    // Check whether username already exists
-    const existingUser = users.find(function (user) {
-
-        return user.username.toLowerCase() ===
-               username.toLowerCase();
-
-    });
-
-
-    if (existingUser) {
-
-        alert("This username already exists.");
-
-        return;
-    }
-
-
-    // Create new user
-    const newUser = {
-
-        id: Date.now(),
-
-        fullName: fullName,
-
-        username: username,
-
-        password: password,
-
-        role: role,
-
-        department: department
-
+    window.deleteDepartment = id => {
+        save("vmsDepartments", get("vmsDepartments").filter(d => d.id != id));
+        departments();
+        stats();
     };
 
 
-    // Add user
-    users.push(newUser);
-
-
-    // Save users
-    localStorage.setItem(
-        "vmsUsers",
-        JSON.stringify(users)
-    );
-
-
-    // Update dashboard
-    loadDashboardStatistics();
-
-
-    alert(
-        "User account created successfully!"
-    );
-}
-
-
-// add departments//
-
-function addDepartment() {
-
-    const departmentName =
-        prompt("Enter department name:");
-
-    if (!departmentName) {
-        return;
+    // visitors
+    function visitors(list = get("vmsVisitors")) {
+        $("visitorTableBody").innerHTML = list.map(v => `
+            <tr>
+                <td>${v.fullName || "-"}</td>
+                <td>${v.phone || "-"}</td>
+                <td>${v.email || "-"}</td>
+                <td>${v.gender || "-"}</td>
+                <td>${v.date || "-"}</td>
+                <td>${v.status || "Registered"}</td>
+            </tr>
+        `).join("");
     }
 
+    $("visitorSearch").oninput = function () {
+        const text = this.value.toLowerCase();
 
-    // Get existing departments
-    let departments =
-        JSON.parse(
-            localStorage.getItem("vmsDepartments")
-        ) || [];
+        visitors(get("vmsVisitors").filter(v =>
+            (v.fullName || "").toLowerCase().includes(text) ||
+            (v.phone || "").includes(text)
+        ));
+    };
 
-
-    // Check duplicate
-    const exists = departments.some(function (department) {
-
-        return department.name.toLowerCase() ===
-               departmentName.toLowerCase();
-
-    });
-
-
-    if (exists) {
-
-        alert("This department already exists.");
-
-        return;
-    }
-
-
-    // Create department
-    const newDepartment = {
-
-        id: Date.now(),
-
-        name: departmentName
-
+    $("viewVisitorsBtn").onclick = () => {
+        show("visitorRecordsSection");
+        visitors();
     };
 
 
-    departments.push(newDepartment);
+    // appiointments
+    function appointments(list = get("vmsAppointments")) {
+        $("appointmentTableBody").innerHTML = list.map(a => `
+            <tr>
+                <td>${a.visitorName || "-"}</td>
+                <td>${a.host || "-"}</td>
+                <td>${a.purpose || "-"}</td>
+                <td>${a.date || "-"}</td>
+                <td>${a.time || "-"}</td>
+                <td>${a.status || "Pending"}</td>
+            </tr>
+        `).join("");
+    }
+
+    $("appointmentSearch").oninput = function () {
+        const text = this.value.toLowerCase();
+
+        appointments(get("vmsAppointments").filter(a =>
+            (a.visitorName || "").toLowerCase().includes(text) ||
+            (a.host || "").toLowerCase().includes(text)
+        ));
+    };
 
 
-    // Save department
-    localStorage.setItem(
-        "vmsDepartments",
-        JSON.stringify(departments)
-    );
-
-
-    // Update card
-    loadDashboardStatistics();
-
-
-    alert(
-        "Department added successfully!"
-    );
-}
-
-
-// generate report//
-
-function generateReport() {
-
-    const visitors =
-        JSON.parse(
-            localStorage.getItem("vmsVisitors")
-        ) || [];
-
-
-    const appointments =
-        JSON.parse(
-            localStorage.getItem("vmsAppointments")
-        ) || [];
-
-
-    const users =
-        JSON.parse(
-            localStorage.getItem("vmsUsers")
-        ) || [];
-
-
-    const departments =
-        JSON.parse(
-            localStorage.getItem("vmsDepartments")
-        ) || [];
-
-
-    const report =
-
-        "VISITOR MANAGEMENT SYSTEM REPORT\n\n" +
-
-        "Total Visitors: " +
-        visitors.length + "\n" +
-
-        "Total Appointments: " +
-        appointments.length + "\n" +
-
-        "Total Users: " +
-        users.length + "\n" +
-
-        "Total Departments: " +
-        departments.length + "\n\n" +
-
-        "Report generated on: " +
-        new Date().toLocaleString();
-
-
-    // Create downloadable file
-    const blob =
-        new Blob(
-            [report],
+    // reports
+    function report(key) {
+        const file = new Blob(
+            [JSON.stringify(get(key), null, 2)],
             { type: "text/plain" }
         );
 
+        const link = document.createElement("a");
+        link.href = URL.createObjectURL(file);
+        link.download = `VMS-${key}-Report.txt`;
+        link.click();
+    }
 
-    const url =
-        URL.createObjectURL(blob);
+    $("visitorReportBtn").onclick = () => report("vmsVisitors");
+    $("appointmentReportBtn").onclick = () => report("vmsAppointments");
+    $("userReportBtn").onclick = () => report("vmsUsers");
 
-
-    const link =
-        document.createElement("a");
-
-
-    link.href = url;
-
-    link.download =
-        "VMS-Report.txt";
+    $("generateReportBtn").onclick = () => show("reportsSection");
 
 
-    link.click();
+    // settings
+    $("saveSettingsBtn").onclick = () => {
+        localStorage.setItem("systemName", $("systemName").value);
+        localStorage.setItem("adminName", $("adminName").value);
+        alert("Settings saved.");
+    };
 
 
-    URL.revokeObjectURL(url);
-}
+    // START
+    show("dashboardSection");
+    stats();
 
-
-
-//sidebar active link//
-
-function setupSidebar() {
-
-    const sidebarLinks =
-        document.querySelectorAll(".sidebar a");
-
-
-    sidebarLinks.forEach(function (link) {
-
-        link.addEventListener("click", function (event) {
-
-            // Ignore logout
-            if (
-                link.textContent.trim()
-                    .toLowerCase()
-                    .includes("logout")
-            ) {
-                return;
-            }
-
-
-            // Remove active class
-            sidebarLinks.forEach(function (item) {
-
-                item.parentElement.classList.remove("active");
-
-            });
-
-
-            // Add active class
-            link.parentElement.classList.add("active");
-
-        });
-
-    });
-
-}
-
-
-
-// loguot//
-
-function logout() {
-
-    // Remove current logged-in user
-    localStorage.removeItem("currentUser");
-
-
-    // Return to login page
-    window.location.href = "../login.html";
-
-}
+});

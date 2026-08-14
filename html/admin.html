@@ -6,161 +6,203 @@
     <title>Administrator Dashboard</title>
 
     <link rel="stylesheet" href="../css/admin.css">
-
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-
-    <link rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
 </head>
+
 <body>
 
 <div class="container">
 
-    <!-- Sidebar -->
     <aside class="sidebar">
-
         <div class="logo">
-            <img src="../images/109126.jpg"alt="VMS Logo">
+            <img src="../images/109126.jpg" alt="VMS Logo">
         </div>
-      <ul>
-      <li class="active">
-                <a href="#"><i class="fa-solid fa-house"></i> Dashboard</a>
-            </li>
 
-            <li>
-                <a href="#"><i class="fa-solid fa-users"></i> Manage Users</a>
-            </li>
-
-            <li>
-                <a href="#"><i class="fa-solid fa-building"></i> Manage Departments</a>
-            </li>
-
-            <li>
-                <a href="#"><i class="fa-solid fa-address-book"></i> Visitor Records</a>
-            </li>
-
-            <li>
-                <a href="#"><i class="fa-solid fa-calendar-days"></i> Appointment Records</a>
-            </li>
-
-            <li>
-                <a href="#"><i class="fa-solid fa-chart-column"></i> Reports</a>
-            </li>
-
-            <li>
-                <a href="#"><i class="fa-solid fa-gear"></i> Settings</a>
-            </li>
-
-            <li>
-                <a href="../index.html" id="logoutlink"><i class="fa-solid fa-right-from-bracket"></i> Logout</a>
-            </li>
-
+        <ul>
+            <li class="active"><a href="#" id="dashboardLink"><i class="fa-solid fa-house"></i>Dashboard</a></li>
+            <li><a href="#" id="manageUsersLink"><i class="fa-solid fa-users"></i>Manage Users</a></li>
+            <li><a href="#" id="manageDepartmentsLink"><i class="fa-solid fa-building"></i>Manage Departments</a></li>
+            <li><a href="#" id="visitorRecordsLink"><i class="fa-solid fa-address-book"></i>Visitor Records</a></li>
+            <li><a href="#" id="appointmentRecordsLink"><i class="fa-solid fa-calendar-days"></i>Appointment Records</a></li>
+            <li><a href="#" id="reportsLink"><i class="fa-solid fa-chart-column"></i>Reports</a></li>
+            <li><a href="#" id="settingsLink"><i class="fa-solid fa-gear"></i>Settings</a></li>
+            <li><a href="../index.html" id="logoutLink"><i class="fa-solid fa-right-from-bracket"></i>Logout</a></li>
         </ul>
-
     </aside>
 
-    <!-- Main Content -->
     <main class="content">
 
-        <header>
-            <div>
+        <!-- Dashboard -->
+        <section id="dashboardSection">
+            <header>
                 <h1>Administrator Dashboard</h1>
                 <p>Welcome, Administrator</p>
+            </header>
+
+            <section class="cards">
+                <div class="card"><h3>Total Visitors</h3><h2 id="totalVisitors">0</h2></div>
+                <div class="card"><h3>Today's Visits</h3><h2 id="todayVisits">0</h2></div>
+                <div class="card"><h3>Pending Appointments</h3><h2 id="pendingAppointments">0</h2></div>
+                <div class="card"><h3>Total Users</h3><h2 id="totalUsers">0</h2></div>
+                <div class="card"><h3>Departments</h3><h2 id="totalDepartments">0</h2></div>
+            </section>
+
+            <section class="actions">
+                <h2>Quick Actions</h2>
+                <button id="createUserBtn">Create User</button>
+                <button id="addDepartmentBtn">Add Department</button>
+                <button id="generateReportBtn">Generate Report</button>
+                <button id="viewVisitorsBtn">View Visitor Records</button>
+            </section>
+
+            <section class="table-section">
+                <h2>Recent Activities</h2>
+                <table>
+                    <thead>
+                        <tr><th>Date</th><th>Activity</th><th>User</th></tr>
+                    </thead>
+                    <tbody id="activityTableBody">
+                        <tr><td>05 Aug 2026</td><td>Visitor Registered</td><td>Receptionist</td></tr>
+                        <tr><td>05 Aug 2026</td><td>Appointment Approved</td><td>Host</td></tr>
+                        <tr><td>05 Aug 2026</td><td>Created New User</td><td>Administrator</td></tr>
+                    </tbody>
+                </table>
+            </section>
+        </section>
+
+        <!-- Manage Users -->
+        <section id="manageUsersSection" class="page-section">
+            <div class="page-header">
+                <div>
+                    <h1>Manage Users</h1>
+                    <p>Create and manage system users.</p>
+                </div>
+                <button id="addUserBtn">Add User</button>
             </div>
 
-        </header>
+            <div class="search-box">
+                <input type="text" id="userSearch" placeholder="Search users...">
+            </div>
 
-        <!-- Cards -->
-        <section class="cards">
-
-             <div class="card">
-        <h3>Total Visitors</h3>
-        <h2 id="totalVisitors">320</h2>
-    </div>
-
-    <div class="card">
-        <h3>Today's Visits</h3>
-        <h2 id="todayVisits">25</h2>
-    </div>
-
-    <div class="card">
-        <h3>Pending Appointments</h3>
-        <h2 id="pendingAppointments">8</h2>
-    </div>
-
-    <div class="card">
-        <h3>Total Users</h3>
-        <h2 id="totalUsers">18</h2>
-    </div>
-
-    <div class="card">
-        <h3>Departments</h3>
-        <h2 id="totalDepartments">6</h2>
-    </div>
-
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr><th>Full Name</th><th>Username</th><th>Role</th><th>Department</th><th>Actions</th></tr>
+                    </thead>
+                    <tbody id="userTableBody"></tbody>
+                </table>
+            </div>
         </section>
 
-        <!-- Quick Actions -->
-        <section class="actions">
+        <!-- Manage Departments -->
+        <section id="manageDepartmentsSection" class="page-section">
+            <div class="page-header">
+                <div>
+                    <h1>Manage Departments</h1>
+                    <p>Create and manage departments.</p>
+                </div>
+                <button id="newDepartmentBtn">Add Department</button>
+            </div>
 
-            <h2>Quick Actions</h2>
+            <div class="search-box">
+                <input type="text" id="departmentSearch" placeholder="Search departments...">
+            </div>
 
-             <button id="createUserBtn">Create User</button>
-
-            <button id="addDepartmentBtn">Add Department</button>
-
-            <button id="generateReportBtn">Generate Report</button>
-
-            <button id="viewVisitorsBtn">View Visitor Records</button>
-
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr><th>Department</th><th>Actions</th></tr>
+                    </thead>
+                    <tbody id="departmentTableBody"></tbody>
+                </table>
+            </div>
         </section>
 
-        <!-- Recent Activity -->
-        <section class="table-section">
+        <!-- Visitor Records -->
+        <section id="visitorRecordsSection" class="page-section">
+            <h1>Visitor Records</h1>
+            <p>View registered visitors.</p>
 
-            <h2>Recent Activities</h2>
+            <div class="search-box">
+                <input type="text" id="visitorSearch" placeholder="Search visitor...">
+            </div>
 
-            <table>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr><th>Name</th><th>Phone</th><th>Email</th><th>Gender</th><th>Date</th><th>Status</th></tr>
+                    </thead>
+                    <tbody id="visitorTableBody"></tbody>
+                </table>
+            </div>
+        </section>
 
-                <thead>
+        <!-- Appointment Records -->
+        <section id="appointmentRecordsSection" class="page-section">
+            <h1>Appointment Records</h1>
+            <p>View visitor appointments.</p>
 
-                    <tr>
-                        <th>Date</th>
-                        <th>Activity</th>
-                        <th>User</th>
-                    </tr>
+            <div class="search-box">
+                <input type="text" id="appointmentSearch" placeholder="Search appointments...">
+            </div>
 
-                </thead>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr><th>Visitor</th><th>Host</th><th>Purpose</th><th>Date</th><th>Time</th><th>Status</th></tr>
+                    </thead>
+                    <tbody id="appointmentTableBody"></tbody>
+                </table>
+            </div>
+        </section>
 
-                <tbody>
+        <!-- Reports  section-->
+        <section id="reportsSection" class="page-section">
+            <h1>Reports</h1>
+            <p>Generate system reports.</p>
 
-                    <tr>
-                        <td>05 Aug 2026</td>
-                        <td>Visitor Registered</td>
-                        <td>Receptionist</td>
-                    </tr>
+            <div class="report-cards">
+                <div class="report-card">
+                    <h3>Visitor Report</h3>
+                    <p>Generate visitor report.</p>
+                    <button id="visitorReportBtn">Generate</button>
+                </div>
 
-                    <tr>
-                        <td>05 Aug 2026</td>
-                        <td>Appointment Approved</td>
-                        <td>Host</td>
-                    </tr>
+                <div class="report-card">
+                    <h3>Appointment Report</h3>
+                    <p>Generate appointment report.</p>
+                    <button id="appointmentReportBtn">Generate</button>
+                </div>
 
-                    <tr>
-                        <td>05 Aug 2026</td>
-                        <td>Created New User</td>
-                        <td>Administrator</td>
-                    </tr>
+                <div class="report-card">
+                    <h3>User Report</h3>
+                    <p>Generate user report.</p>
+                    <button id="userReportBtn">Generate</button>
+                </div>
+            </div>
+        </section>
 
-                </tbody>
+        <!-- Settings part -->
+        <section id="settingsSection" class="page-section">
+            <h1>Settings</h1>
+            <p>Manage system settings.</p>
 
-            </table>
+            <div class="settings-box">
+                <label>System Name</label>
+                <input type="text" id="systemName" value="Visitor Management System">
 
+                <label>Administrator Name</label>
+                <input type="text" id="adminName" value="Administrator">
+
+                <button id="saveSettingsBtn">Save Settings</button>
+            </div>
         </section>
 
     </main>
-
 </div>
+
 <script src="../java script/admin.js"></script>
+
 </body>
-</html> 
+</html>
