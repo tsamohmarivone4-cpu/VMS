@@ -1,3 +1,10 @@
+<<<<<<< HEAD
+/* =========================
+   APPOINTMENT PAGE
+========================= */
+
+=======
+>>>>>>> d4716ee37786c54c1c5d774dbec0d0ee4ea12bdb
 * {
     margin: 0;
     padding: 0;
@@ -5,6 +12,324 @@
 }
 
 body {
+<<<<<<< HEAD
+    font-family: "Poppins", Arial, sans-serif;
+    background: #f5f7fb;
+    min-height: 100vh;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    padding: 30px;
+}
+
+
+/* =========================
+   MAIN CONTAINER
+========================= */
+
+.appointment-form {
+    width: 850px;
+    max-width: 100%;
+
+    display: flex;
+
+    background: white;
+
+    border: 2px solid #1E3A8A;
+    border-radius: 15px;
+
+    overflow: hidden;
+
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+}
+
+
+/* =========================
+   LEFT SIDE / LOGO
+========================= */
+
+.logo {
+    width: 35%;
+
+    background: #1E3A8A;
+
+    color: white;
+
+    display: flex;
+    flex-direction: column;
+
+    justify-content: center;
+    align-items: center;
+
+    padding: 40px 20px;
+}
+
+.logo img {
+    width: 150px;
+    height: 150px;
+
+    object-fit: contain;
+
+    border-radius: 12px;
+
+    margin-bottom: 20px;
+}
+
+.logo h2 {
+    font-size: 24px;
+    font-weight: 500;
+}
+
+
+/* =========================
+   RIGHT SIDE / FORM
+========================= */
+
+.form {
+    width: 65%;
+
+    padding: 40px;
+}
+
+.form h1 {
+    color: #1E3A8A;
+
+    font-size: 26px;
+
+    margin-bottom: 25px;
+}
+
+
+/* =========================
+   VISITOR INFORMATION
+========================= */
+
+#visitorInfo {
+    background: #f0f5ff;
+
+    border-left: 4px solid #2563EB;
+
+    padding: 12px 15px;
+
+    margin-bottom: 20px;
+
+    border-radius: 6px;
+}
+
+#visitorInfo p {
+    color: #555;
+
+    font-size: 14px;
+}
+
+#visitorName {
+    color: #1E3A8A;
+}
+
+
+/* =========================
+   LABELS
+========================= */
+
+.form label {
+    display: block;
+
+    margin-top: 15px;
+    margin-bottom: 7px;
+
+    color: #333;
+
+    font-size: 14px;
+    font-weight: 500;
+}
+
+
+/* =========================
+   SELECTS AND INPUTS
+========================= */
+
+.form select,
+.form input[type="date"],
+.form input[type="time"] {
+
+    width: 100%;
+
+    padding: 12px;
+
+    border: 1px solid #d1d5db;
+
+    border-radius: 8px;
+
+    background: white;
+
+    font-family: "Poppins", sans-serif;
+
+    font-size: 14px;
+
+    outline: none;
+
+    transition: 0.3s;
+}
+
+.form select:focus,
+.form input[type="date"]:focus,
+.form input[type="time"]:focus {
+
+    border-color: #2563EB;
+
+    box-shadow:
+        0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+
+/* =========================
+   NDA
+========================= */
+
+.form .nda {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+    margin-top: 20px;
+
+    font-size: 13px;
+
+    color: #555;
+
+    cursor: pointer;
+}
+
+.nda input {
+    width: auto;
+}
+
+
+/* =========================
+   BUTTONS
+========================= */
+
+.buttons {
+
+    display: flex;
+
+    gap: 12px;
+
+    margin-top: 25px;
+}
+
+.buttons button {
+
+    flex: 1;
+
+    padding: 12px 18px;
+
+    border: none;
+
+    border-radius: 8px;
+
+    font-family: "Poppins", sans-serif;
+
+    font-size: 14px;
+
+    cursor: pointer;
+
+    transition: 0.3s;
+}
+
+
+/* Cancel */
+
+#cancel {
+
+    background: #e5e7eb;
+
+    color: #333;
+}
+
+#cancel:hover {
+
+    background: #d1d5db;
+}
+
+
+/* Submit */
+
+#submit {
+
+    background: #2563EB;
+
+    color: white;
+}
+
+#submit:hover {
+
+    background: #1E3A8A;
+}
+
+
+/* =========================
+   MESSAGE
+========================= */
+
+#message {
+
+    margin-top: 20px;
+
+    text-align: center;
+
+    font-size: 14px;
+
+    color: #1E3A8A;
+
+    font-weight: 500;
+}
+
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 700px) {
+
+    body {
+        padding: 15px;
+    }
+
+    .appointment-form {
+        flex-direction: column;
+    }
+
+    .logo {
+        width: 100%;
+
+        padding: 25px;
+    }
+
+    .logo img {
+        width: 100px;
+        height: 100px;
+    }
+
+    .form {
+        width: 100%;
+
+        padding: 25px;
+    }
+
+    .form h1 {
+        font-size: 22px;
+    }
+
+    .buttons {
+        flex-direction: column;
+    }
+=======
     font-family: 'Poppins', sans-serif;
     background: #f5f7fb;
 }
@@ -108,4 +433,5 @@ button {
     .logo {
         padding: 25px;
     }
+>>>>>>> d4716ee37786c54c1c5d774dbec0d0ee4ea12bdb
 }
