@@ -34,18 +34,45 @@ function saveAppointments() {
 // Approve appointment
 function approveAppointment(id) {
 
+    let appointments =
+        JSON.parse(localStorage.getItem("appointments")) || [];
+
     const appointment =
         appointments.find(a => a.id === id);
 
     if (appointment) {
 
+        // Change appointment status
         appointment.status = "Approved";
 
-        saveAppointments();
+        // Save updated appointment
+        localStorage.setItem(
+            "appointments",
+            JSON.stringify(appointments)
+        );
 
-        alert("Appointment approved successfully!");
+        // Create receptionist notification
+        let notifications =
+            JSON.parse(
+                localStorage.getItem("receptionistNotifications")
+            ) || [];
 
-        displayAppointments();
+        notifications.push({
+            id: Date.now(),
+            message:
+                `${appointment.visitorName}'s appointment has been approved by the host.`,
+            appointmentId: appointment.id,
+            read: false
+        });
+
+        localStorage.setItem(
+            "receptionistNotifications",
+            JSON.stringify(notifications)
+        );
+
+        alert("Appointment approved!");
+
+        displayPendingAppointments();
     }
 }
 
@@ -53,63 +80,44 @@ function approveAppointment(id) {
 // Reject appointment
 function rejectAppointment(id) {
 
-    const appointment =
-        appointments.find(a => a.id === id);
-
-    if (appointment) {
-
-        appointment.status = "Rejected";
-
-        saveAppointments();
-
-        alert("Appointment rejected.");
-
-        displayAppointments();
-    }
-}
-
-
-// Check visitor in
-function checkIn(id) {
+    let appointments =
+        JSON.parse(localStorage.getItem("appointments")) || [];
 
     const appointment =
         appointments.find(a => a.id === id);
 
-    if (appointment) {
+    if (!appointment) return;
 
-        appointment.status = "Checked-in";
+    appointment.status = "Rejected";
 
-        saveAppointments();
+    localStorage.setItem(
+        "appointments",
+        JSON.stringify(appointments)
+    );
 
-        alert(
-            appointment.visitor +
-            " has been checked in."
-        );
+    // Notify receptionist
+    let notifications =
+        JSON.parse(
+            localStorage.getItem("receptionistNotifications")
+        ) || [];
 
-        displayAppointments();
-    }
-}
+    notifications.push({
+        id: Date.now(),
+        appointmentId: appointment.id,
+        type: "Rejected",
+        message:
+            `${appointment.visitorName}'s appointment has been rejected by the host.`,
+        read: false
+    });
 
+    localStorage.setItem(
+        "receptionistNotifications",
+        JSON.stringify(notifications)
+    );
 
-// Check visitor out
-function checkOut(id) {
+    alert("Appointment rejected!");
 
-    const appointment =
-        appointments.find(a => a.id === id);
-
-    if (appointment) {
-
-        appointment.status = "Completed";
-
-        saveAppointments();
-
-        alert(
-            appointment.visitor +
-            " has checked out."
-        );
-
-        displayAppointments();
-    }
+    displayPendingAppointments();
 }
 
 
@@ -151,23 +159,6 @@ function createAppointmentHTML(appointment) {
                     class="action checkin"
                     onclick="checkIn(${appointment.id})">
                     Check-in Visitor
-                </button>
-
-            </div>
-        `;
-    }
-
-
-    // Checked-in appointment
-    if (appointment.status === "Checked-in") {
-
-        buttons = `
-            <div class="buttons">
-
-                <button
-                    class="action checkout"
-                    onclick="checkOut(${appointment.id})">
-                    Check-out Visitor
                 </button>
 
             </div>
@@ -219,13 +210,7 @@ function displayAppointments() {
     document.getElementById("approvedCount").textContent =
         appointments.filter(a => a.status === "Approved").length;
 
-    document.getElementById("currentCount").textContent =
-        appointments.filter(a => a.status === "Checked-in").length;
-
-    document.getElementById("completedCount").textContent =
-        appointments.filter(a => a.status === "Completed").length;
-
-
+    
     // Get appointment groups
     const pending =
         appointments.filter(a => a.status === "Pending");
@@ -236,13 +221,7 @@ function displayAppointments() {
     const rejected =
         appointments.filter(a => a.status === "Rejected");
 
-    const current =
-        appointments.filter(a => a.status === "Checked-in");
-
-    const completed =
-        appointments.filter(a => a.status === "Completed");
-
-
+    
     // Display each group
     displayList(
         "pendingAppointments",
@@ -257,16 +236,6 @@ function displayAppointments() {
     displayList(
         "rejectedAppointments",
         rejected
-    );
-
-    displayList(
-        "currentVisitors",
-        current
-    );
-
-    displayList(
-        "completedVisits",
-        completed
     );
 
 
