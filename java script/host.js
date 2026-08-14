@@ -1,213 +1,314 @@
-
-// HOST DASHBOARD
-
-const currentUser =
-    JSON.parse(localStorage.getItem("currentUser"));
-
+// Get appointments from localStorage
 let appointments =
-    JSON.parse(localStorage.getItem("vmsAppointments")) || [];
+    JSON.parse(localStorage.getItem("appointments")) || [];
 
 
-// Show section
-function showSection(section) {
+// Display a section
+function showSection(sectionId) {
 
-    const content = document.getElementById("mainContent");
+    const sections =
+        document.querySelectorAll(".section");
 
-    if (section === "overview") {
-        content.innerHTML = `
-            <h2>Overview</h2>
+    sections.forEach(section => {
+        section.classList.remove("active");
+    });
 
-            <div class="cards">
-                <div class="card">
-                    <h3>Pending</h3>
-                    <p>${getAppointments("Pending").length}</p>
-                </div>
+    document
+        .getElementById(sectionId)
+        .classList.add("active");
 
-                <div class="card">
-                    <h3>Approved</h3>
-                    <p>${getAppointments("Approved").length}</p>
-                </div>
+    displayAppointments();
+}
 
-                <div class="card">
-                    <h3>Current Visitors</h3>
-                    <p>${getCurrent().length}</p>
-                </div>
 
-                <div class="card">
-                    <h3>Completed</h3>
-                    <p>${getCompleted().length}</p>
-                </div>
+// Save appointments
+function saveAppointments() {
+
+    localStorage.setItem(
+        "appointments",
+        JSON.stringify(appointments)
+    );
+}
+
+
+// Approve appointment
+function approveAppointment(id) {
+
+    const appointment =
+        appointments.find(a => a.id === id);
+
+    if (appointment) {
+
+        appointment.status = "Approved";
+
+        saveAppointments();
+
+        alert("Appointment approved successfully!");
+
+        displayAppointments();
+    }
+}
+
+
+// Reject appointment
+function rejectAppointment(id) {
+
+    const appointment =
+        appointments.find(a => a.id === id);
+
+    if (appointment) {
+
+        appointment.status = "Rejected";
+
+        saveAppointments();
+
+        alert("Appointment rejected.");
+
+        displayAppointments();
+    }
+}
+
+
+// Check visitor in
+function checkIn(id) {
+
+    const appointment =
+        appointments.find(a => a.id === id);
+
+    if (appointment) {
+
+        appointment.status = "Checked-in";
+
+        saveAppointments();
+
+        alert(
+            appointment.visitor +
+            " has been checked in."
+        );
+
+        displayAppointments();
+    }
+}
+
+
+// Check visitor out
+function checkOut(id) {
+
+    const appointment =
+        appointments.find(a => a.id === id);
+
+    if (appointment) {
+
+        appointment.status = "Completed";
+
+        saveAppointments();
+
+        alert(
+            appointment.visitor +
+            " has checked out."
+        );
+
+        displayAppointments();
+    }
+}
+
+
+// Create appointment HTML
+function createAppointmentHTML(appointment) {
+
+    let buttons = "";
+
+    // Pending appointment
+    if (appointment.status === "Pending") {
+
+        buttons = `
+            <div class="buttons">
+
+                <button
+                    class="action approve"
+                    onclick="approveAppointment(${appointment.id})">
+                    Approve
+                </button>
+
+                <button
+                    class="action reject"
+                    onclick="rejectAppointment(${appointment.id})">
+                    Reject
+                </button>
+
             </div>
-
-            <h2>Pending Appointments</h2>
-            <div id="appointmentList"></div>
         `;
-
-        display(getAppointments("Pending"), "appointmentList");
     }
 
-    else if (section === "pending") {
-        content.innerHTML = `
-            <h2>Pending Appointments</h2>
-            <div id="appointmentList"></div>
-        `;
 
-        display(getAppointments("Pending"), "appointmentList");
+    // Approved appointment
+    if (appointment.status === "Approved") {
+
+        buttons = `
+            <div class="buttons">
+
+                <button
+                    class="action checkin"
+                    onclick="checkIn(${appointment.id})">
+                    Check-in Visitor
+                </button>
+
+            </div>
+        `;
     }
 
-    else if (section === "approved") {
-        content.innerHTML = `
-            <h2>Approved Appointments</h2>
-            <div id="appointmentList"></div>
-        `;
 
-        display(getAppointments("Approved"), "appointmentList");
+    // Checked-in appointment
+    if (appointment.status === "Checked-in") {
+
+        buttons = `
+            <div class="buttons">
+
+                <button
+                    class="action checkout"
+                    onclick="checkOut(${appointment.id})">
+                    Check-out Visitor
+                </button>
+
+            </div>
+        `;
     }
 
-    else if (section === "rejected") {
-        content.innerHTML = `
-            <h2>Rejected Appointments</h2>
-            <div id="appointmentList"></div>
-        `;
 
-        display(getAppointments("Rejected"), "appointmentList");
-    }
+    return `
+        <div class="appointment">
 
-    else if (section === "current") {
-        content.innerHTML = `
-            <h2>Current Visitors</h2>
-            <div id="appointmentList"></div>
-        `;
+            <h3>${appointment.visitor}</h3>
 
-        display(getCurrent(), "appointmentList");
-    }
+            <p>
+                <strong>Date:</strong>
+                ${appointment.date}
+            </p>
 
-    else if (section === "completed") {
-        content.innerHTML = `
-            <h2>Completed Visits</h2>
-            <div id="appointmentList"></div>
-        `;
+            <p>
+                <strong>Time:</strong>
+                ${appointment.time}
+            </p>
 
-        display(getCompleted(), "appointmentList");
-    }
+            <p>
+                <strong>Purpose:</strong>
+                ${appointment.purpose}
+            </p>
+
+            <p>
+                <strong>Status:</strong>
+                <span class="status">
+                    ${appointment.status}
+                </span>
+            </p>
+
+            ${buttons}
+
+        </div>
+    `;
 }
 
 
-// Get appointments belonging to this Host
-function myAppointments() {
+// Display all appointments
+function displayAppointments() {
 
-    if (!currentUser) return [];
+    // Update counts
+    document.getElementById("pendingCount").textContent =
+        appointments.filter(a => a.status === "Pending").length;
 
-    return appointments.filter(a =>
-        a.host === currentUser.fullName ||
-        a.host === currentUser.username
+    document.getElementById("approvedCount").textContent =
+        appointments.filter(a => a.status === "Approved").length;
+
+    document.getElementById("currentCount").textContent =
+        appointments.filter(a => a.status === "Checked-in").length;
+
+    document.getElementById("completedCount").textContent =
+        appointments.filter(a => a.status === "Completed").length;
+
+
+    // Get appointment groups
+    const pending =
+        appointments.filter(a => a.status === "Pending");
+
+    const approved =
+        appointments.filter(a => a.status === "Approved");
+
+    const rejected =
+        appointments.filter(a => a.status === "Rejected");
+
+    const current =
+        appointments.filter(a => a.status === "Checked-in");
+
+    const completed =
+        appointments.filter(a => a.status === "Completed");
+
+
+    // Display each group
+    displayList(
+        "pendingAppointments",
+        pending
+    );
+
+    displayList(
+        "approvedAppointments",
+        approved
+    );
+
+    displayList(
+        "rejectedAppointments",
+        rejected
+    );
+
+    displayList(
+        "currentVisitors",
+        current
+    );
+
+    displayList(
+        "completedVisits",
+        completed
+    );
+
+
+    // Show pending appointments on overview
+    displayList(
+        "overviewAppointments",
+        pending
     );
 }
 
 
-// Filter by status
-function getAppointments(status) {
+// Display appointment list
+function displayList(elementId, list) {
 
-    return myAppointments().filter(a =>
-        a.status === status
-    );
-}
+    const container =
+        document.getElementById(elementId);
 
+    if (!container) return;
 
-// Current visitors
-function getCurrent() {
+    if (list.length === 0) {
 
-    return myAppointments().filter(a =>
-        a.status === "Checked In"
-    );
-}
+        container.innerHTML =
+            `<div class="empty">
+                No appointments available.
+            </div>`;
 
-
-// Completed visits
-function getCompleted() {
-
-    return myAppointments().filter(a =>
-        a.status === "Checked Out"
-    );
-}
-
-
-// Display appointments
-function display(data, element) {
-
-    const box = document.getElementById(element);
-
-    if (!data.length) {
-        box.innerHTML = "<p>No appointments found.</p>";
         return;
     }
 
-    box.innerHTML = data.map(a => `
-        <div class="appointment">
-
-            <h3>${a.visitorName}</h3>
-
-            <p>Purpose: ${a.purpose}</p>
-            <p>Date: ${a.date}</p>
-            <p>Time: ${a.time}</p>
-            <p>Status: ${a.status}</p>
-
-            ${
-                a.status === "Pending"
-                ? `
-                    <button onclick="updateStatus(${a.id}, 'Approved')">
-                        Approve
-                    </button>
-
-                    <button onclick="updateStatus(${a.id}, 'Rejected')">
-                        Reject
-                    </button>
-                  `
-                : ""
-            }
-
-        </div>
-    `).join("");
-}
-
-
-// Approve / Reject
-function updateStatus(id, status) {
-
-    appointments = appointments.map(a => {
-
-        if (a.id === id) {
-            a.status = status;
-        }
-
-        return a;
-    });
-
-    localStorage.setItem(
-        "vmsAppointments",
-        JSON.stringify(appointments)
-    );
-
-    showSection("overview");
+    container.innerHTML =
+        list.map(createAppointmentHTML).join("");
 }
 
 
 // Logout
 function logout() {
 
-    localStorage.removeItem("currentUser");
+    alert("You have been logged out.");
 
-    window.location.href = "../index.html";
+    window.location.href = "index.html";
 }
 
 
-// Show logged-in Host
-if (currentUser) {
-
-    document.getElementById("welcome").textContent =
-        "Welcome, " + currentUser.fullName;
-}
-
-
-// Start dashboard
-showSection("overview");
+// Load dashboard
+displayAppointments();
