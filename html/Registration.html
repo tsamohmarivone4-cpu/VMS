@@ -70,9 +70,9 @@ document.addEventListener("DOMContentLoaded", function () {
         event.preventDefault();
 
 
-        // ============================================
-        // GET VISITOR INFORMATION
-        // ============================================
+        
+        // get visitor information
+        
 
         const fullName =
             document.querySelector(
@@ -98,9 +98,9 @@ document.addEventListener("DOMContentLoaded", function () {
             ).value.trim();
 
 
-        // ============================================
-        // CHECK GENDER
-        // ============================================
+        
+        // check gender
+
 
         if (!genderInput) {
 
@@ -110,9 +110,9 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
 
-        // ============================================
-        // GET EXISTING VISITORS
-        // ============================================
+        
+        // get existing visitor
+        
 
         let visitors =
             JSON.parse(
@@ -120,9 +120,9 @@ document.addEventListener("DOMContentLoaded", function () {
             ) || [];
 
 
-        // ============================================
-        // CREATE NEW VISITOR
-        // ============================================
+        
+        // create visitor
+    
 
         const newVisitor = {
 
@@ -144,9 +144,9 @@ document.addEventListener("DOMContentLoaded", function () {
         };
 
 
-        // ============================================
-        // SAVE VISITOR
-        // ============================================
+        
+        // save visitor
+        
 
         visitors.push(newVisitor);
 
@@ -157,9 +157,8 @@ document.addEventListener("DOMContentLoaded", function () {
         );
 
 
-        // ============================================
-        // SAVE CURRENT VISITOR FOR APPOINTMENT
-        // ============================================
+        
+        // save current visitor for appointment
 
         localStorage.setItem(
             "appointmentVisitor",
@@ -167,9 +166,9 @@ document.addEventListener("DOMContentLoaded", function () {
         );
 
 
-        // ============================================
-        // GO TO APPOINTMENT BOOKING
-        // ============================================
+        
+        // locate the appointment file
+        
 
         window.location.href =
             "appointment booking.html";

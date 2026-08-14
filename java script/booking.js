@@ -71,7 +71,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
             time: document.getElementById("appointmentTime").value,
 
-            nda: document.getElementById("nda").checked,
 
             status: "Pending"
 

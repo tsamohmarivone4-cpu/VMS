@@ -263,7 +263,7 @@ document.addEventListener("DOMContentLoaded", () => {
     };
 
 
-    // START
+    // start
     show("dashboardSection");
     stats();
 

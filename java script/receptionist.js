@@ -22,7 +22,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
 
-    // SIDEBAR
+    // sidebar
     dashboardLink.onclick = e => {
         e.preventDefault();
         show("dashboardPanel");
@@ -53,7 +53,7 @@ document.addEventListener("DOMContentLoaded", () => {
     };
 
 
-    // DATE & TIME
+    // date and time
     function setDate(type) {
         const now = new Date();
 
@@ -65,7 +65,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
 
-    // SEARCH VISITOR
+    // search visitor
     searchVisitorBtn.onclick = () => {
 
         const text = visitorSearch.value.toLowerCase().trim();
@@ -100,7 +100,7 @@ document.addEventListener("DOMContentLoaded", () => {
     };
 
 
-    // BOOK APPOINTMENT
+    // book appointment
     window.book = visitor => {
         localStorage.setItem(
             "appointmentVisitor",
@@ -111,7 +111,7 @@ document.addEventListener("DOMContentLoaded", () => {
     };
 
 
-    // SELECT VISITOR
+    // select visitor
     window.select = (visitor, type) => {
 
         localStorage.setItem(
@@ -124,7 +124,7 @@ document.addEventListener("DOMContentLoaded", () => {
     };
 
 
-    // CHECK-IN / CHECK-OUT
+    // check-in/check-out
     function updateStatus(type) {
 
         const visitor =
@@ -182,7 +182,7 @@ document.addEventListener("DOMContentLoaded", () => {
     };
 
 
-    // DASHBOARD STATS
+    // dashbaord star
     function stats() {
 
         const visitors = data("vmsVisitors");
@@ -201,7 +201,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
 
-    // APPOINTMENTS
+    // appointment
     function appointments() {
 
         const list = data("vmsAppointments");
@@ -220,7 +220,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
 
-    // START
+    // start
     show("dashboardPanel");
     stats();
 
