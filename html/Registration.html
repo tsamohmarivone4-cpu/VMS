@@ -10,7 +10,7 @@
     <div class="main-container">
         <!--Left Side-->
         <div class="left-side">
-            <img src="../images/109126.jpg" alt="Visitor Logo">
+            <img src="images/20260818.jpg" alt="Visitor Logo">
         </div>
 
         <!--Right Side-->
@@ -26,20 +26,12 @@
 
     <label>Gender:</label><div class="gender">
 
-    <input
-        type="radio"
-        name="gender"
-        value="Male"
-        required
-    >
-    Male
-
-    <input
-        type="radio"
-        name="gender"
-        value="Female"
-    >
-    Female
+    <select id="gender" name="gender">
+        <option value="" disabled
+        selected>Gender</option>
+        <option value="male">Male</option>
+        <option value="female">Female</option>
+    </select>
     </div>
 
 <label>Email Adress</label>
@@ -86,10 +78,15 @@ document.addEventListener("DOMContentLoaded", function () {
             ).value.trim();
 
 
-        const genderInput =
-            document.querySelector(
-                'input[name="gender"]:checked'
-            );
+        const gender =
+        document.getElementById("gender").
+        value;
+
+        if (gender === "") {
+            alert("please select the visitor's gender .");
+            return;
+            
+        }
 
 
         const email =
@@ -132,7 +129,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
             phone: phone,
 
-            gender: genderInput.value,
+    
 
             email: email,
 
