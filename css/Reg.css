@@ -65,10 +65,10 @@ input[type=reset]{
     cursor:pointer;
 }
 
-.gender{
-    margin-top: 10px;
-}
 
-.gender input{
-    margin-right: 8px;
+select {
+  padding: 10px;
+  border: 1px solid navy;
+border-radius: 5px;
+color: #0f4c81;
 }
