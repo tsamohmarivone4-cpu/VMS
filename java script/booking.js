@@ -1,27 +1,4 @@
 
-<<<<<<< HEAD
-document.getElementById("bookingForm").addEventListener("submit", function(event) {
-
-    event.preventDefault();
-
-    const booking = {
-        visitor: "Ngoni vanessa",
-        host: document.getElementById("hostName").value,
-        purpose: document.getElementById("purpose").value,
-        date: document.getElementById("date").value,
-        time: document.getElementById("time").value,
-        status: "Pending"
-    };
-
-    // Get existing bookings
-    let bookings = JSON.parse(localStorage.getItem("bookings")) || [];
-
-    // Add new booking
-    bookings.push(booking);
-
-    // Save booking
-    localStorage.setItem("bookings", JSON.stringify(bookings));
-=======
     // Visitor
     const visitorData = localStorage.getItem("appointmentVisitor");
     const visitorName = document.getElementById("visitorName");
@@ -129,7 +106,6 @@ document.getElementById("bookingForm").addEventListener("submit", function(event
 
             window.location.href = "receptionist.html";
         });
->>>>>>> 4d7801a8ba2b060ab02c0f28e7c13fa1a0f6c2b0
 
     // Go to host dashboard
     window.location.href = "host-dashboard.html";
