@@ -14,7 +14,7 @@
         <aside class="sidebar">
 
              <div class="logo">
-            <img src="../images/109126.jpg"alt="VMS Logo" width="150px" height="150px">
+            <img src="../images/IMG_E6766.JPG"alt="VMS Logo" width="200px" height="150px">
             
         </div>
 
@@ -22,18 +22,23 @@
                 <button onclick="showSection('overview')">
                     Dashboard
                 </button>
+                <br>
 
                 <button onclick="showSection('pending')">
                     Pending Appointments
                 </button>
+                <br>
 
                 <button onclick="showSection('approved')">
                   Approved Appointments
                 </button>
+                <br>
 
                 <button onclick="showSection('rejected')">
                     Rejected Appointments
                 </button>
+                <br>
+
 
             </nav>
 
@@ -58,8 +63,6 @@
             <!-- OVERVIEW -->
             <section id="overview" class="section active">
 
-                <h2>Overview</h2>
-
                 <div class="cards">
 
                     <div class="card pending-card">
@@ -72,13 +75,40 @@
                         <p id="approvedCount">0</p>
                     </div>
 
+                    <div class="card current-card">
+                        <h3>current visitors</h3>
+                        <p id="currentCount">0</p>
+                    </div>
+
+                    <div class="card completed-card">
+                        <h3>completed</h3>
+                        <p id="completedCount">0</p>
+                    </div>
+
+
                 </div>
 
                 <h2 class="section-title">
                     Pending Appointments
                 </h2>
 
-                <div id="overviewAppointments"></div>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Purpose of visit</th>
+                                <th>Date</th>
+                                <th>Time</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+
+                        <tbody id="appointmentTable">
+                            <!-- JavaScript will put appointments here -->
+                        </tbody>
+                    </table>
+                </div>
 
             </section>
 
