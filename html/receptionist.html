@@ -3,227 +3,163 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Receptionist Dashboard</title>
 
-    <link rel="stylesheet"
-          href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
 
-    <link rel="stylesheet"
-          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+
+    
     <link rel="stylesheet" href="../css/receptionist.css">
 </head>
 
 <body>
 
-<div class="container">
-
     <!-- sidebar -->
-    <aside class="sidebar">
-
-        <div class="logo">
-            <img src="../images/109126.jpg" alt="VMS Logo">
+     <a=        <div class="logo">==
+        =
+            <h2>VMS</h2>
         </div>
 
-        <ul>
-            <li class="active">
-                <a href="#" id="dashboardLink">
-                    <i class="fa-solid fa-house"></i> Dashboard
-                </a>
-            </li>
+        <nav class="sidebar-nav">
 
-            <li>
-                <a href="Registration.html" id="registerLink">
-                    <i class="fa-solid fa-user-plus"></i> Register Visitor
-                </a>
-            </li>
-
-            <li>
-                <a href="#" id="searchVisitorLink">
-                    <i class="fa-solid fa-magnifying-glass"></i> Search Visitor
-                </a>
-            </li>
-
-            <li>
-                <a href="../html/appointments.html" id="appointmentLink">
-                    <i class="fa-solid fa-list-check"></i> Manage Appointments</a>
-            </li>
-
-            <li>
-                <a href="#" id="checkInLink">
-                    <i class="fa-solid fa-right-to-bracket"></i> Check-In</a>
-            </li>
-
-            <li>
-                <a href="#" id="checkOutLink">
-                    <i class="fa-solid fa-right-from-bracket"></i> Check-Out</a>
-            </li>
-
-            <li>
-                  <a href="../index.html" id="logoutLink">
-            <i class="fa-solid fa-right-from-bracket"></i> Logout
+            <!-- Dashboard -->
+            <a href="receptionist.html" class="nav-btn active">
+                <i class="fa-solid fa-house"></i>
+                <span>Dashboard</span>
             </a>
-                    
-             </li>
-        </ul>
+
+
+            <!-- Search Visitor -->
+            <a href="search.html" class="nav-btn">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <span>Search Visitor</span>
+            </a>
+
+
+            <!-- Manage Appointments -->
+            <a href="manage appointment.html" class="nav-btn">
+                <i class="fa-solid fa-calendar-check"></i>
+                <span>Manage Appointments</span>
+            </a>
+
+        </nav>
+
+
+        <!-- Logout -->
+        <button class="logout-btn" onclick="logout()">
+            <i class="fa-solid fa-right-from-bracket"></i>
+            <span>Logout</span>
+        </button>
 
     </aside>
 
 
-    <!-- main content -->
-    <main class="content" id="mainContent">
+    <!--main content -->
 
-        <!-- DASHBOARD -->
-        <section id="dashboardPanel">
+    <main class="main-content">
 
-            <header>
-                <h1>Receptionist Dashboard</h1>
-            </header>
+        <h1>Receptionist Dashboard</h1>
 
-            <section class="cards">
 
-                <div class="card">
+        <!-- cards-->
+
+        <div class="stats-container">
+
+            <!-- Total Visitors -->
+            <div class="stat-card">
+
+                <div>
                     <h3>Total Visitors</h3>
-                    <h2 id="totalVisitors">0</h2>
+                    <p id="totalVisitors">0</p>
                 </div>
 
-                <div class="card">
+            
+
+            </div>
+
+
+            <!-- Pending Appointments -->
+            <div class="stat-card">
+
+                <div>
                     <h3>Pending Appointments</h3>
-                    <h2 id="pendingAppointments">0</h2>
+                    <p id="pendingAppointments">0</p>
                 </div>
 
-                <div class="card">
+            </div>
+
+
+            <!-- Checked In -->
+            <div class="stat-card">
+
+                <div>
                     <h3>Checked In</h3>
-                    <h2 id="checkedIn">0</h2>
+                    <p id="checkedIn">0</p>
                 </div>
 
-                <div class="card">
+            </div>
+
+
+            <!-- Checked Out -->
+            <div class="stat-card">
+
+                <div>
                     <h3>Checked Out</h3>
-                    <h2 id="checkedOut">0</h2>
+                    <p id="checkedOut">0</p>
                 </div>
 
-            </section>
+            </div>
 
-            <section class="table-section">
-                <h2>Recent Visitor Activity</h2>
+        </div>
+
+
+        <!--  weekly activities  -->
+
+        <section class="activities">
+
+            <h2>Weekly Activities</h2>
+
+            <div class="table-container">
 
                 <table>
+
                     <thead>
+
                         <tr>
                             <th>Visitor</th>
                             <th>Host</th>
                             <th>Status</th>
                             <th>Time</th>
+                            <th>Date</th>
                         </tr>
+
                     </thead>
 
-                    <tbody id="recentActivity"></tbody>
+                    <tbody id="activityTable">
+
+                        <tr>
+                            <td colspan="4">
+                                No activities available
+                            </td>
+                        </tr>
+
+                    </tbody>
+
                 </table>
-            </section>
-
-        </section>
-
-
-        <!-- check-in form -->
-        <section class="checkin-panel" id="checkInPanel">
-
-            <h2>Check-In Visitor</h2>
-            <p>Record the visitor's check-in date and time.</p>
-
-            <form id="checkInForm">
-
-                <label>Date</label>
-                <input type="date" id="checkInDate" required>
-
-                <label>Time</label>
-                <input type="time" id="checkInTime" required>
-
-                <button type="submit">
-                    Confirm Check-In
-                </button>
-
-            </form>
-
-        </section>
-
-
-        <!-- check-out form -->
-        <section class="checkin-panel" id="checkOutPanel">
-
-            <h2>Check-Out Visitor</h2>
-            <p>Record the visitor's check-out date and time.</p>
-
-            <form id="checkOutForm">
-
-                <label>Date</label>
-                <input type="date" id="checkOutDate" required>
-
-                <label>Time</label>
-                <input type="time" id="checkOutTime" required>
-
-                <button type="submit">
-                    Confirm Check-Out
-                </button>
-
-            </form>
-
-        </section>
-
-
-        <!-- search panel -->
-        <section class="search-panel" id="searchPanel">
-
-            <h2>Search Visitor</h2>
-            <p>Search by visitor name or phone number.</p>
-
-            <div class="search-box">
-
-                <input
-                    type="text"
-                    id="visitorSearch"
-                    placeholder="Enter name or phone number"
-                >
-
-                <button type="button" id="searchVisitorBtn">
-                    <i class="fa-solid fa-magnifying-glass"></i>
-                    Search
-                </button>
 
             </div>
-
-            <div id="searchResults">
-                <p>Enter a visitor name or phone number.</p>
-            </div>
-
-        </section>
-
-
-        <!-- manage appointment -->
-        <section id="appointmentPanel">
-
-            <h2>Manage Appointments</h2>
-            <p>View and manage visitor appointments.</p>
-
-            <div id="appointmentContent"></div>
-
-        </section>
-
-
-        <!-- register visitor-->
-        <section id="registerPanel">
-
-            <h2>Register Visitor</h2>
-            <p>Register a new visitor.</p>
-
-            <div id="registrationContent"></div>
 
         </section>
 
     </main>
 
-</div>
 
-<script src="../java script/receptionist.js"></script>
+    <!-- JavaScript -->
+    <script src="../JavaScript/receptionist.js"></script>
 
 </body>
 </html>

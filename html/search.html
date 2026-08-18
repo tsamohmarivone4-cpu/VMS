@@ -1,0 +1,101 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Search Visitor</title>
+
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+
+    <link rel="stylesheet" href="../css/search.css">
+</head>
+
+<body>
+
+    <main class="search-page">
+
+        <!-- page header -->
+        <div class="page-header">
+
+            <div>
+                <h1>Search Visitor</h1>
+                <p>Search visitor by name or phone number</p>
+            </div>
+
+            <a href="Registration.html" class="register-btn">
+                <i class="fa-solid fa-user-plus"></i>
+                Register Visitor
+            </a>
+
+        </div>
+
+
+        <!--search  -->
+        <section class="search-section">
+
+            <div class="search-box">
+
+                <input
+                    type="text"
+                    id="visitorSearch"
+                    placeholder="Enter name or phone number"
+                >
+
+                <button id="searchBtn">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    Search
+                </button>
+
+            </div>
+
+        </section>
+
+
+        <!-- visitor information -->
+        <section class="visitor-section">
+
+            <h2>Visitor Information</h2>
+
+            <div class="table-container">
+
+                <table>
+
+                    <thead>
+                        <tr>
+                            <th>Full Name</th>
+                            <th>Phone Number</th>
+                            <th>Gender</th>
+                            <th>Email Address</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+
+                    <tbody id="visitorTable">
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+            <div id="noResult" class="no-result">
+                No visitor found.
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <script src="../JavaScript/search-v"></script>
+
+</body>
+</html>
