@@ -36,9 +36,6 @@ function changeStatus(id, status) {
 }
 
 function approveAppointment(id) {
-<<<<<<< HEAD
-    changeStatus(id, "Approved");
-=======
 
     let appointments =
         JSON.parse(localStorage.getItem("appointments")) || [];
@@ -80,16 +77,9 @@ function approveAppointment(id) {
 
         displayPendingAppointments();
     }
->>>>>>> a922dba0b97fa66fe1fa1b5e7b9a279eda02381b
 }
 
 function rejectAppointment(id) {
-<<<<<<< HEAD
-    changeStatus(id, "Rejected");
-}
-
-function card(a) {
-=======
 
     let appointments =
         JSON.parse(localStorage.getItem("appointments")) || [];
@@ -134,7 +124,6 @@ function card(a) {
 
 // Create appointment HTML
 function createAppointmentHTML(appointment) {
->>>>>>> a922dba0b97fa66fe1fa1b5e7b9a279eda02381b
 
     let buttons = "";
 
@@ -150,8 +139,6 @@ function createAppointmentHTML(appointment) {
         `;
     }
 
-<<<<<<< HEAD
-=======
 
     // Approved appointment
     if (appointment.status === "Approved") {
@@ -170,7 +157,6 @@ function createAppointmentHTML(appointment) {
     }
 
 
->>>>>>> a922dba0b97fa66fe1fa1b5e7b9a279eda02381b
     return `
         <div class="appointment">
 
@@ -197,8 +183,6 @@ function display() {
     appointments =
         JSON.parse(localStorage.getItem("vmsAppointments")) || [];
 
-<<<<<<< HEAD
-=======
     // Update counts
     document.getElementById("pendingCount").textContent =
         appointments.filter(a => a.status === "Pending").length;
@@ -208,7 +192,6 @@ function display() {
 
     
     // Get appointment groups
->>>>>>> a922dba0b97fa66fe1fa1b5e7b9a279eda02381b
     const pending =
         appointments.filter(a => a.status === "Pending");
 
@@ -218,30 +201,6 @@ function display() {
     const rejected =
         appointments.filter(a => a.status === "Rejected");
 
-<<<<<<< HEAD
-    pendingCount.textContent = pending.length;
-    approvedCount.textContent = approved.length;
-
-    pendingAppointments.innerHTML =
-        pending.length
-            ? pending.map(card).join("")
-            : "<p>No pending appointments.</p>";
-
-    approvedAppointments.innerHTML =
-        approved.length
-            ? approved.map(card).join("")
-            : "<p>No approved appointments.</p>";
-
-    rejectedAppointments.innerHTML =
-        rejected.length
-            ? rejected.map(card).join("")
-            : "<p>No rejected appointments.</p>";
-
-    overviewAppointments.innerHTML =
-        pending.length
-            ? pending.map(card).join("")
-            : "<p>No pending appointments.</p>";
-=======
     
     // Display each group
     displayList(
@@ -265,7 +224,6 @@ function display() {
         "overviewAppointments",
         pending
     );
->>>>>>> a922dba0b97fa66fe1fa1b5e7b9a279eda02381b
 }
 
 function logout() {

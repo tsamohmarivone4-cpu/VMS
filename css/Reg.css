@@ -10,26 +10,14 @@ body{
 
   .main-container{
     display: flex;
-    width: 900px;
+    width: px;
     background: white;
     border-radius: 15px;
     overflow: 0 10px 25px
     rgba(0,0,0,0.2) ;
   }
 
-  .left-side{
-    width: 40%;
-    background: #0f4c81;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 30px;
-  }
-
-  .left-side img{
-    width: 250px;
-    max-width: 100%;
-  }
+  
 
   .right-side{
     width: 60%;
@@ -53,6 +41,13 @@ input[ type="text" ]{
     border: 1px solid #ccc;
     border-radius: 8px;
     margin-top: 5px;
+}
+input[ type="email"]{
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  margin-top: 5px;
 }
 
 input[type=submit],

@@ -1,10 +1,7 @@
 document.addEventListener("DOMContentLoaded", () => {
 
-<<<<<<< HEAD
-=======
     // Visitor
     const visitorData = localStorage.getItem("appointmentVisitor");
->>>>>>> a922dba0b97fa66fe1fa1b5e7b9a279eda02381b
     const visitorName = document.getElementById("visitorName");
     const hostSelect = document.getElementById("host");
     const form = document.getElementById("appointmentForm");
@@ -110,8 +107,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     });
 
-<<<<<<< HEAD
-=======
             const host = document.getElementById("host").value;
             const purpose = document.getElementById("purpose").value.trim();
             const date = document.getElementById("appointmentDate").value;
@@ -178,5 +173,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Go to host dashboard
     window.location.href = "host-dashboard.html";
->>>>>>> a922dba0b97fa66fe1fa1b5e7b9a279eda02381b
+
+
+    }
 });

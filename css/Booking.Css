@@ -15,7 +15,7 @@ body {
 }
 
 .appointment-form {
-    width: 850px;
+    width: 700px;
     max-width: 100%;
     display: flex;
     background: white;
@@ -23,21 +23,6 @@ body {
     border-radius: 15px;
     overflow: hidden;
     box-shadow: 0 8px 25px #0002;
-}
-
-.logo {
-    width: 35%;
-    background: #1E3A8A;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.logo img {
-    width: 150px;
-    height: 150px;
-    object-fit: contain;
-    border-radius: 12px;
 }
 
 .form {
@@ -72,7 +57,7 @@ select,
 input[type="date"],
 input[type="time"],
 textarea {
-    width: 100%;
+    width: 150%;
     padding: 10px;
     border: 1px solid #ddd;
     border-radius: 7px;
