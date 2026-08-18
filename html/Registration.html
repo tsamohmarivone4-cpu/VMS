@@ -10,7 +10,7 @@
     <div class="main-container">
         <!--Left Side-->
         <div class="left-side">
-            <img src="../images/109126.jpg" alt="Visitor Logo">
+            <img src="images/20260818.jpg" alt="Visitor Logo">
         </div>
 
         <!--Right Side-->
@@ -24,23 +24,12 @@
   <label>Phone Number</label>
   <input type="text" name="phone" required>
 
-    <label>Gender:</label><div class="gender">
-
-    <input
-        type="radio"
-        name="gender"
-        value="Male"
-        required
-    >
-    Male
-
-    <input
-        type="radio"
-        name="gender"
-        value="Female"
-    >
-    Female
-    </div>
+    <label>Gender</label>
+			<select name="gender">
+				<option value="male">Male</option>
+				<option value="female">Female</option>
+				<option value="other">Other</option>
+			</select>
 
 <label>Email Adress</label>
   <input type="email" name="email" required>
@@ -70,9 +59,9 @@ document.addEventListener("DOMContentLoaded", function () {
         event.preventDefault();
 
 
-        // ============================================
-        // GET VISITOR INFORMATION
-        // ============================================
+        
+        // get visitor information
+        
 
         const fullName =
             document.querySelector(
@@ -86,10 +75,15 @@ document.addEventListener("DOMContentLoaded", function () {
             ).value.trim();
 
 
-        const genderInput =
-            document.querySelector(
-                'input[name="gender"]:checked'
-            );
+        const gender =
+        document.getElementById("gender").
+        value;
+
+        if (gender === "") {
+            alert("please select the visitor's gender .");
+            return;
+            
+        }
 
 
         const email =
@@ -98,9 +92,9 @@ document.addEventListener("DOMContentLoaded", function () {
             ).value.trim();
 
 
-        // ============================================
-        // CHECK GENDER
-        // ============================================
+        
+        // check gender
+
 
         if (!genderInput) {
 
@@ -110,9 +104,9 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
 
-        // ============================================
-        // GET EXISTING VISITORS
-        // ============================================
+        
+        // get existing visitor
+        
 
         let visitors =
             JSON.parse(
@@ -120,9 +114,9 @@ document.addEventListener("DOMContentLoaded", function () {
             ) || [];
 
 
-        // ============================================
-        // CREATE NEW VISITOR
-        // ============================================
+        
+        // create visitor
+    
 
         const newVisitor = {
 
@@ -132,7 +126,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
             phone: phone,
 
-            gender: genderInput.value,
+    
 
             email: email,
 
@@ -144,9 +138,9 @@ document.addEventListener("DOMContentLoaded", function () {
         };
 
 
-        // ============================================
-        // SAVE VISITOR
-        // ============================================
+        
+        // save visitor
+        
 
         visitors.push(newVisitor);
 
@@ -157,9 +151,8 @@ document.addEventListener("DOMContentLoaded", function () {
         );
 
 
-        // ============================================
-        // SAVE CURRENT VISITOR FOR APPOINTMENT
-        // ============================================
+        
+        // save current visitor for appointment
 
         localStorage.setItem(
             "appointmentVisitor",
@@ -167,9 +160,9 @@ document.addEventListener("DOMContentLoaded", function () {
         );
 
 
-        // ============================================
-        // GO TO APPOINTMENT BOOKING
-        // ============================================
+        
+        // locate the appointment file
+        
 
         window.location.href =
             "appointment booking.html";

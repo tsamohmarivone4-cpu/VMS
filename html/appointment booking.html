@@ -2,146 +2,112 @@
 <html lang="en">
 
 <head>
-
     <meta charset="UTF-8">
-
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Appointment Booking Form</title>
 
     <link rel="stylesheet" href="../css/Booking.Css">
-
 </head>
 
 <body>
 
-    <div class="appointment-form">
+<div class="appointment-form">
 
-        <!-- LEFT SIDE -->
-        <div class="logo">
-
-            <img
-                src="../images/109126.jpg"
-                alt="Company logo"
-            >
-
-        </div>
-
-
-        <!-- RIGHT SIDE -->
-        <div class="form">
-
-            <h1>Schedule an Appointment</h1>
-
-
-            <!-- Visitor information -->
-            <div id="visitorInfo">
-
-                <p>
-                    Visitor:
-                    <strong id="visitorName">
-                        Loading...
-                    </strong>
-                </p>
-
-            </div>
-
-
-            <form id="appointmentForm">
-
-
-                <!-- HOST -->
-                <label for="host">
-                    Host Name
-                </label>
-
-                <select id="host" required>
-
-                    <option value="">
-                        Select Host
-                    </option>
-
-                    <option value="host1">
-                        John Dd
-                    </option>
-
-                    <option value="host2">
-                        Mary Ss
-                    </option>
-
-                    <option value="hoast3">Mr.smith</option>
-
-                </select>
-
-
-                <!-- PURPOSE -->
-                <label for="purpose">
-                    Purpose of Visit
-                </label>
-
-                <textarea
-                    id="purpose"
-                    placeholder="Enter the purpose of your visit"
-                    rows="4"
-                    required
-                ></textarea>
-
-
-                <!-- DATE -->
-                <label for="appointmentDate">
-                    Date
-                </label>
-
-                <input
-                    type="date"
-                    id="appointmentDate"
-                    required
-                >
-
-
-                <!-- TIME -->
-                <label for="appointmentTime">
-                    Time
-                </label>
-
-                <input
-                    type="time"
-                    id="appointmentTime"
-                    required
-                >
-
-                <!-- BUTTONS -->
-                <div class="buttons">
-
-                    <button
-                        type="button"
-                        id="cancel"
-                    >
-                        Cancel
-                    </button>
-
-                    <button
-                        type="submit"
-                        id="submit"
-                    >
-                        Submit Booking
-                    </button>
-
-                </div>
-
-            </form>
-
-
-            <p id="message"></p>
-
-        </div>
-
+    <!-- left side -->
+    <div class="logo">
+        <img src="../images/109126.jpg" alt="vms logo">
     </div>
 
 
-    <script src="../java script/booking.js"></script>
+    <!-- righ side -->
+    <div class="form">
+
+        <h1>Schedule an Appointment</h1>
+
+        <!-- visitors information-->
+        <div id="visitorInfo">
+            <p>
+                Visitor:
+                <strong id="visitorName">Loading...</strong>
+            </p>
+        </div>
+
+
+        <form id="appointmentForm">
+
+            <!-- HOST -->
+            <label for="host">Host Name</label>
+
+            <select id="host" required>
+
+                <option value="">
+                    Select Host
+                </option>
+
+            </select>
+
+
+            <!--purpose--> 
+            <label for="purpose">
+                Purpose of Visit
+            </label>
+
+            <textarea
+                id="purpose"
+                placeholder="Enter the purpose of your visit"
+                rows="4"
+                required
+            ></textarea>
+
+
+            <!-- date -->
+            <label for="appointmentDate">
+                Date
+            </label>
+
+            <input
+                type="date"
+                id="appointmentDate"
+                required
+            >
+
+
+            <!-- time -->
+            <label for="appointmentTime">
+                Time
+            </label>
+
+            <input
+                type="time"
+                id="appointmentTime"
+                required>
+            
+
+            <!-- buttons-->
+            <div class="buttons">
+
+                <button type="button" id="cancel">
+                    Cancel
+                </button>
+
+                <button type="submit" id="submit">
+                    Submit Booking
+                </button>
+
+            </div>
+
+        </form>
+
+
+        <p id="message"></p>
+
+    </div>
+
+</div>
+
+
+<script src="../java script/booking.js"></script>
 
 </body>
-
 </html>

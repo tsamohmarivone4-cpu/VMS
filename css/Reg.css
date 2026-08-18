@@ -8,67 +8,21 @@ body{
     height: 100vh;
 }
 
-  .main-container{
-    display: flex;
-    width: 900px;
-    background: white;
-    border-radius: 15px;
-    overflow: 0 10px 25px
-    rgba(0,0,0,0.2) ;
+.form-group {
+    margin-bottom: 16px;
   }
-
-  .left-side{
-    width: 40%;
-    background: #0f4c81;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 30px;
-  }
-
-  .left-side img{
-    width: 250px;
-    max-width: 100%;
-  }
-
-  .right-side{
-    width: 60%;
-    padding: 40px;
-  }
-
-  .right-side h2{
-    color: navy;
-    margin-bottom: 20px;
-  }
-
-  label{
+  .form-group label {
     display: block;
-    margin-top: 15px;
-    font-weight: bold;
+    font-weight: 600;
+    margin-bottom: 6px;
+    font-family: Arial, sans-serif;
   }
-
-input[ type="text" ]{
+  .form-group input,
+  .form-group select {
     width: 100%;
     padding: 10px;
     border: 1px solid #ccc;
-    border-radius: 8px;
-    margin-top: 5px;
-}
-
-input[type=submit],
-input[type=reset]{
-    width: 45%;
-    background: navy;
-    color: white;
-    border: none;
-    padding: 10px;
-    cursor:pointer;
-}
-
-.gender{
-    margin-top: 10px;
-}
-
-.gender input{
-    margin-right: 8px;
-}
+    border-radius: 6px;
+    font-size: 14px;
+    box-sizing: border-box;
+  }

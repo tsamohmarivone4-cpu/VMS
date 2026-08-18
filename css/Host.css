@@ -16,7 +16,7 @@ body {
 }
 
 
-/* SIDEBAR */
+/* sidebar */
 
 .sidebar {
     width: 250px;
@@ -70,7 +70,7 @@ body {
 }
 
 
-/* MAIN */
+/* main*/
 
 .main {
     margin-left: 250px;
@@ -78,7 +78,7 @@ body {
 }
 
 
-/* TOP BAR */
+/* topbar */
 
 .topbar {
     background: white;
@@ -93,7 +93,7 @@ body {
     color: black;
 }
 
-/* SECTIONS */
+/* section */
 
 .section {
     display: none;
@@ -105,7 +105,7 @@ body {
 }
 
 
-/* CARDS */
+/* cards */
 
 .cards {
     display: grid;
@@ -130,6 +130,7 @@ body {
     font-weight: bold;
 }
 
+<<<<<<< HEAD
 .table-container {
     width: 95%;
     margin: 20px auto;
@@ -165,6 +166,9 @@ td {
 }
 
 /* APPOINTMENT */
+=======
+/* appoinment */
+>>>>>>> 3ae7776a0e62da4b1ab1b8c400266b032297f269
 
 .section-title {
     margin-top: 35px;
@@ -192,7 +196,7 @@ td {
 }
 
 
-/* BUTTONS */
+/* button */
 
 .buttons {
     margin-top: 15px;
@@ -228,7 +232,7 @@ button.action:hover {
 }
 
 
-/* EMPTY MESSAGE */
+/* empty massage */
 
 .empty {
     background: white;
@@ -240,7 +244,7 @@ button.action:hover {
 }
 
 
-/* MOBILE */
+/* mobile */
 
 @media (max-width: 800px) {
 

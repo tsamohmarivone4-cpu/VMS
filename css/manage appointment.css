@@ -7,11 +7,24 @@
 body {
     font-family: 'Poppins', sans-serif;
     background: #f5f7fb;
+    min-height: 100vh;
 }
 
+
+/* =========================
+   MAIN CONTENT
+========================= */
+
 .content {
+    width: 100%;
+    min-height: 100vh;
     padding: 35px 40px;
 }
+
+
+/* =========================
+   PAGE HEADER
+========================= */
 
 .page-header {
     margin-bottom: 25px;
@@ -20,12 +33,19 @@ body {
 h1 {
     font-size: 28px;
     color: #1f2937;
+    font-weight: 600;
 }
 
 .page-header p {
     color: #6b7280;
     font-size: 14px;
+    margin-top: 5px;
 }
+
+
+/* =========================
+   SEARCH BOX
+========================= */
 
 .search-box {
     position: relative;
@@ -36,26 +56,55 @@ h1 {
 .search-box i {
     position: absolute;
     left: 12px;
-    top: 12px;
+    top: 50%;
+    transform: translateY(-50%);
     color: #999;
 }
 
 .search-box input {
     width: 100%;
     padding: 11px 10px 11px 38px;
+
     border: 1px solid #ddd;
     border-radius: 8px;
+
     outline: none;
+
+    font-family: inherit;
+    font-size: 14px;
 }
+
+.search-box input:focus {
+    border-color: #1e3a8a;
+}
+
+
+/* =========================
+   APPOINTMENT SECTION
+========================= */
 
 .appointment-section {
     background: white;
+
     padding: 25px;
+
     border-radius: 12px;
 }
 
 .appointment-section h2 {
     margin-bottom: 20px;
+    font-size: 20px;
+    color: #1f2937;
+}
+
+
+/* =========================
+   TABLE
+========================= */
+
+.table-container {
+    width: 100%;
+    overflow-x: auto;
 }
 
 table {
@@ -66,28 +115,61 @@ table {
 th,
 td {
     padding: 13px;
+
     text-align: left;
+
     border-bottom: 1px solid #eee;
+
     font-size: 13px;
 }
 
 th {
     background: #f1f5f9;
+    color: #1e3a8a;
+    font-weight: 600;
 }
+
+td {
+    color: #555;
+}
+
+
+/* =========================
+   NO APPOINTMENTS
+========================= */
 
 .no-appointments {
     display: none;
+
     text-align: center;
+
     padding: 25px;
+
     color: #999;
 }
 
+
+/* =========================
+   RESPONSIVE
+========================= */
+
 @media (max-width: 700px) {
+
     .content {
         padding: 25px 15px;
     }
 
     .search-box {
         width: 100%;
+    }
+
+    .appointment-section {
+        padding: 18px;
+    }
+
+    th,
+    td {
+        padding: 10px;
+        font-size: 12px;
     }
 }

@@ -1,9 +1,5 @@
-/* ==========================================
-   VISITOR MANAGEMENT SYSTEM - LOGIN PAGE
-   ========================================== */
-
-
-/* ---------- RESET ---------- */
+                                                                                                                                                                   *
+/* reset */
 
 * {
     margin: 0;
@@ -12,7 +8,7 @@
 }
 
 
-/* ---------- BODY ---------- */
+/*body*/
 
 body {
     font-family: Arial, Helvetica, sans-serif;
@@ -27,7 +23,7 @@ body {
 }
 
 
-/* ---------- MAIN CONTAINER ---------- */
+/* mainconteiner */
 
 .container {
     width: 100%;
@@ -47,9 +43,7 @@ body {
 }
 
 
-/* ==========================================
-   LEFT SECTION
-   ========================================== */
+/* left section */
 
 .left {
     width: 50%;
@@ -68,7 +62,7 @@ body {
 }
 
 
-/* ---------- LEFT HEADING ---------- */
+/* left heading */
 
 .left h1 {
     font-size: 40px;
@@ -97,9 +91,7 @@ body {
 }
 
 
-/* ==========================================
-   RIGHT SECTION
-   ========================================== */
+/*right section*/
 
 .right {
     width: 50%;
@@ -115,7 +107,7 @@ body {
 }
 
 
-/* ---------- LOGIN BOX ---------- */
+/* login box */
 
 .login-box {
     width: 100%;
@@ -131,7 +123,7 @@ body {
 }
 
 
-/* ---------- LOGIN HEADING ---------- */
+/* login hearding */
 
 .login-box h2 {
     color: #24418f;
@@ -144,16 +136,14 @@ body {
 }
 
 
-/* ==========================================
-   FORM
-   ========================================== */
+/* form*/
 
 .login-box form {
     width: 100%;
 }
 
 
-/* ---------- LABELS ---------- */
+/* labels */
 
 .login-box label {
     display: block;
@@ -170,14 +160,14 @@ body {
 }
 
 
-/* First label */
+/* first label*/
 
 .login-box label:first-of-type {
     margin-top: 0;
 }
 
 
-/* ---------- INPUTS ---------- */
+/* input */
 
 .login-box input {
     width: 100%;
@@ -202,7 +192,7 @@ body {
 }
 
 
-/* ---------- INPUT PLACEHOLDER ---------- */
+/* placeholder for input*/
 
 .login-box input::placeholder {
     color: #777777;
@@ -211,18 +201,15 @@ body {
 }
 
 
-/* ---------- INPUT FOCUS ---------- */
+
 
 .login-box input:focus {
     border-color: #24418f;
 
-    box-shadow: 0 0 0 3px rgba(36, 65, 143, 0.12);
-}
+    box-shadow: 0 0 0 3px rgba(36, 65, 143l);
+ }
 
-
-/* ==========================================
-   LOGIN BUTTON
-   ========================================== */
+ /*login button --*/
 
 .login-box button {
     width: 100%;
@@ -249,7 +236,7 @@ body {
 }
 
 
-/* ---------- BUTTON HOVER ---------- */
+/* button hover */
 
 .login-box button:hover {
     background-color: #1b3478;
@@ -260,16 +247,14 @@ body {
 }
 
 
-/* ---------- BUTTON ACTIVE ---------- */
+/*login button*/
 
 .login-box button:active {
     transform: translateY(0);
 }
 
 
-/* ==========================================
-   LOGIN MESSAGE
-   ========================================== */
+/* login massage*/
 
 #loginMessage {
     text-align: center;
@@ -278,16 +263,11 @@ body {
 
     margin-top: 15px;
 
-    min-height: 20px;
+    min-height: auto;
 }
 
 
-/* ==========================================
-   RESPONSIVE DESIGN
-   ========================================== */
-
-
-/* ---------- TABLETS ---------- */
+/* --tables-- */
 
 @media screen and (max-width: 900px) {
 
@@ -322,7 +302,7 @@ body {
 }
 
 
-/* ---------- MOBILE ---------- */
+/*--mobile-- */
 
 @media screen and (max-width: 700px) {
 
@@ -400,7 +380,7 @@ body {
 }
 
 
-/* ---------- SMALL PHONES ---------- */
+/* --smalp phone-- */
 
 @media screen and (max-width: 400px) {
 
