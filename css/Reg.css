@@ -8,10 +8,35 @@ body{
     height: 100vh;
 }
 
+<<<<<<< HEAD
 .form-group {
     margin-bottom: 16px;
   }
   .form-group label {
+=======
+  .main-container{
+    display: flex;
+    width: px;
+    background: white;
+    border-radius: 15px;
+    overflow: 0 10px 25px
+    rgba(0,0,0,0.2) ;
+  }
+
+  
+
+  .right-side{
+    width: 60%;
+    padding: 40px;
+  }
+
+  .right-side h2{
+    color: navy;
+    margin-bottom: 20px;
+  }
+
+  label{
+>>>>>>> de8e96f0690a1a3391bf3edd19a00122e6a70c4d
     display: block;
     font-weight: 600;
     margin-bottom: 6px;
@@ -22,7 +47,38 @@ body{
     width: 100%;
     padding: 10px;
     border: 1px solid #ccc;
+<<<<<<< HEAD
     border-radius: 6px;
     font-size: 14px;
     box-sizing: border-box;
   }
+=======
+    border-radius: 8px;
+    margin-top: 5px;
+}
+input[ type="email"]{
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  margin-top: 5px;
+}
+
+input[type=submit],
+input[type=reset]{
+    width: 45%;
+    background: navy;
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor:pointer;
+}
+
+
+select {
+  padding: 10px;
+  border: 1px solid navy;
+border-radius: 5px;
+color: #0f4c81;
+}
+>>>>>>> de8e96f0690a1a3391bf3edd19a00122e6a70c4d

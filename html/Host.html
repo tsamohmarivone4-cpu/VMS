@@ -91,7 +91,9 @@
                 <h2 class="section-title">
                     Pending Appointments
                 </h2>
+            </section>
 
+            
                 <div class="table-container">
                     <table>
                         <thead>
@@ -104,13 +106,20 @@
                             </tr>
                         </thead>
 
-                        <tbody id="appointmentTable">
-                            <!-- JavaScript will put appointments here -->
+                        <tbody>
+                            <tr>
+                                <td>Mbu Gracious</td>
+                                <td>meeting</td>
+                                <td>20/08/2026</td>
+                                <td>10:00 AM</td>
+                                <td>
+                                    <button onclick="approveappointment(this)">Approve</button>
+                                     <button onclick="rejectappointment(this)">Reject</button>
+                                      <button onclick="rescheduleappointment(this)">Reschedule</button>
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
-                </div>
-
-            </section>
 
 
                <!--pendingsection -->
@@ -123,7 +132,7 @@
             </section>
 
 
-            <!-- aproval sectio -->
+            <!-- aproval section -->
             <section id="approved" class="section">
 
                 <h2>Approved Appointments</h2>
