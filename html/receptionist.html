@@ -17,40 +17,51 @@
 
 <body>
 
-    <!-- ================= SIDEBAR ================= -->
 
-    <aside class="sidebar">
 
-        <div class="logo">
-            <h2>VMS</h2>
-        </div>
+<!-- ================= SIDEBAR ================= -->
 
-        <nav class="sidebar-nav">
+<aside class="sidebar">
 
-            <a href="receptionist.html" class="nav-btn active">
-                <i class="fa-solid fa-house"></i>
-                <span>Dashboard</span>
-            </a>
+    <div class="logo">
+        <h2>VMS</h2>
+    </div>
 
-            <a href="search.html" class="nav-btn">
-                <i class="fa-solid fa-magnifying-glass"></i>
-                <span>Search Visitor</span>
-            </a>
+    <nav class="sidebar-nav">
 
-            <a href="manage appointment.html" class="nav-btn">
-                <i class="fa-solid fa-calendar-check"></i>
-                <span>Manage Appointments</span>
-            </a>
+        <!-- Dashboard -->
+        <a href="#" 
+           class="nav-btn active" onclick="showPage('dashboardPage', this)">
+            <i class="fa-solid fa-house"></i>
+            <span>Dashboard</span>
+        </a>
 
-        </nav>
 
-        <button class="logout-btn" onclick="logout()">
-            <i class="fa-solid fa-right-from-bracket"></i>
-            <span>Logout</span>
-        </button>
+        <!-- Search Visitor -->
+        <a href="#" 
+           class="nav-btn" onclick="showPage('searchPage', this)">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <span>Search Visitor</span>
+        </a>
 
-    </aside>
 
+        <!-- Manage Appointments -->
+        <a href="#" 
+           class="nav-btn" onclick="showPage('appointmentPage', this)">
+            <i class="fa-solid fa-calendar-check"></i>
+            <span>Manage Appointments</span>
+        </a>
+
+    </nav>
+
+
+    <!-- Logout -->
+    <button class="logout-btn" onclick="logout()">
+        <i class="fa-solid fa-right-from-bracket"></i>
+        <span>Logout</span>
+    </button>
+
+</aside>
 
     <!-- ================= MAIN CONTENT ================= -->
 
@@ -144,7 +155,7 @@
     </main>
 
 
-    <script src="../JavaScript/receptionist.js"></script>
+    <script src="../java script/receptionist.js"></script>
 
 </body>
 </html>

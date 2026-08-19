@@ -210,4 +210,12 @@ th {
         width: calc(100% - 70px);
         padding: 20px;
     }
+}/* PAGE SWITCHING */
+
+.page {
+    display: none;
+}
+
+.active-page {
+    display: block;
 }
