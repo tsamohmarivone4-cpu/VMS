@@ -1,84 +1,63 @@
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", setupSearch);
 
-    const searchInput = document.getElementById("visitorSearch");
-    const searchBtn = document.getElementById("searchBtn");
+const getData = key =>
+    JSON.parse(localStorage.getItem(key)) || [];
 
-    searchBtn.onclick = searchVisitor;
+function setupSearch() {
 
-    searchInput.addEventListener("keypress", e => {
+    const input = document.getElementById("visitorSearch");
+    const button = document.getElementById("searchBtn");
+
+    if (!input || !button) return;
+
+    button.onclick = searchVisitor;
+
+    input.onkeydown = e => {
         if (e.key === "Enter") searchVisitor();
-    });
-
-});
-
-
-function getData(key) {
-    return JSON.parse(localStorage.getItem(key)) || [];
+    };
 }
 
 
 function searchVisitor() {
 
-    const value =
-        document.getElementById("visitorSearch")
-        .value.trim().toLowerCase();
+    const input = document.getElementById("visitorSearch");
+    const table = document.getElementById("visitorTable");
+    const message = document.getElementById("noResult");
 
-    const table =
-        document.getElementById("visitorTable");
-
-    const noResult =
-        document.getElementById("noResult");
+    const value = input.value.trim().toLowerCase();
 
     table.innerHTML = "";
-    noResult.style.display = "none";
-
+    message.style.display = "none";
 
     if (!value) {
-        noResult.textContent =
-            "Please enter a name or phone number.";
-        noResult.style.display = "block";
+        message.textContent = "Please enter a name or phone number.";
+        message.style.display = "block";
         return;
     }
 
-
-    const visitors = getData("vmsVisitors");
-
-    const results = visitors.filter(visitor =>
-
-        (visitor.fullName || "")
-            .toLowerCase()
-            .includes(value)
-
-        ||
-
-        (visitor.phone || "")
-            .includes(value)
+    const visitors = getData("vmsVisitors").filter(v =>
+        (v.fullName || "").toLowerCase().includes(value) ||
+        (v.phone || "").includes(value)
     );
 
-
-    if (!results.length) {
-        noResult.textContent = "No visitor found.";
-        noResult.style.display = "block";
+    if (!visitors.length) {
+        message.textContent = "No visitor found.";
+        message.style.display = "block";
         return;
     }
 
-
-    results.forEach(visitor => {
-
-        const id = visitor.id;
+    visitors.forEach(v => {
 
         const row = document.createElement("tr");
 
         row.innerHTML = `
-            <td>${visitor.fullName}</td>
-            <td>${visitor.phone}</td>
-            <td>${visitor.gender}</td>
-            <td>${visitor.email || "-"}</td>
+            <td>${v.fullName}</td>
+            <td>${v.phone}</td>
+            <td>${v.gender}</td>
+            <td>${v.email || "-"}</td>
             <td>
-                <button
-                    class="action-btn"
-                    onclick="visitorAction(${id})">
-                    ${getAction(id)}
+                <button onclick="visitorAction(${v.id})">
+                    ${getAction(v.id)}
                 </button>
             </td>
         `;
@@ -88,127 +67,82 @@ function searchVisitor() {
 }
 
 
-/* =========================
-   GET ACTION
-========================= */
+function getAction(id) {
 
-function getAction(visitorId) {
-
-    const appointments = getData("vmsAppointments");
     const visits = getData("vmsVisits");
+    const appointments = getData("vmsAppointments");
 
-
-    // Currently checked in
-    const checkedIn = visits.find(visit =>
-        visit.visitorId == visitorId &&
-        visit.status === "Checked In"
+    const visit = visits.find(v =>
+        v.visitorId == id
     );
 
-    if (checkedIn) {
+    if (visit?.status === "Checked In")
         return "Check Out";
-    }
 
-
-    // Already completed
-    const completed = visits.find(visit =>
-        visit.visitorId == visitorId &&
-        visit.status === "Checked Out"
-    );
-
-    if (completed) {
+    if (visit?.status === "Checked Out")
         return "Visit Completed";
-    }
 
-
-    // Approved appointment
-    const approved = appointments.find(appointment =>
-        appointment.visitorId == visitorId &&
-        appointment.status === "Approved"
-    );
-
-    if (approved) {
+    if (
+        appointments.some(a =>
+            a.visitorId == id &&
+            a.status === "Approved"
+        )
+    )
         return "Check In";
-    }
 
-
-    // No approved appointment
     return "Book Appointment";
 }
 
 
-/* =========================
-   ACTION BUTTON
-========================= */
+function visitorAction(id) {
 
-function visitorAction(visitorId) {
+    const action = getAction(id);
 
-    const action = getAction(visitorId);
+    const visitor = getData("vmsVisitors")
+        .find(v => v.id == id);
 
+    if (!visitor) return;
 
     if (action === "Book Appointment") {
-
-        const visitor = getData("vmsVisitors")
-            .find(visitor => visitor.id == visitorId);
 
         localStorage.setItem(
             "appointmentVisitor",
             JSON.stringify(visitor)
         );
 
-        window.location.href =
-            "appointment booking.html";
-
+        loadPage("appointment booking.html");
         return;
     }
-
 
     if (action === "Check In") {
-
-        checkIn(visitorId);
+        checkIn(id);
         return;
     }
 
-
     if (action === "Check Out") {
-
-        checkOut(visitorId);
-        return;
+        checkOut(id);
     }
 }
 
 
-/* =========================
-   CHECK IN
-========================= */
-
-function checkIn(visitorId) {
+function checkIn(id) {
 
     const visitor = getData("vmsVisitors")
-        .find(visitor => visitor.id == visitorId);
+        .find(v => v.id == id);
+
+    if (!visitor) return;
 
     const visits = getData("vmsVisits");
 
     visits.push({
-
         id: Date.now(),
-
-        visitorId: visitor.id,
-
+        visitorId: id,
         visitorName: visitor.fullName,
-
-        host: getHost(visitorId),
-
-        date: new Date()
-            .toISOString()
-            .split("T")[0],
-
-        checkInTime:
-            new Date().toLocaleTimeString(),
-
+        host: getHost(id),
+        date: new Date().toISOString().split("T")[0],
+        checkInTime: new Date().toLocaleTimeString(),
         checkOutTime: "",
-
         status: "Checked In"
-
     });
 
     localStorage.setItem(
@@ -220,25 +154,19 @@ function checkIn(visitorId) {
 }
 
 
-/* =========================
-   CHECK OUT
-========================= */
-
-function checkOut(visitorId) {
+function checkOut(id) {
 
     const visits = getData("vmsVisits");
 
-    const visit = visits.find(visit =>
-        visit.visitorId == visitorId &&
-        visit.status === "Checked In"
+    const visit = visits.find(v =>
+        v.visitorId == id &&
+        v.status === "Checked In"
     );
 
     if (!visit) return;
 
     visit.status = "Checked Out";
-
-    visit.checkOutTime =
-        new Date().toLocaleTimeString();
+    visit.checkOutTime = new Date().toLocaleTimeString();
 
     localStorage.setItem(
         "vmsVisits",
@@ -249,21 +177,13 @@ function checkOut(visitorId) {
 }
 
 
-/* =========================
-   GET HOST
-========================= */
+function getHost(id) {
 
-function getHost(visitorId) {
+    const appointment = getData("vmsAppointments")
+        .find(a =>
+            a.visitorId == id &&
+            a.status === "Approved"
+        );
 
-    const appointments = getData("vmsAppointments");
-
-    const appointment = appointments.find(
-        appointment =>
-            appointment.visitorId == visitorId &&
-            appointment.status === "Approved"
-    );
-
-    return appointment
-        ? appointment.host
-        : "Walk-in";
+    return appointment ? appointment.host : "Walk-in";
 }

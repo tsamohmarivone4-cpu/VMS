@@ -11,7 +11,7 @@ body {
 }
 
 
-/* MAIN FORM */
+/* main form*/
 
 .right-side {
     width: 100%;
@@ -19,7 +19,7 @@ body {
 }
 
 
-/* TITLE */
+/* action */
 
 .right-side h2 {
     color: #1e3a8a;
@@ -28,7 +28,7 @@ body {
 }
 
 
-/* LABELS */
+/* labels */
 
 label {
     display: block;
@@ -40,7 +40,7 @@ label {
 }
 
 
-/* INPUTS */
+/* inputs*/
 
 input[type="text"],
 input[type="email"],
@@ -61,7 +61,7 @@ select:focus {
 }
 
 
-/* BUTTONS */
+/* buttons */
 
 .buttons {
     display: flex;
@@ -87,7 +87,7 @@ button:hover {
 }
 
 
-/* MOBILE */
+/* mobile */
 
 @media (max-width: 700px) {
 
