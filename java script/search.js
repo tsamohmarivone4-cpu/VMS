@@ -1,4 +1,4 @@
-document.addEventListener("DOMContentLoaded", setupSearch);
+ 
 
 const getData = key =>
     JSON.parse(localStorage.getItem(key)) || [];

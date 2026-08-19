@@ -1,8 +1,17 @@
 document.addEventListener("DOMContentLoaded", () => {
 
     const $ = id => document.getElementById(id);
-    const get = key => JSON.parse(localStorage.getItem(key)) || [];
-    const save = (key, data) => localStorage.setItem(key, JSON.stringify(data));
+
+    const get = key =>
+        JSON.parse(localStorage.getItem(key)) || [];
+
+    const save = (key, data) =>
+        localStorage.setItem(key, JSON.stringify(data));
+
+
+    /* =========================
+       PAGE NAVIGATION
+    ========================= */
 
     const pages = [
         "dashboardSection",
@@ -15,37 +24,55 @@ document.addEventListener("DOMContentLoaded", () => {
     ];
 
     function show(page) {
-        pages.forEach(p => $(p).style.display = p === page ? "block" : "none");
-        document.querySelectorAll(".sidebar li").forEach(li => li.classList.remove("active"));
+
+        pages.forEach(p => {
+            if ($(p))
+                $(p).style.display = p === page ? "block" : "none";
+        });
+
+        document.querySelectorAll(".sidebar li")
+            .forEach(li => li.classList.remove("active"));
 
         const link = $(page.replace("Section", "Link"));
-        if (link) link.parentElement.classList.add("active");
+
+        if (link)
+            link.parentElement.classList.add("active");
     }
 
 
-    // dashboard stats
+    /* =========================
+       DASHBOARD STATISTICS
+    ========================= */
+
     function stats() {
-        const v = get("vmsVisitors");
-        const a = get("vmsAppointments");
 
-        $("totalVisitors").textContent = v.length;
+        const visitors = get("vmsVisitors");
+        const appointments = get("vmsAppointments");
+
+        $("totalVisitors").textContent = visitors.length;
         $("totalUsers").textContent = get("vmsUsers").length;
-        $("totalDepartments").textContent = get("vmsDepartments").length;
+        $("totalDepartments").textContent =
+            get("vmsDepartments").length;
 
-        const today = new Date().toISOString().split("T")[0];
+        const today =
+            new Date().toISOString().split("T")[0];
 
         $("todayVisits").textContent =
-            v.filter(x => x.date === today).length;
+            visitors.filter(v => v.date === today).length;
 
         $("pendingAppointments").textContent =
-            a.filter(x => x.status === "Pending").length;
+            appointments.filter(a => a.status === "Pending").length;
     }
 
 
-    // sidebar navigation
+    /* =========================
+       SIDEBAR
+    ========================= */
+
     $("dashboardLink").onclick = e => {
         e.preventDefault();
         show("dashboardSection");
+        stats();
     };
 
     $("manageUsersLink").onclick = e => {
@@ -83,188 +110,481 @@ document.addEventListener("DOMContentLoaded", () => {
     };
 
 
-    // users
-    function users() {
-        const list = get("vmsUsers");
+    /* =========================
+       USERS
+    ========================= */
 
-        $("userTableBody").innerHTML = list.map(u => `
-            <tr>
-                <td>${u.fullName}</td>
-                <td>${u.username}</td>
-                <td>${u.role}</td>
-                <td>${u.department}</td>
-                <td><button onclick="deleteUser(${u.id})">Delete</button></td>
-            </tr>
-        `).join("");
+    function users(list = get("vmsUsers")) {
+
+        $("userTableBody").innerHTML =
+            list.map(u => `
+                <tr>
+                    <td>${u.fullName || "-"}</td>
+                    <td>${u.username || "-"}</td>
+                    <td>${u.role || "-"}</td>
+                    <td>${u.department || "-"}</td>
+                    <td>
+                        <button onclick="deleteUser(${u.id})">
+                            Delete
+                        </button>
+                    </td>
+                </tr>
+            `).join("");
     }
 
-    function addUser() {
-        const fullName = prompt("Full name:");
-        const username = prompt("Username:");
-        const password = prompt("Password:");
-        const role = prompt("Role:");
-        const department = prompt("Department:");
 
-        if (!fullName || !username || !password || !role || !department)
-            return alert("Complete all fields.");
+    /* LOAD DEPARTMENTS */
+
+    function loadDepartments() {
+
+        const select = $("department");
+
+        if (!select) return;
+
+        const departments = get("vmsDepartments");
+
+        select.innerHTML = `
+            <option value="">Select department</option>
+        `;
+
+        departments.forEach(d => {
+
+            select.innerHTML += `
+                <option value="${d.name}">
+                    ${d.name}
+                </option>
+            `;
+
+        });
+    }
+
+
+    /* OPEN USER FORM */
+
+    function openUserForm() {
+
+        $("userFormBox").style.display = "block";
+
+        loadDepartments();
+    }
+
+
+    $("addUserBtn").onclick = openUserForm;
+
+
+    $("createUserBtn").onclick = () => {
+
+        show("manageUsersSection");
+
+        openUserForm();
+    };
+
+
+    /* CLOSE USER FORM */
+
+    $("cancelUserBtn").onclick = () => {
+
+        $("userForm").reset();
+
+        $("userFormBox").style.display = "none";
+    };
+
+
+    /* CREATE USER */
+
+    $("userForm").onsubmit = e => {
+
+        e.preventDefault();
+
+        const fullName =
+            $("fullName").value.trim();
+
+        const username =
+            $("username").value.trim();
+
+        const password =
+            $("password").value;
+
+        const role =
+            $("role").value;
+
+        const department =
+            $("department").value;
+
+
+        if (
+            !fullName ||
+            !username ||
+            !password ||
+            !role ||
+            !department
+        ) {
+
+            alert("Please complete all fields.");
+
+            return;
+        }
+
 
         const list = get("vmsUsers");
 
-        if (list.some(u => u.username === username))
-            return alert("Username already exists.");
+
+        /* CHECK USERNAME */
+
+        if (
+            list.some(
+                u =>
+                    u.username.toLowerCase() ===
+                    username.toLowerCase()
+            )
+        ) {
+
+            alert("Username already exists.");
+
+            return;
+        }
+
+
+        /* CREATE USER */
 
         list.push({
+
             id: Date.now(),
-            fullName,
-            username,
-            password,
-            role,
-            department
+
+            fullName: fullName,
+
+            username: username,
+
+            password: password,
+
+            role: role,
+
+            department: department
+
         });
 
-        save("vmsUsers", list);
-        users();
-        stats();
-        alert("User created.");
-    }
 
-    $("addUserBtn").onclick = addUser;
-    $("createUserBtn").onclick = () => {
-        show("manageUsersSection");
-        addUser();
+        save("vmsUsers", list);
+
+
+        users();
+
+        stats();
+
+
+        $("userForm").reset();
+
+        $("userFormBox").style.display = "none";
+
+
+        alert("User created successfully.");
     };
+
+
+    /* DELETE USER */
 
     window.deleteUser = id => {
-        save("vmsUsers", get("vmsUsers").filter(u => u.id != id));
+
+        const list =
+            get("vmsUsers")
+                .filter(u => u.id != id);
+
+        save("vmsUsers", list);
+
         users();
+
         stats();
     };
 
 
-    // departments
-    function departments() {
-        const list = get("vmsDepartments");
+    /* SEARCH USERS */
 
-        $("departmentTableBody").innerHTML = list.map(d => `
-            <tr>
-                <td>${d.name}</td>
-                <td><button onclick="deleteDepartment(${d.id})">Delete</button></td>
-            </tr>
-        `).join("");
+    $("userSearch").oninput = function () {
+
+        const text =
+            this.value.toLowerCase();
+
+        const list =
+            get("vmsUsers").filter(u =>
+                (u.fullName || "")
+                    .toLowerCase()
+                    .includes(text) ||
+
+                (u.username || "")
+                    .toLowerCase()
+                    .includes(text) ||
+
+                (u.role || "")
+                    .toLowerCase()
+                    .includes(text)
+            );
+
+        users(list);
+    };
+
+
+    /* =========================
+       DEPARTMENTS
+    ========================= */
+
+    function departments(list = get("vmsDepartments")) {
+
+        $("departmentTableBody").innerHTML =
+            list.map(d => `
+                <tr>
+                    <td>${d.name}</td>
+                    <td>
+                        <button onclick="deleteDepartment(${d.id})">
+                            Delete
+                        </button>
+                    </td>
+                </tr>
+            `).join("");
     }
+
 
     function addDepartment() {
-        const name = prompt("Department name:");
+
+        const name =
+            prompt("Department name:");
+
         if (!name) return;
 
-        const list = get("vmsDepartments");
 
-        if (list.some(d => d.name.toLowerCase() === name.toLowerCase()))
-            return alert("Department already exists.");
+        const list =
+            get("vmsDepartments");
 
-        list.push({ id: Date.now(), name });
+
+        if (
+            list.some(
+                d =>
+                    d.name.toLowerCase() ===
+                    name.toLowerCase()
+            )
+        ) {
+
+            alert("Department already exists.");
+
+            return;
+        }
+
+
+        list.push({
+
+            id: Date.now(),
+
+            name: name.trim()
+
+        });
+
 
         save("vmsDepartments", list);
+
         departments();
+
         stats();
+
+        alert("Department created.");
     }
 
-    $("newDepartmentBtn").onclick = addDepartment;
+
+    $("newDepartmentBtn").onclick =
+        addDepartment;
+
+
     $("addDepartmentBtn").onclick = () => {
+
         show("manageDepartmentsSection");
+
         addDepartment();
     };
 
+
     window.deleteDepartment = id => {
-        save("vmsDepartments", get("vmsDepartments").filter(d => d.id != id));
+
+        const list =
+            get("vmsDepartments")
+                .filter(d => d.id != id);
+
+        save("vmsDepartments", list);
+
         departments();
+
         stats();
     };
 
 
-    // visitors
-    function visitors(list = get("vmsVisitors")) {
-        $("visitorTableBody").innerHTML = list.map(v => `
-            <tr>
-                <td>${v.fullName || "-"}</td>
-                <td>${v.phone || "-"}</td>
-                <td>${v.email || "-"}</td>
-                <td>${v.gender || "-"}</td>
-                <td>${v.date || "-"}</td>
-                <td>${v.status || "Registered"}</td>
-            </tr>
-        `).join("");
-    }
+    /* SEARCH DEPARTMENTS */
 
-    $("visitorSearch").oninput = function () {
-        const text = this.value.toLowerCase();
+    $("departmentSearch").oninput = function () {
 
-        visitors(get("vmsVisitors").filter(v =>
-            (v.fullName || "").toLowerCase().includes(text) ||
-            (v.phone || "").includes(text)
-        ));
+        const text =
+            this.value.toLowerCase();
+
+        const list =
+            get("vmsDepartments")
+                .filter(d =>
+                    d.name.toLowerCase()
+                        .includes(text)
+                );
+
+        departments(list);
     };
 
+
+    /* =========================
+       VISITORS
+    ========================= */
+
+    function visitors(list = get("vmsVisitors")) {
+
+        $("visitorTableBody").innerHTML =
+            list.map(v => `
+                <tr>
+                    <td>${v.fullName || "-"}</td>
+                    <td>${v.phone || "-"}</td>
+                    <td>${v.email || "-"}</td>
+                    <td>${v.gender || "-"}</td>
+                    <td>${v.date || "-"}</td>
+                    <td>${v.status || "Registered"}</td>
+                </tr>
+            `).join("");
+    }
+
+
+    $("visitorSearch").oninput = function () {
+
+        const text =
+            this.value.toLowerCase();
+
+        visitors(
+            get("vmsVisitors").filter(v =>
+                (v.fullName || "")
+                    .toLowerCase()
+                    .includes(text) ||
+
+                (v.phone || "")
+                    .includes(text)
+            )
+        );
+    };
+
+
     $("viewVisitorsBtn").onclick = () => {
+
         show("visitorRecordsSection");
+
         visitors();
     };
 
 
-    // appiointments
-    function appointments(list = get("vmsAppointments")) {
-        $("appointmentTableBody").innerHTML = list.map(a => `
-            <tr>
-                <td>${a.visitorName || "-"}</td>
-                <td>${a.host || "-"}</td>
-                <td>${a.purpose || "-"}</td>
-                <td>${a.date || "-"}</td>
-                <td>${a.time || "-"}</td>
-                <td>${a.status || "Pending"}</td>
-            </tr>
-        `).join("");
+    /* =========================
+       APPOINTMENTS
+    ========================= */
+
+    function appointments(
+        list = get("vmsAppointments")
+    ) {
+
+        $("appointmentTableBody").innerHTML =
+            list.map(a => `
+                <tr>
+                    <td>${a.visitorName || "-"}</td>
+                    <td>${a.host || "-"}</td>
+                    <td>${a.purpose || "-"}</td>
+                    <td>${a.date || "-"}</td>
+                    <td>${a.time || "-"}</td>
+                    <td>${a.status || "Pending"}</td>
+                </tr>
+            `).join("");
     }
 
-    $("appointmentSearch").oninput = function () {
-        const text = this.value.toLowerCase();
 
-        appointments(get("vmsAppointments").filter(a =>
-            (a.visitorName || "").toLowerCase().includes(text) ||
-            (a.host || "").toLowerCase().includes(text)
-        ));
+    $("appointmentSearch").oninput = function () {
+
+        const text =
+            this.value.toLowerCase();
+
+        appointments(
+            get("vmsAppointments").filter(a =>
+                (a.visitorName || "")
+                    .toLowerCase()
+                    .includes(text) ||
+
+                (a.host || "")
+                    .toLowerCase()
+                    .includes(text)
+            )
+        );
     };
 
 
-    // reports
+    /* =========================
+       REPORTS
+    ========================= */
+
     function report(key) {
+
         const file = new Blob(
             [JSON.stringify(get(key), null, 2)],
             { type: "text/plain" }
         );
 
-        const link = document.createElement("a");
-        link.href = URL.createObjectURL(file);
-        link.download = `VMS-${key}-Report.txt`;
+        const link =
+            document.createElement("a");
+
+        link.href =
+            URL.createObjectURL(file);
+
+        link.download =
+            `VMS-${key}-Report.txt`;
+
         link.click();
     }
 
-    $("visitorReportBtn").onclick = () => report("vmsVisitors");
-    $("appointmentReportBtn").onclick = () => report("vmsAppointments");
-    $("userReportBtn").onclick = () => report("vmsUsers");
 
-    $("generateReportBtn").onclick = () => show("reportsSection");
+    $("visitorReportBtn").onclick =
+        () => report("vmsVisitors");
+
+    $("appointmentReportBtn").onclick =
+        () => report("vmsAppointments");
+
+    $("userReportBtn").onclick =
+        () => report("vmsUsers");
 
 
-    // settings
+    $("generateReportBtn").onclick = () => {
+
+        show("reportsSection");
+    };
+
+
+    /* =========================
+       SETTINGS
+    ========================= */
+
     $("saveSettingsBtn").onclick = () => {
-        localStorage.setItem("systemName", $("systemName").value);
-        localStorage.setItem("adminName", $("adminName").value);
+
+        localStorage.setItem(
+            "systemName",
+            $("systemName").value
+        );
+
+        localStorage.setItem(
+            "adminName",
+            $("adminName").value
+        );
+
         alert("Settings saved.");
     };
 
 
-    // start
+    /* =========================
+       START
+    ========================= */
+
     show("dashboardSection");
+
     stats();
 
 });

@@ -32,7 +32,7 @@ body {
 /* logo */
 
 .logo {
-    height: 120px;
+    height: 100px;
 
     display: flex;
     justify-content: center;
