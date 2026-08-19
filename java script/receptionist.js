@@ -1,138 +1,126 @@
-// SEARCH VISITOR
-function searchVisitor() {
-
-    const text = $("visitorSearch").value.toLowerCase().trim();
-    const visitors = data("vmsVisitors");
-
-    const results = visitors.filter(v =>
-        (v.fullName || "").toLowerCase().includes(text) ||
-        (v.phone || "").includes(text)
-    );
-
-    $("searchResults").innerHTML = results.length
-        ? results.map(v => `
-            <div class="visitor-result">
-
-                <h3>${v.fullName}</h3>
-
-                <p>Phone: ${v.phone}</p>
-
-                <p>Email: ${v.email || "-"}</p>
-
-                <button onclick="visitorAction(${v.id})">
-                    ${getAction(v.id)}
-                </button>
-
-            </div>
-        `).join("")
-        : "<p>Visitor not found.</p>";
+function getData(key) {
+    return JSON.parse(localStorage.getItem(key)) || [];
 }
 
 
-// GET ACTION
-function getAction(id) {
+function loadPage(page, button = null) {
 
-    const visits = data("vmsVisits");
-    const appointments = data("vmsAppointments");
+    fetch(page)
+        .then(response => {
 
-    const visit = visits.find(v => v.visitorId == id);
+            if (!response.ok) {
+                throw new Error("Could not load " + page);
+            }
 
-    if (visit?.status === "Checked In")
-        return "Check Out";
+            return response.text();
+        })
 
-    if (visit?.status === "Checked Out")
-        return "Visit Completed";
+        .then(data => {
 
-    if (appointments.some(a =>
-        a.visitorId == id &&
-        a.status === "Approved"
-    ))
-        return "Check In";
+            document.getElementById("pageContent").innerHTML = data;
 
-    return "Book Appointment";
+
+            if (page === "search.html") {
+                setupSearch();
+            }
+
+
+            if (page === "Registration.html") {
+                setupRegistration();
+            }
+
+
+            if (page === "appointment booking.html") {
+                setupAppointment();
+            }
+
+        })
+
+        .catch(error => {
+            console.log("Page loading error:", error);
+        });
+
+
+    document.querySelectorAll(".nav-btn")
+        .forEach(btn => btn.classList.remove("active"));
+
+    if (button) {
+        button.classList.add("active");
+    }
 }
 
 
-// ACTION
-window.visitorAction = function(id) {
+/* dashboard statistics */
 
-    const action = getAction(id);
+function loadStats() {
 
-    const visitor = data("vmsVisitors")
-        .find(v => v.id == id);
+    const visitors = getData("vmsVisitors");
+    const appointments = getData("vmsAppointments");
+    const visits = getData("vmsVisits");
 
-    if (!visitor) return;
 
-    if (action === "Book Appointment") {
+    const totalVisitors =
+        document.getElementById("totalVisitors");
 
-        localStorage.setItem(
-            "appointmentVisitor",
-            JSON.stringify(visitor)
-        );
+    const pendingAppointments =
+        document.getElementById("pendingAppointments");
 
-        window.location.href = "appointment booking.html";
+    const checkedIn =
+        document.getElementById("checkedIn");
+
+    const checkedOut =
+        document.getElementById("checkedOut");
+
+
+    if (totalVisitors) {
+        totalVisitors.textContent = visitors.length;
     }
 
-    else if (action === "Check In") {
-        checkVisitorIn(id);
+
+    if (pendingAppointments) {
+
+        pendingAppointments.textContent =
+            appointments.filter(a =>
+                a.status === "Pending"
+            ).length;
+
     }
 
-    else if (action === "Check Out") {
-        checkVisitorOut(id);
+
+    if (checkedIn) {
+
+        checkedIn.textContent =
+            visits.filter(v =>
+                v.status === "Checked In"
+            ).length;
+
     }
-};
 
 
-// CHECK IN
-function checkVisitorIn(id) {
+    if (checkedOut) {
 
-    let visitors = data("vmsVisitors");
+        checkedOut.textContent =
+            visits.filter(v =>
+                v.status === "Checked Out"
+            ).length;
 
-    const visitor = visitors.find(v => v.id == id);
-
-    if (!visitor) return;
-
-    visitor.status = "Checked In";
-    visitor.checkInDate =
-        new Date().toISOString().split("T")[0];
-    visitor.checkInTime =
-        new Date().toLocaleTimeString();
-
-    save("vmsVisitors", visitors);
-
-    alert("Visitor checked in successfully.");
-
-    searchVisitor();
-    stats();
+    }
 }
 
 
-// CHECK OUT
-function checkVisitorOut(id) {
+/* s */
 
-    let visitors = data("vmsVisitors");
+document.addEventListener("DOMContentLoaded", function () {
 
-    const visitor = visitors.find(v => v.id == id);
+    loadStats();
 
-    if (!visitor) return;
+});
 
-    visitor.status = "Checked Out";
-    visitor.checkOutDate =
-        new Date().toISOString().split("T")[0];
-    visitor.checkOutTime =
-        new Date().toLocaleTimeString();
 
-    save("vmsVisitors", visitors);
+/* logout function */
 
-    alert("Visitor checked out successfully.");
+function logout() {
 
-    searchVisitor();
-    stats();
+    window.location.href = "../index.html";
+
 }
-
-
-$("searchVisitorBtn").onclick = searchVisitor;
-
-$("visitorSearch").onkeydown = e => {
-    if (e.key === "Enter") searchVisitor();
-};

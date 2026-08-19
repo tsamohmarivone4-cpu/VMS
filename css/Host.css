@@ -20,7 +20,7 @@ body {
 
 .sidebar {
     width: 250px;
-    background: #1E3A8A;;
+    background:  #1E3A8A;
     color: white;
     padding: 25px 15px;
     position: fixed;
@@ -81,7 +81,7 @@ body {
 /* topbar */
 
 .topbar {
-    background: #1E3A8A;
+    background: white;
     padding: 20px 30px;
     display: flex;
     justify-content: space-between;
@@ -90,7 +90,7 @@ body {
 }
 
 .topbar h1 {
-    color: white;
+    color: black;
 }
 
 /* section */
@@ -130,7 +130,41 @@ body {
     font-weight: bold;
 }
 
-/* appoinment */
+.table-container {
+    width: 95%;
+    margin: 20px auto;
+    background: white;
+    padding: 25px;
+    border-radius: 12px;
+    box-sizing: border-box;
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    min-width: 900px;
+    border-collapse: collapse;
+}
+
+th,
+td {
+    padding: 18px 15px;
+    text-align: center;
+    font-size: 16px;
+}
+
+th {
+    background: #173da6;
+    color: white;
+    height: 60px;
+}
+
+td {
+    height: 60px;
+    border-bottom: 1px solid #ddd;
+}
+
+/* APPOINTMENT */
 
 .section-title {
     margin-top: 35px;

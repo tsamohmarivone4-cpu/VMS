@@ -3,6 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Visitor Registration</title>
@@ -12,53 +13,100 @@
 
 <body>
 
-    <div class="right-side">
+    <div class="main-container">
 
-        <form id="VisitorForm">
-
-            <h2>Visitor Registration Form</h2>
-
-            <label>Full Name</label>
-            <input type="text" name="fullname" required>
+    
 
 
-            <label>Phone Number</label>
-            <input type="text" name="phone" required>
+        <!-- RIGHT SIDE -->
+        <div class="right-side">
+
+            <form id="VisitorForm">
+
+                <h2>Visitor Registration Form</h2>
+
+                <label for="fullname">
+                    Full Name
+                </label>
+
+                <input
+                    type="text"
+                    id="fullname"
+                    name="fullname"
+                    required
+                >
 
 
-            <label>Gender</label>
-            <select name="gender" required>
+                <label for="phone">
+                    Phone Number
+                </label>
 
-                <option value="">Select Gender</option>
-                <option value="Male">Male</option>
-                <option value="Female">Female</option>
-                <option value="Other">Other</option>
-
-
-            </select>
-
-
-            <label>Email Address</label>
-            <input type="email" name="email">
+                <input
+                    type="text"
+                    id="phone"
+                    name="phone"
+                    required
+                >
 
 
-            <div class="buttons">
+                <label for="gender">
+                    Gender
+                </label>
 
-                <button type="submit">
-                    Register Visitor
-                </button>
+                <select
+                    id="gender"
+                    name="gender"
+                    required
+                >
+                    <option value="">
+                        Select Gender
+                    </option>
 
-                <button type="reset">
-                    Clear
-                </button>
+                    <option value="Male">
+                        Male
+                    </option>
 
-            </div>
+                    <option value="Female">
+                        Female
+                    </option>
 
-        </form>
+                    <option value="Other">
+                        Other
+                    </option>
+                </select>
+
+
+                <label for="email">
+                    Email Address
+                </label>
+
+                <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    required
+                >
+
+
+                <div class="buttons">
+
+                    <button type="submit">
+                        Register Visitor
+                    </button>
+
+                    <button type="reset">
+                        Clear
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
 
     </div>
 
-
+    <script src="../java script/registration.js"></script>
 
 </body>
 

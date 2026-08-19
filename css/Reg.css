@@ -1,105 +1,111 @@
+
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
 }
 
 body {
-    font-family: "Poppins", sans-serif;
     background: #f5f7fb;
     min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.main-container {
+    width: 850px;
+    max-width: 100%;
+    display: flex;
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 5px 20px #0002;
 }
 
 
-/* main form*/
-
+/* RIGHT SIDE */
 .right-side {
-    width: 100%;
-    padding: 35px 40px;
+    width: 65%;
+    padding: 35px;
 }
-
-
-/* action */
 
 .right-side h2 {
-    color: #1e3a8a;
-    font-size: 26px;
-    margin-bottom: 25px;
+    color: #1E3A8A;
+    margin-bottom: 20px;
 }
-
-
-/* labels */
 
 label {
     display: block;
-    margin-top: 15px;
-    margin-bottom: 6px;
+    margin: 12px 0 6px;
     font-size: 14px;
-    font-weight: 500;
     color: #333;
 }
 
-
-/* inputs*/
-
-input[type="text"],
-input[type="email"],
+input,
 select {
     width: 100%;
     padding: 11px;
-
     border: 1px solid #ddd;
-    border-radius: 8px;
-
+    border-radius: 6px;
     outline: none;
-    font-family: inherit;
 }
 
 input:focus,
 select:focus {
-    border-color: #1e3a8a;
+    border-color: #2563EB;
 }
-
-
-/* buttons */
 
 .buttons {
     display: flex;
     gap: 10px;
-    margin-top: 25px;
+    margin-top: 20px;
 }
 
 button {
-    padding: 11px 20px;
-
+    flex: 1;
+    padding: 11px;
     border: none;
-    border-radius: 8px;
-
-    background: #1e3a8a;
-    color: white;
-
-    font-family: inherit;
+    border-radius: 6px;
     cursor: pointer;
+    font-family: inherit;
+}
+
+button[type="submit"] {
+    background: #2563EB;
+    color: white;
+}
+
+button[type="reset"] {
+    background: #ddd;
+    color: #333;
 }
 
 button:hover {
-    background: #2563eb;
+    opacity: .9;
 }
 
-
-/* mobile */
-
 @media (max-width: 700px) {
+    .main-container {
+        flex-direction: column;
+    }
+
+    .left-side,
+    .right-side {
+        width: 100%;
+    }
+
+    .left-side {
+        padding: 25px;
+    }
 
     .right-side {
-        padding: 25px 20px;
+        padding: 25px;
     }
 
     .buttons {
         flex-direction: column;
-    }
-
-    button {
-        width: 100%;
     }
 }
