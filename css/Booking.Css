@@ -84,11 +84,12 @@ button {
 }
 
 #cancel {
-    background: #ddd;
+    background: #1e57d0;
+    color: white;
 }
 
 #submit {
-    background: #2563EB;
+    background: #1e57d0;
     color: white;
 }
 

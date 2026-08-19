@@ -10,32 +10,45 @@ body {
     color: #333;
 }
 
-/* SIDEBAR */
+/* sidebar */
+
 .sidebar {
     width: 240px;
     height: 100vh;
     position: fixed;
-    top: 0;
     left: 0;
-    background:#1e3a8a;
+    top: 0;
+
+    background: #1e3a8a;
     color: white;
+
     padding: 20px 15px;
+
     display: flex;
     flex-direction: column;
 }
 
+
+/* logo */
+
 .logo {
-    height: 140px;
+    height: 120px;
+
     display: flex;
     justify-content: center;
     align-items: center;
-    border-bottom: 1px solid #ffffff33;
+
+    border-bottom: 1px solid rgba(255,255,255,0.2);
     margin-bottom: 25px;
 }
 
 .logo h2 {
     font-size: 28px;
+    font-weight: 600;
 }
+
+
+/* navigation */
 
 .sidebar-nav {
     display: flex;
@@ -43,22 +56,36 @@ body {
     gap: 10px;
 }
 
-.nav-btn,
-.logout-btn {
+
+/* nav-btn */
+
+.nav-btn {
     width: 100%;
-    padding: 14px 15px;
+    padding: 13px 15px;
+
     display: flex;
     align-items: center;
     gap: 12px;
-    border: 0;
+
     border-radius: 8px;
+
     color: white;
-    background: transparent;
-    text-decoration: none;
-    font-family: inherit;
     font-size: 14px;
+
     cursor: pointer;
+    transition: 0.2s;
 }
+
+
+/* icon */
+
+.nav-btn i {
+    width: 20px;
+    text-align: center;
+}
+
+
+
 
 .nav-btn:hover,
 .nav-btn.active {
@@ -66,28 +93,53 @@ body {
     color: #1e3a8a;
 }
 
+
+/* logout */
+
 .logout-btn {
     margin-top: auto;
+
+    width: 100%;
+    padding: 13px 15px;
+
+    border: none;
+    border-radius: 8px;
+
+    background: transparent;
+    color: white;
+
+    font-family: inherit;
+    font-size: 14px;
+
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    cursor: pointer;
 }
 
 .logout-btn:hover {
     background: #dc2626;
 }
 
-/* MAIN CONTENT */
+.logout-btn i {
+    width: 20px;
+    text-align: center;
+}
+
+
+/* right side */
+
 .main-content {
     margin-left: 240px;
+
     width: calc(100% - 240px);
     min-height: 100vh;
+
     padding: 35px;
 }
 
-.main-content h1 {
-    font-size: 28px;
-    margin-bottom: 30px;
-}
-
-/* CARDS */
+/* cards */
 .stats-container {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -130,7 +182,7 @@ body {
     font-size: 22px;
 }
 
-/* ACTIVITIES */
+/* activity */
 .activities {
     background: white;
     padding: 25px;
@@ -165,7 +217,7 @@ th {
     background: #f8f9fc;
 }
 
-/* RESPONSIVE */
+/* responsive */
 @media (max-width: 1000px) {
     .stats-container {
         grid-template-columns: repeat(2, 1fr);
@@ -210,4 +262,12 @@ th {
         width: calc(100% - 70px);
         padding: 20px;
     }
+}/* page swiching */
+
+.page {
+    display: none;
+}
+
+.active-page {
+    display: block;
 }

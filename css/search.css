@@ -11,9 +11,7 @@ body {
 }
 
 
-/* =========================
-   RIGHT SIDE PAGE
-========================= */
+/*right side*/
 
 .search-page {
     width: 100%;
@@ -22,9 +20,7 @@ body {
 }
 
 
-/* =========================
-   HEADER
-========================= */
+/* header */
 
 .page-header {
     display: flex;
@@ -46,9 +42,7 @@ body {
 }
 
 
-/* =========================
-   REGISTER BUTTON
-========================= */
+/* registration buttun */
 
 .register-btn {
     background: #1e3a8a;
@@ -69,9 +63,7 @@ body {
 }
 
 
-/* =========================
-   SEARCH SECTION
-========================= */
+/* search section */
 
 .search-section {
     background: white;
@@ -117,9 +109,7 @@ body {
 }
 
 
-/* =========================
-   VISITOR TABLE
-========================= */
+/* visitor table */
 
 .visitor-section {
     background: white;
@@ -162,9 +152,7 @@ td {
 }
 
 
-/* =========================
-   NO RESULT
-========================= */
+/* output*/
 
 .no-result {
     display: none;
@@ -174,9 +162,7 @@ td {
 }
 
 
-/* =========================
-   RESPONSIVE
-========================= */
+/* responsive */
 
 @media (max-width: 700px) {
 

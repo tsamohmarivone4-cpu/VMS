@@ -1,55 +1,87 @@
-document.addEventListener("DOMContentLoaded", () => {
+function setupAppointment() {
 
-    // Visitor
-    const visitorData = localStorage.getItem("appointmentVisitor");
-    const visitorName = document.getElementById("visitorName");
-    const hostSelect = document.getElementById("host");
-    const form = document.getElementById("appointmentForm");
-
-    // get visitor from local storage
     const visitor = JSON.parse(
         localStorage.getItem("appointmentVisitor")
     );
 
-    if (visitor) {
-        visitorName.textContent = visitor.fullName;
-    } else {
-        visitorName.textContent = "No visitor selected";
-    }
+    const form =
+        document.getElementById("appointmentForm");
+
+    const host =
+        document.getElementById("host");
+
+    const visitorName =
+        document.getElementById("visitorName");
 
 
-    // get host craeted by admin
+    if (!form) return;
+
+
+    // Show visitor
+
+    visitorName.textContent =
+        visitor
+            ? visitor.fullName
+            : "No visitor selected";
+
+
+    // Load hosts
+
     const users =
-        JSON.parse(localStorage.getItem("vmsUsers")) || [];
+        JSON.parse(
+            localStorage.getItem("vmsUsers")
+        ) || [];
+
 
     users
         .filter(user =>
             user.role &&
             user.role.toLowerCase() === "host"
         )
-        .forEach(host => {
+        .forEach(user => {
 
-            const option = document.createElement("option");
+            const option =
+                document.createElement("option");
 
-            option.value = host.fullName;
-            option.textContent = host.fullName;
+            option.value =
+                user.fullName;
 
-            hostSelect.appendChild(option);
+            option.textContent =
+                user.fullName;
+
+            host.appendChild(option);
+
         });
 
 
-    // book appointment
-    form.addEventListener("submit", event => {
+    // Submit appointment
 
-        event.preventDefault();
+    form.onsubmit = function (e) {
+
+        e.preventDefault();
+
 
         if (!visitor) {
-            alert("No visitor has been selected.");
+
+            alert("No visitor selected.");
+
             return;
         }
 
+
+        if (!host.value) {
+
+            alert("Please select a host.");
+
+            return;
+        }
+
+
         const appointments =
-            JSON.parse(localStorage.getItem("vmsAppointments")) || [];
+            JSON.parse(
+                localStorage.getItem("vmsAppointments")
+            ) || [];
+
 
         appointments.push({
 
@@ -57,27 +89,36 @@ document.addEventListener("DOMContentLoaded", () => {
 
             visitorId: visitor.id,
 
-            visitorName: visitor.fullName,
+            visitorName:
+                visitor.fullName,
 
-            phone: visitor.phone,
+            phone:
+                visitor.phone,
 
-            email: visitor.email,
+            email:
+                visitor.email,
 
-            gender: visitor.gender,
+            gender:
+                visitor.gender,
 
-            host: hostSelect.value,
+            host:
+                host.value,
 
-            purpose: document.getElementById("purpose").value,
+            purpose:
+                document.getElementById("purpose").value,
 
-            date: document.getElementById("appointmentDate").value,
+            date:
+                document.getElementById("appointmentDate").value,
 
-            time: document.getElementById("appointmentTime").value,
-
+            time:
+                document.getElementById("appointmentTime").value,
 
             status: "Pending"
 
         });
 
+
+        // Save appointment
 
         localStorage.setItem(
             "vmsAppointments",
@@ -85,95 +126,49 @@ document.addEventListener("DOMContentLoaded", () => {
         );
 
 
-        document.getElementById("message").textContent =
+        // Remove temporary visitor
+
+        localStorage.removeItem(
+            "appointmentVisitor"
+        );
+
+
+        // Show success message
+
+        document.getElementById("message")
+            .textContent =
             "Appointment booked successfully!";
 
-        localStorage.removeItem("appointmentVisitor");
 
+        // Stay inside receptionist dashboard
 
         setTimeout(() => {
-            window.location.href = "receptionist.html";
+
+            loadPage("search.html");
+
         }, 1000);
 
-    });
-
-
-    // cancel appointment booking
-    document.getElementById("cancel").addEventListener("click", () => {
-
-        localStorage.removeItem("appointmentVisitor");
-
-        window.location.href = "receptionist.html";
-
-    });
-
-            const host = document.getElementById("host").value;
-            const purpose = document.getElementById("purpose").value.trim();
-            const date = document.getElementById("appointmentDate").value;
-            const time = document.getElementById("appointmentTime").value;
-            const nda = document.getElementById("nda").checked;
-
-            if (!host) {
-                alert("Please select a host.");
-                return;
-            }
-
-            if (!purpose) {
-                alert("Please enter the purpose of the visit.");
-                return;
-            }
-
-            if (!nda) {
-                alert("Please agree to the digital NDA.");
-                return;
-            }
-
-            const appointments =
-                JSON.parse(localStorage.getItem("vmsAppointments")) || [];
-
-            appointments.push({
-                id: Date.now(),
-                visitorId: visitor.id,
-                visitorName: visitor.fullName,
-                phone: visitor.phone,
-                email: visitor.email,
-                gender: visitor.gender,
-                host: host,
-                purpose: purpose,
-                date: date,
-                time: time,
-                nda: nda,
-                status: "Pending"
-            });
-
-            localStorage.setItem(
-                "vmsAppointments",
-                JSON.stringify(appointments)
-            );
-
-            document.getElementById("message").textContent =
-                "Appointment booked successfully!";
-
-            localStorage.removeItem("appointmentVisitor");
-
-            setTimeout(() => {
-                window.location.href = "receptionist.html";
-            }, 1000);
-        });
+    };
 
 
     // Cancel
-    document.getElementById("cancel")
-        .addEventListener("click", function () {
 
-            localStorage.removeItem("appointmentVisitor");
+    const cancel =
+        document.getElementById("cancel");
 
-            window.location.href = "receptionist.html";
-        });
 
-    // Go to host dashboard
-    window.location.href = "host-dashboard.html";
+    if (cancel) {
 
+        cancel.onclick = () => {
+
+            localStorage.removeItem(
+                "appointmentVisitor"
+            );
+
+            loadPage("search.html");
+
+        };
 
     }
-});
+
+}

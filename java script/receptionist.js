@@ -1,43 +1,132 @@
-// CHANGE PAGE
-function showPage(pageId, button) {
-
-    // Hide all pages
-    document.querySelectorAll(".page").forEach(page => {
-        page.classList.remove("active-page");
-    });
-
-    // Show selected page
-    document.getElementById(pageId).classList.add("active-page");
-
-
-    // Remove active class from all buttons
-    document.querySelectorAll(".nav-btn").forEach(btn => {
-        btn.classList.remove("active");
-    });
-
-    // Add active class to clicked button
-    button.classList.add("active");
+function getData(key) {
+    return JSON.parse(localStorage.getItem(key)) || [];
 }
 
 
-// SEARCH VISITOR
-function searchVisitor() {
+function loadPage(page, button = null) {
 
-    const searchValue =
-        document.getElementById("visitorSearch").value.trim();
+    fetch(page)
+        .then(response => {
 
-    const results =
-        document.getElementById("searchResults");
+            if (!response.ok) {
+                throw new Error("Could not load " + page);
+            }
 
-    if (searchValue === "") {
-        results.innerHTML = "<p>Please enter a name or phone number.</p>";
-        return;
+            return response.text();
+        })
+
+        .then(data => {
+
+            document.getElementById("pageContent").innerHTML = data;
+
+
+            if (page === "search.html") {
+                setupSearch();
+            }
+
+
+            if (page === "Registration.html") {
+                setupRegistration();
+            }
+
+
+            if (page === "appointment booking.html") {
+                setupAppointment();
+            }
+
+        })
+
+        .catch(error => {
+            console.log("Page loading error:", error);
+        });
+
+
+    document.querySelectorAll(".nav-btn")
+        .forEach(btn => btn.classList.remove("active"));
+
+    if (button) {
+        button.classList.add("active");
+    }
+}
+
+
+/* =========================
+   DASHBOARD STATISTICS
+========================= */
+
+function loadStats() {
+
+    const visitors = getData("vmsVisitors");
+    const appointments = getData("vmsAppointments");
+    const visits = getData("vmsVisits");
+
+
+    const totalVisitors =
+        document.getElementById("totalVisitors");
+
+    const pendingAppointments =
+        document.getElementById("pendingAppointments");
+
+    const checkedIn =
+        document.getElementById("checkedIn");
+
+    const checkedOut =
+        document.getElementById("checkedOut");
+
+
+    if (totalVisitors) {
+        totalVisitors.textContent = visitors.length;
     }
 
-    results.innerHTML = `
-        <div class="activities">
-            <h2>Search Result</h2>
-            <p>Searching for: <strong>${searchValue}</strong></p>
-        </div>
-    `;
+
+    if (pendingAppointments) {
+
+        pendingAppointments.textContent =
+            appointments.filter(a =>
+                a.status === "Pending"
+            ).length;
+
+    }
+
+
+    if (checkedIn) {
+
+        checkedIn.textContent =
+            visits.filter(v =>
+                v.status === "Checked In"
+            ).length;
+
+    }
+
+
+    if (checkedOut) {
+
+        checkedOut.textContent =
+            visits.filter(v =>
+                v.status === "Checked Out"
+            ).length;
+
+    }
+}
+
+
+/* =========================
+   START DASHBOARD
+========================= */
+
+document.addEventListener("DOMContentLoaded", function () {
+
+    loadStats();
+
+});
+
+
+/* =========================
+   LOGOUT
+========================= */
+
+function logout() {
+
+    window.location.href = "../index.html";
+
 }

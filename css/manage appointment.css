@@ -11,9 +11,7 @@ body {
 }
 
 
-/* =========================
-   MAIN CONTENT
-========================= */
+/* main content */
 
 .content {
     width: 100%;
@@ -22,9 +20,7 @@ body {
 }
 
 
-/* =========================
-   PAGE HEADER
-========================= */
+/* header */
 
 .page-header {
     margin-bottom: 25px;
@@ -43,9 +39,7 @@ h1 {
 }
 
 
-/* =========================
-   SEARCH BOX
-========================= */
+/* search box */
 
 .search-box {
     position: relative;
@@ -79,9 +73,7 @@ h1 {
 }
 
 
-/* =========================
-   APPOINTMENT SECTION
-========================= */
+/* appointment section*/
 
 .appointment-section {
     background: white;
@@ -98,9 +90,7 @@ h1 {
 }
 
 
-/* =========================
-   TABLE
-========================= */
+/* table */
 
 .table-container {
     width: 100%;
@@ -134,9 +124,7 @@ td {
 }
 
 
-/* =========================
-   NO APPOINTMENTS
-========================= */
+/* no appoinment */
 
 .no-appointments {
     display: none;
@@ -149,9 +137,7 @@ td {
 }
 
 
-/* =========================
-   RESPONSIVE
-========================= */
+/* responsive */
 
 @media (max-width: 700px) {
 

@@ -1,22 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Visitor Registration</title>
+
     <link rel="stylesheet" href="../css/Reg.css">
 </head>
+
 <body>
 
+    <div class="right-side">
 
-        <!--Right Side-->
-        <div class="right-side">
-<form id="VisitorForm" action="../html/appointment booking.html" method="post">
- <h2>Visitor Registration Form</h2>
+        <form id="VisitorForm">
 
-  <label>Full Name</label>
-  <input type="text" name="fullname" required>
+            <h2>Visitor Registration Form</h2>
 
+<<<<<<< HEAD
   <label>Phone Number</label>
   <input type="text" name="phone" required>
 
@@ -56,120 +58,50 @@ document.addEventListener("DOMContentLoaded", function () {
 
     const visitorForm =
         document.getElementById("VisitorForm");
+=======
+            <label>Full Name</label>
+            <input type="text" name="fullname" required>
+>>>>>>> 4f8db9bba281ada0a1c8e308ecb0ec29f3ca7b1f
 
 
-    visitorForm.addEventListener("submit", function (event) {
-
-        event.preventDefault();
-
-
-        
-        // get visitor information
-        
-
-        const fullName =
-            document.querySelector(
-                'input[name="fullname"]'
-            ).value.trim();
+            <label>Phone Number</label>
+            <input type="text" name="phone" required>
 
 
-        const phone =
-            document.querySelector(
-                'input[name="phone"]'
-            ).value.trim();
+            <label>Gender</label>
+            <select name="gender" required>
+
+                <option value="">Select Gender</option>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+                <option value="Other">Other</option>
 
 
-        const gender =
-        document.getElementById("gender").
-        value;
-
-        if (gender === "") {
-            alert("please select the visitor's gender .");
-            return;
-            
-        }
+            </select>
 
 
-        const email =
-            document.querySelector(
-                'input[name="email"]'
-            ).value.trim();
+            <label>Email Address</label>
+            <input type="email" name="email">
 
 
-        
-        // check gender
+            <div class="buttons">
 
+                <button type="submit">
+                    Register Visitor
+                </button>
 
-        if (!genderInput) {
+                <button type="reset">
+                    Clear
+                </button>
 
-            alert("Please select the visitor's gender.");
+            </div>
 
-            return;
-        }
+        </form>
 
-
-        
-        // get existing visitor
-        
-
-        let visitors =
-            JSON.parse(
-                localStorage.getItem("vmsVisitors")
-            ) || [];
-
-
-        
-        // create visitor
-    
-
-        const newVisitor = {
-
-            id: Date.now(),
-
-            fullName: fullName,
-
-            phone: phone,
-
-    
-
-            email: email,
-
-            date:
-                new Date()
-                    .toISOString()
-                    .split("T")[0]
-
-        };
-
-
-        
-        // save visitor
-        
-
-        visitors.push(newVisitor);
-
-
-        localStorage.setItem(
-            "vmsVisitors",
-            JSON.stringify(visitors)
-        );
-
-
-        
-        // save current visitor for appointment
-
-        localStorage.setItem(
-            "appointmentVisitor",
-            JSON.stringify(newVisitor)
-        );
-
-
-    
-});
-
-</script>
+    </div>
 
 
 
 </body>
+
 </html>

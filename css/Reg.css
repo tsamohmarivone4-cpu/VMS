@@ -1,13 +1,10 @@
-body{
+* {
     margin: 0;
-    font-family: Arial, Helvetica, sans-serif;
-    background: #f4f4f4;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
+    padding: 0;
+    box-sizing: border-box;
 }
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 .form-group {
     margin-bottom: 16px;
@@ -22,19 +19,23 @@ body{
     overflow: 0 10px 25px
     rgba(0,0,0,0.2) ;
   }
+=======
+body {
+    font-family: "Poppins", sans-serif;
+    background: #f5f7fb;
+    min-height: 100vh;
+}
+>>>>>>> 4f8db9bba281ada0a1c8e308ecb0ec29f3ca7b1f
 
-  
 
-  .right-side{
-    width: 60%;
-    padding: 40px;
-  }
+/* main form*/
 
-  .right-side h2{
-    color: navy;
-    margin-bottom: 20px;
-  }
+.right-side {
+    width: 100%;
+    padding: 35px 40px;
+}
 
+<<<<<<< HEAD
   label{
 >>>>>>> de8e96f0690a1a3391bf3edd19a00122e6a70c4d
     display: block;
@@ -72,13 +73,99 @@ input[type=reset]{
     border: none;
     padding: 10px;
     cursor:pointer;
+=======
+
+/* action */
+
+.right-side h2 {
+    color: #1e3a8a;
+    font-size: 26px;
+    margin-bottom: 25px;
 }
 
 
+/* labels */
+
+label {
+    display: block;
+    margin-top: 15px;
+    margin-bottom: 6px;
+    font-size: 14px;
+    font-weight: 500;
+    color: #333;
+>>>>>>> 4f8db9bba281ada0a1c8e308ecb0ec29f3ca7b1f
+}
+
+
+/* inputs*/
+
+input[type="text"],
+input[type="email"],
 select {
+<<<<<<< HEAD
   padding: 10px;
   border: 1px solid navy;
 border-radius: 5px;
 color: #0f4c81;
 }
 >>>>>>> de8e96f0690a1a3391bf3edd19a00122e6a70c4d
+=======
+    width: 100%;
+    padding: 11px;
+
+    border: 1px solid #ddd;
+    border-radius: 8px;
+
+    outline: none;
+    font-family: inherit;
+}
+
+input:focus,
+select:focus {
+    border-color: #1e3a8a;
+}
+
+
+/* buttons */
+
+.buttons {
+    display: flex;
+    gap: 10px;
+    margin-top: 25px;
+}
+
+button {
+    padding: 11px 20px;
+
+    border: none;
+    border-radius: 8px;
+
+    background: #1e3a8a;
+    color: white;
+
+    font-family: inherit;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #2563eb;
+}
+
+
+/* mobile */
+
+@media (max-width: 700px) {
+
+    .right-side {
+        padding: 25px 20px;
+    }
+
+    .buttons {
+        flex-direction: column;
+    }
+
+    button {
+        width: 100%;
+    }
+}
+>>>>>>> 4f8db9bba281ada0a1c8e308ecb0ec29f3ca7b1f

@@ -17,49 +17,55 @@
 
 <body>
 
-    <!-- ================= SIDEBAR ================= -->
 
-    <aside class="sidebar">
 
-        <div class="logo">
-            <h2>VMS</h2>
+<!-- sidebar -->
+<aside class="sidebar">
+
+    <div class="logo">
+        <h2>VMS</h2>
+    </div>
+
+    <nav class="sidebar-nav">
+
+        <div class="nav-btn active"
+             onclick="loadPage()">
+            <i class="fa-solid fa-house"></i>
+            <span>Dashboard</span>
         </div>
 
-        <nav class="sidebar-nav">
+        <div class="nav-btn"
+             onclick="loadPage('search.html', this)">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <span>Search Visitor</span>
+        </div>
 
-            <a href="receptionist.html" class="nav-btn active">
-                <i class="fa-solid fa-house"></i>
-                <span>Dashboard</span>
-            </a>
+        <div class="nav-btn"
+             onclick="loadPage('manage appointment.html', this)">
+            <i class="fa-solid fa-calendar-check"></i>
+            <span>Manage Appointments</span>
+        </div>
 
-            <a href="search.html" class="nav-btn">
-                <i class="fa-solid fa-magnifying-glass"></i>
-                <span>Search Visitor</span>
-            </a>
+    </nav>
 
-            <a href="manage appointment.html" class="nav-btn">
-                <i class="fa-solid fa-calendar-check"></i>
-                <span>Manage Appointments</span>
-            </a>
+    <button class="logout-btn" onclick="logout()">
+        <i class="fa-solid fa-right-from-bracket"></i>
+        <span>Logout</span>
+    </button>
 
-        </nav>
+</aside>
 
-        <button class="logout-btn" onclick="logout()">
-            <i class="fa-solid fa-right-from-bracket"></i>
-            <span>Logout</span>
-        </button>
-
-    </aside>
-
-
-    <!-- ================= MAIN CONTENT ================= -->
+    <!-- main content-->
 
     <main class="main-content">
+        <div id="pageContent">
 
-        <h1>Receptionist Dashboard</h1>
+        
+
+         <h1>Receptionist Dashboard</h1>
 
 
-        <!-- ================= STATISTICS ================= -->
+        <!-- cards-->
 
         <div class="stats-container">
 
@@ -105,7 +111,7 @@
         </div>
 
 
-        <!-- ================= WEEKLY ACTIVITIES ================= -->
+        <!-- weekly activities-->
 
         <section class="activities">
 
@@ -140,11 +146,16 @@
             </div>
 
         </section>
-
+        </div>
     </main>
 
 
-    <script src="../JavaScript/receptionist.js"></script>
+    <script src="../java script/receptionist.js"></script>
+    <script src="../java script/search .js"></script>
+    <script src="../java script/registration.js"></script>
+    <script src="../java script/booking.js"></script>
+    <script src="../java script/manage appointment.js"></script>
+
 
 </body>
 </html>
