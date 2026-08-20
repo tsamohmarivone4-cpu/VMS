@@ -1,6 +1,4 @@
-/* =========================
-   DEFAULT SYSTEM USERS
-========================= */
+/* defualt systerm user */
 
 const defaultUsers = [
 
@@ -34,9 +32,7 @@ const defaultUsers = [
 ];
 
 
-/* =========================
-   CREATE DEFAULT USERS
-========================= */
+/* create defualt user */
 
 let users =
     JSON.parse(localStorage.getItem("vmsUsers")) || [];
@@ -57,9 +53,7 @@ if (!localStorage.getItem("vmsUsers")) {
 }
 
 
-/* =========================
-   LOGIN
-========================= */
+/* login form */
 
 document
     .getElementById("loginForm")
@@ -84,7 +78,7 @@ document
             document.getElementById("loginMessage");
 
 
-        /* GET USERS */
+        /* get usre */
 
         const users =
             JSON.parse(
@@ -92,7 +86,7 @@ document
             ) || [];
 
 
-        /* FIND USER */
+        /* find user */
 
         const user = users.find(u =>
 
@@ -104,7 +98,7 @@ document
         );
 
 
-        /* INVALID LOGIN */
+        /* invalid login */
 
         if (!user) {
 
@@ -117,7 +111,7 @@ document
         }
 
 
-        /* SAVE CURRENT USER */
+        /* save current user */
 
         localStorage.setItem(
             "currentUser",
@@ -125,15 +119,13 @@ document
         );
 
 
-        /* GET ROLE */
+        /* get a role */
 
         const role =
             user.role.toLowerCase();
 
 
-        /* =========================
-           DASHBOARD REDIRECTION
-        ========================= */
+        /* dashbaord redirection */
 
         if (role === "admin" ||
             role === "administrator") {

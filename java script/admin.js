@@ -559,9 +559,7 @@ document.addEventListener("DOMContentLoaded", () => {
     };
 
 
-    /* =========================
-       SETTINGS
-    ========================= */
+    /* setting */
 
     $("saveSettingsBtn").onclick = () => {
 
@@ -579,9 +577,7 @@ document.addEventListener("DOMContentLoaded", () => {
     };
 
 
-    /* =========================
-       START
-    ========================= */
+    /* start */
 
     show("dashboardSection");
 

@@ -32,20 +32,16 @@ body {
 /* logo */
 
 .logo {
-    height: 100px;
-
+    height: 170px;
+    width: 200;
     display: flex;
     justify-content: center;
     align-items: center;
 
     border-bottom: 1px solid rgba(255,255,255,0.2);
     margin-bottom: 25px;
-}
 
-.logo h2 {
-    font-size: 28px;
-    font-weight: 600;
-}
+}    
 
 
 /* navigation */
@@ -168,18 +164,6 @@ body {
     font-size: 28px;
     font-weight: 600;
     color: #1e3a8a;
-}
-
-.stat-card i {
-    width: 50px;
-    height: 50px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 10px;
-    background: #eef2ff;
-    color: #1e3a8a;
-    font-size: 22px;
 }
 
 /* activity */

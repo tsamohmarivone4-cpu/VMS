@@ -14,7 +14,7 @@ document.addEventListener("DOMContentLoaded", () => {
     displayAppointments();
 
 
-    // SHOW SECTION
+    // show section
     window.showSection = function(id) {
 
         document.querySelectorAll(".section")
@@ -29,7 +29,7 @@ document.addEventListener("DOMContentLoaded", () => {
     };
 
 
-    // GET THIS HOST'S APPOINTMENTS ONLY
+    // get the host appointment
     function getMyAppointments() {
 
         const appointments =
@@ -43,7 +43,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
 
-    // DISPLAY
+    // display appointment
     function displayAppointments() {
 
         const appointments = getMyAppointments();
@@ -87,7 +87,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
 
-    // DISPLAY PENDING TABLE
+    // display pending table
     function displayList(id, list) {
 
         const box = document.getElementById(id);
@@ -139,7 +139,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
 
-    // APPROVE
+    // approve
     window.approveAppointment = function(id) {
 
         updateStatus(id, "Approved");
@@ -148,7 +148,7 @@ document.addEventListener("DOMContentLoaded", () => {
     };
 
 
-    // REJECT
+    // reject
     window.rejectAppointment = function(id) {
 
         updateStatus(id, "Rejected");
@@ -157,7 +157,7 @@ document.addEventListener("DOMContentLoaded", () => {
     };
 
 
-    // UPDATE STATUS
+    // update status
     function updateStatus(id, status) {
 
         let appointments =
@@ -184,7 +184,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
 
-    // LOGOUT
+    // logout
     window.logout = function() {
 
         localStorage.removeItem("currentUser");

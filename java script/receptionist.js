@@ -3,7 +3,8 @@ function getData(key) {
 }
 
 
-/* LOAD PAGES */
+/* load pages+
+ */
 function loadPage(page, button = null) {
 
     fetch(page)
@@ -19,12 +20,12 @@ function loadPage(page, button = null) {
                 button.classList.add("active");
             }
 
-            /* START SEARCH PAGE */
+            /* start search page */
             if (page === "search.html") {
                 setupSearch();
             }
 
-            /* START APPOINTMENT PAGE */
+            /* start appointment pade */
             if (page === "appointment booking.html") {
                 setupAppointment();
             }
@@ -35,7 +36,7 @@ function loadPage(page, button = null) {
 }
 
 
-/* SEARCH */
+/* search */
 function setupSearch() {
 
     const input = document.getElementById("visitorSearch");
@@ -110,7 +111,7 @@ function searchVisitor() {
 }
 
 
-/* ACTION BUTTON */
+/* ation button */
 function getAction(id) {
 
     const visits = getData("vmsVisits");
@@ -139,7 +140,7 @@ function getAction(id) {
 }
 
 
-/* ACTION */
+/* action */
 function visitorAction(id) {
 
     const action = getAction(id);
@@ -150,7 +151,7 @@ function visitorAction(id) {
     if (!visitor) return;
 
 
-    /* BOOK APPOINTMENT */
+    /* book appointment */
     if (action === "Book Appointment") {
 
         localStorage.setItem(
@@ -164,7 +165,7 @@ function visitorAction(id) {
     }
 
 
-    /* CHECK IN */
+    /* check-in */
     if (action === "Check In") {
 
         checkIn(id);
@@ -173,7 +174,7 @@ function visitorAction(id) {
     }
 
 
-    /* CHECK OUT */
+    /* check-out */
     if (action === "Check Out") {
 
         checkOut(id);
@@ -183,9 +184,7 @@ function visitorAction(id) {
 }
 
 
-/* =========================
-   APPOINTMENT
-========================= */
+/* appointment */
 
 function setupAppointment() {
 
@@ -206,7 +205,7 @@ function setupAppointment() {
     if (!form) return;
 
 
-    /* SHOW VISITOR NAME */
+    /* show visitor name */
 
     if (visitor) {
 
@@ -220,7 +219,7 @@ function setupAppointment() {
     }
 
 
-    /* LOAD HOSTS */
+    /* load host */
 
     const users = getData("vmsUsers");
 
@@ -244,7 +243,7 @@ function setupAppointment() {
         });
 
 
-    /* SUBMIT APPOINTMENT */
+    /* submit appointment */
 
     form.onsubmit = function(e) {
 
@@ -315,7 +314,7 @@ function setupAppointment() {
     };
 
 
-    /* CANCEL */
+    /* cancel */
 
     const cancel =
         document.getElementById("cancel");
@@ -335,7 +334,7 @@ function setupAppointment() {
 }
 
 
-/* CHECK IN */
+/* check-in */
 function checkIn(id) {
 
     const visitor = getData("vmsVisitors")
@@ -384,7 +383,7 @@ function checkIn(id) {
 }
 
 
-/* CHECK OUT */
+/* check-out */
 function checkOut(id) {
 
     const visits =
@@ -420,7 +419,7 @@ function checkOut(id) {
 }
 
 
-/* GET HOST */
+/* get host*/
 function getHost(id) {
 
     const appointments =
@@ -440,7 +439,7 @@ function getHost(id) {
 }
 
 
-/* DASHBOARD STATS */
+/* dashboard cards*/
 function loadStats() {
 
     const visitors =
@@ -493,7 +492,7 @@ function loadStats() {
 }
 
 
-/* LOGOUT */
+/* logut */
 function logout() {
 
     window.location.href =

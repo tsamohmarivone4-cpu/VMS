@@ -41,36 +41,51 @@ h1 {
 
 /* search box */
 
-.search-box {
-    position: relative;
-    width: 300px;
-    margin-top: 15px;
+
+ 
+.search-section {
+    background: white;
+    padding: 25px;
+    border-radius: 12px;
+    margin-bottom: 25px;
+    box-shadow: 0 3px 12px rgba(0,0,0,0.06);
 }
 
-.search-box i {
-    position: absolute;
-    left: 12px;
-    top: 50%;
-    transform: translateY(-50%);
-    color: #999;
+.search-box {
+    display: flex;
+    gap: 12px;
 }
 
 .search-box input {
-    width: 100%;
-    padding: 11px 10px 11px 38px;
-
+    flex: 1;
+    height: 48px;
+    padding: 0 15px;
     border: 1px solid #ddd;
-    border-radius: 8px;
-
-    outline: none;
-
+    border-radius: 7px;
     font-family: inherit;
     font-size: 14px;
+    outline: none;
 }
 
 .search-box input:focus {
-    border-color: #1e3a8a;
+    border-color: #1e3a;
 }
+
+.search-box button {
+    height: 48px;
+    padding: 0 25px;
+    border: none;
+    border-radius: 7px;
+    background: #1e3a8a;
+    color: white;
+    font-family: inherit;
+    cursor: pointer;
+}
+
+.search-box button:hover {
+    background: #172f70;
+}
+
 
 
 /* appointment section*/
