@@ -1,4 +1,4 @@
-function setupAppointments() {
+function setupManageAppointments() {
 
     const table = document.getElementById("appointmentTableBody");
     const search = document.getElementById("appointmentSearch");
@@ -12,31 +12,26 @@ function setupAppointments() {
     }
 
 
-    function displayAppointments(appointments) {
+    function displayAppointments(data) {
 
         table.innerHTML = "";
 
-        if (!appointments.length) {
+        if (!data.length) {
             noAppointments.style.display = "block";
             return;
         }
 
         noAppointments.style.display = "none";
 
-
-        appointments.forEach(appointment => {
+        data.forEach(appointment => {
 
             const row = document.createElement("tr");
 
             row.innerHTML = `
                 <td>${appointment.visitorName}</td>
-
                 <td>${appointment.host}</td>
-
                 <td>${appointment.purpose}</td>
-
                 <td>${appointment.date}</td>
-
                 <td>${appointment.time}</td>
 
                 <td>
@@ -64,48 +59,43 @@ function setupAppointments() {
         );
 
 
-        // Visitor is currently checked in
         if (visit && visit.status === "Checked In") {
 
             return `
                 <button class="action-btn"
-                    onclick="appointmentCheckOut(${appointment.visitorId})">
+                    onclick="manageCheckOut(${appointment.visitorId})">
                     Check Out
                 </button>
             `;
         }
 
 
-        // Visitor already checked out
         if (visit && visit.status === "Checked Out") {
 
             return `
-                <button class="action-btn completed" disabled>
+                <button class="action-btn" disabled>
                     Visit Completed
                 </button>
             `;
         }
 
 
-        // Appointment approved
         if (appointment.status === "Approved") {
 
             return `
                 <button class="action-btn"
-                    onclick="appointmentCheckIn(${appointment.visitorId})">
+                    onclick="manageCheckIn(${appointment.visitorId})">
                     Check In
                 </button>
             `;
         }
 
 
-        return "-";
+        return `<span>-</span>`;
     }
 
 
-    // CHECK IN
-
-    window.appointmentCheckIn = function(visitorId) {
+    window.manageCheckIn = function(visitorId) {
 
         const appointments = getData("vmsAppointments");
         const visits = getData("vmsVisits");
@@ -119,26 +109,14 @@ function setupAppointments() {
 
 
         visits.push({
-
             id: Date.now(),
-
             visitorId: visitorId,
-
             visitorName: appointment.visitorName,
-
             host: appointment.host,
-
-            date: new Date()
-                .toISOString()
-                .split("T")[0],
-
-            checkInTime:
-                new Date().toLocaleTimeString(),
-
+            date: new Date().toISOString().split("T")[0],
+            checkInTime: new Date().toLocaleTimeString(),
             checkOutTime: "",
-
             status: "Checked In"
-
         });
 
 
@@ -147,16 +125,15 @@ function setupAppointments() {
             JSON.stringify(visits)
         );
 
-
         displayAppointments(
             getData("vmsAppointments")
         );
+
+        loadStats();
     };
 
 
-    // CHECK OUT
-
-    window.appointmentCheckOut = function(visitorId) {
+    window.manageCheckOut = function(visitorId) {
 
         const visits = getData("vmsVisits");
 
@@ -179,47 +156,34 @@ function setupAppointments() {
             JSON.stringify(visits)
         );
 
-
         displayAppointments(
             getData("vmsAppointments")
         );
+
+        loadStats();
     };
 
 
-    // SEARCH APPOINTMENTS
+    search.oninput = function() {
 
-    if (search) {
+        const value =
+            search.value.toLowerCase().trim();
 
-        search.oninput = function() {
+        const appointments =
+            getData("vmsAppointments");
 
-            const value =
-                search.value.toLowerCase().trim();
-
-            const appointments =
-                getData("vmsAppointments");
-
-
-            const results = appointments.filter(a =>
-
+        displayAppointments(
+            appointments.filter(a =>
                 (a.visitorName || "")
                     .toLowerCase()
+                    .includes(value) ||
+
+                (a.phone || "")
                     .includes(value)
+            )
+        );
+    };
 
-                ||
-
-                (a.host || "")
-                    .toLowerCase()
-                    .includes(value)
-
-            );
-
-
-            displayAppointments(results);
-        };
-    }
-
-
-    // LOAD ALL APPOINTMENTS
 
     displayAppointments(
         getData("vmsAppointments")

@@ -1,10 +1,10 @@
-/* defualt systerm user */
+/* DEFAULT SYSTEM USERS */
 
 const defaultUsers = [
 
     {
         id: 1,
-        fullName: "System Administrator",
+        fullName: "Administrator",
         username: "admin",
         password: "admin123",
         role: "Administrator",
@@ -13,7 +13,7 @@ const defaultUsers = [
 
     {
         id: 2,
-        fullName: "System Receptionist",
+        fullName: "Receptionist",
         username: "receptionist",
         password: "reception123",
         role: "Receptionist",
@@ -22,7 +22,7 @@ const defaultUsers = [
 
     {
         id: 3,
-        fullName: "System Host",
+        fullName: "Host",
         username: "host",
         password: "host123",
         role: "Host",
@@ -32,28 +32,45 @@ const defaultUsers = [
 ];
 
 
-/* create defualt user */
+/* GET USERS */
 
 let users =
     JSON.parse(localStorage.getItem("vmsUsers")) || [];
 
 
-/*
-   Only create default users
-   if the user list does not exist.
-*/
+/* ADD / FIX DEFAULT USERS */
 
-if (!localStorage.getItem("vmsUsers")) {
+defaultUsers.forEach(defaultUser => {
 
-    localStorage.setItem(
-        "vmsUsers",
-        JSON.stringify(defaultUsers)
+    const existing = users.find(
+        user => user.username === defaultUser.username
     );
 
-}
+    if (!existing) {
+
+        users.push(defaultUser);
+
+    } else {
+
+        existing.fullName = defaultUser.fullName;
+        existing.role = defaultUser.role;
+        existing.department = defaultUser.department;
+        existing.password = defaultUser.password;
+
+    }
+
+});
 
 
-/* login form */
+/* SAVE USERS */
+
+localStorage.setItem(
+    "vmsUsers",
+    JSON.stringify(users)
+);
+
+
+/* LOGIN */
 
 document
     .getElementById("loginForm")
@@ -61,24 +78,17 @@ document
 
         event.preventDefault();
 
-
         const username =
-            document
-                .getElementById("username")
-                .value
-                .trim();
+            document.getElementById("username")
+                .value.trim();
 
         const password =
-            document
-                .getElementById("password")
-                .value
-                .trim();
+            document.getElementById("password")
+                .value.trim();
 
         const message =
             document.getElementById("loginMessage");
 
-
-        /* get usre */
 
         const users =
             JSON.parse(
@@ -86,19 +96,12 @@ document
             ) || [];
 
 
-        /* find user */
-
         const user = users.find(u =>
-
             u.username.toLowerCase() ===
             username.toLowerCase() &&
-
             u.password === password
-
         );
 
-
-        /* invalid login */
 
         if (!user) {
 
@@ -111,7 +114,7 @@ document
         }
 
 
-        /* save current user */
+        /* SAVE CURRENT USER */
 
         localStorage.setItem(
             "currentUser",
@@ -119,16 +122,16 @@ document
         );
 
 
-        /* get a role */
+        /* REDIRECT */
 
         const role =
             user.role.toLowerCase();
 
 
-        /* dashbaord redirection */
-
-        if (role === "admin" ||
-            role === "administrator") {
+        if (
+            role === "admin" ||
+            role === "administrator"
+        ) {
 
             window.location.href =
                 "html/admin.html";

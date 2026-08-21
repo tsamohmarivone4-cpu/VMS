@@ -1,7 +1,8 @@
- 
-
-const getData = key =>
+const searchData = key =>
     JSON.parse(localStorage.getItem(key)) || [];
+
+
+/* START SEARCH */
 
 function setupSearch() {
 
@@ -13,10 +14,14 @@ function setupSearch() {
     button.onclick = searchVisitor;
 
     input.onkeydown = e => {
-        if (e.key === "Enter") searchVisitor();
+        if (e.key === "Enter") {
+            searchVisitor();
+        }
     };
 }
 
+
+/* SEARCH VISITOR */
 
 function searchVisitor() {
 
@@ -24,40 +29,51 @@ function searchVisitor() {
     const table = document.getElementById("visitorTable");
     const message = document.getElementById("noResult");
 
+    if (!input || !table || !message) return;
+
     const value = input.value.trim().toLowerCase();
 
     table.innerHTML = "";
     message.style.display = "none";
 
     if (!value) {
-        message.textContent = "Please enter a name or phone number.";
+        message.textContent =
+            "Please enter a name or phone number.";
         message.style.display = "block";
         return;
     }
 
-    const visitors = getData("vmsVisitors").filter(v =>
-        (v.fullName || "").toLowerCase().includes(value) ||
-        (v.phone || "").includes(value)
+    const visitors = searchData("vmsVisitors");
+
+    const results = visitors.filter(visitor =>
+        (visitor.fullName || "")
+            .toLowerCase()
+            .includes(value) ||
+        (visitor.phone || "")
+            .includes(value)
     );
 
-    if (!visitors.length) {
+    if (!results.length) {
         message.textContent = "No visitor found.";
         message.style.display = "block";
         return;
     }
 
-    visitors.forEach(v => {
+    results.forEach(visitor => {
 
         const row = document.createElement("tr");
 
         row.innerHTML = `
-            <td>${v.fullName}</td>
-            <td>${v.phone}</td>
-            <td>${v.gender}</td>
-            <td>${v.email || "-"}</td>
+            <td>${visitor.fullName}</td>
+            <td>${visitor.phone}</td>
+            <td>${visitor.gender || "-"}</td>
+            <td>${visitor.email || "-"}</td>
+
             <td>
-                <button onclick="visitorAction(${v.id})">
-                    ${getAction(v.id)}
+                <button
+                    class="action-btn"
+                    onclick="searchVisitorAction(${visitor.id})">
+                    ${searchGetAction(visitor.id)}
                 </button>
             </td>
         `;
@@ -67,41 +83,49 @@ function searchVisitor() {
 }
 
 
-function getAction(id) {
+/* ACTION */
 
-    const visits = getData("vmsVisits");
-    const appointments = getData("vmsAppointments");
+function searchGetAction(id) {
+
+    const visits = searchData("vmsVisits");
+    const appointments = searchData("vmsAppointments");
 
     const visit = visits.find(v =>
         v.visitorId == id
     );
 
-    if (visit?.status === "Checked In")
+    if (visit && visit.status === "Checked In") {
         return "Check Out";
+    }
 
-    if (visit?.status === "Checked Out")
+    if (visit && visit.status === "Checked Out") {
         return "Visit Completed";
+    }
 
-    if (
-        appointments.some(a =>
-            a.visitorId == id &&
-            a.status === "Approved"
-        )
-    )
+    const approved = appointments.some(a =>
+        a.visitorId == id &&
+        a.status === "Approved"
+    );
+
+    if (approved) {
         return "Check In";
+    }
 
     return "Book Appointment";
 }
 
 
-function visitorAction(id) {
+/* VISITOR ACTION */
 
-    const action = getAction(id);
+function searchVisitorAction(id) {
 
-    const visitor = getData("vmsVisitors")
+    const action = searchGetAction(id);
+
+    const visitor = searchData("vmsVisitors")
         .find(v => v.id == id);
 
     if (!visitor) return;
+
 
     if (action === "Book Appointment") {
 
@@ -111,37 +135,58 @@ function visitorAction(id) {
         );
 
         loadPage("appointment booking.html");
+
         return;
     }
+
 
     if (action === "Check In") {
-        checkIn(id);
+
+        searchCheckIn(id);
+
         return;
     }
 
+
     if (action === "Check Out") {
-        checkOut(id);
+
+        searchCheckOut(id);
+
+        return;
     }
 }
 
 
-function checkIn(id) {
+/* CHECK IN */
 
-    const visitor = getData("vmsVisitors")
+function searchCheckIn(id) {
+
+    const visitor = searchData("vmsVisitors")
         .find(v => v.id == id);
 
     if (!visitor) return;
 
-    const visits = getData("vmsVisits");
+    const visits = searchData("vmsVisits");
 
     visits.push({
+
         id: Date.now(),
+
         visitorId: id,
+
         visitorName: visitor.fullName,
-        host: getHost(id),
-        date: new Date().toISOString().split("T")[0],
-        checkInTime: new Date().toLocaleTimeString(),
+
+        host: searchGetHost(id),
+
+        date: new Date()
+            .toISOString()
+            .split("T")[0],
+
+        checkInTime:
+            new Date().toLocaleTimeString(),
+
         checkOutTime: "",
+
         status: "Checked In"
     });
 
@@ -154,9 +199,11 @@ function checkIn(id) {
 }
 
 
-function checkOut(id) {
+/* CHECK OUT */
 
-    const visits = getData("vmsVisits");
+function searchCheckOut(id) {
+
+    const visits = searchData("vmsVisits");
 
     const visit = visits.find(v =>
         v.visitorId == id &&
@@ -166,7 +213,9 @@ function checkOut(id) {
     if (!visit) return;
 
     visit.status = "Checked Out";
-    visit.checkOutTime = new Date().toLocaleTimeString();
+
+    visit.checkOutTime =
+        new Date().toLocaleTimeString();
 
     localStorage.setItem(
         "vmsVisits",
@@ -177,13 +226,17 @@ function checkOut(id) {
 }
 
 
-function getHost(id) {
+/* HOST */
 
-    const appointment = getData("vmsAppointments")
+function searchGetHost(id) {
+
+    const appointment = searchData("vmsAppointments")
         .find(a =>
             a.visitorId == id &&
             a.status === "Approved"
         );
 
-    return appointment ? appointment.host : "Walk-in";
+    return appointment
+        ? appointment.host
+        : "Walk-in";
 }

@@ -5,9 +5,8 @@
 }
 
 body {
-    font-family: Arial, sans-serif;
-    background: #f4f6f8;
-    color: #333;
+    font-family: Poppins, sans-serif;
+    background: #f4f7fb;
 }
 
 .dashboard {
@@ -17,12 +16,11 @@ body {
 
 /* SIDEBAR */
 .sidebar {
+    width: 220px;
+    background: #1e3a8a;
+    padding: 20px 15px;
     position: fixed;
-    width: 230px;
     height: 100vh;
-    padding: 20px 12px;
-    background: #1E3A8A;
-    color: white;
 }
 
 .logo {
@@ -31,64 +29,54 @@ body {
 }
 
 .logo img {
-    width: 160px;
-    height: auto;
-    border-radius: 8px;
+    width: 140px;
+    height: 90px;
+    object-fit: contain;
 }
 
-.sidebar nav button {
+.sidebar nav {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.sidebar nav button,
+.logout {
     width: 100%;
-    padding: 11px;
-    margin-bottom: 6px;
-    border: 0;
-    border-radius: 5px;
-    background: transparent;
+    padding: 12px;
+    border: none;
+    border-radius: 6px;
     color: white;
+    background: transparent;
     text-align: left;
     cursor: pointer;
 }
 
 .sidebar nav button:hover {
-    background: rgba(255,255,255,.2);
+    background: #2949a0;
 }
 
 .logout {
-    position: absolute;
-    bottom: 20px;
-    left: 12px;
-    width: calc(100% - 24px);
-    padding: 10px;
-    border: 0;
-    border-radius: 5px;
-    background: #163478;
-    color: white;
-    cursor: pointer;
+    margin-top: 30px;
+    background: #dc2626;
 }
 
 /* MAIN */
 .main {
-    margin-left: 230px;
-    width: calc(100% - 230px);
-}
-
-.topbar {
-    padding: 18px 25px;
-    background: white;
-    box-shadow: 0 2px 5px #0001;
-}
-
-.topbar h1 {
-    color: #123b6d;
-}
-
-/* SECTIONS */
-.section {
-    display: none;
+    margin-left: 220px;
+    width: calc(100% - 220px);
     padding: 25px;
 }
 
-.section.active {
-    display: block;
+.topbar {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+
+.topbar h1 {
+    color: #1e3a8a;
 }
 
 /* CARDS */
@@ -96,127 +84,79 @@ body {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 15px;
-    margin-bottom: 25px;
+    margin-bottom: 20px;
 }
 
 .card {
-    padding: 18px;
     background: white;
+    padding: 18px;
     border-radius: 8px;
-    box-shadow: 0 2px 6px #0001;
+    box-shadow: 0 2px 6px #ddd;
 }
 
 .card h3 {
     font-size: 14px;
-    color: #777;
+    color: #666;
 }
 
 .card p {
-    margin-top: 8px;
-    font-size: 26px;
+    font-size: 25px;
+    color: #1e3a8a;
     font-weight: bold;
-    color: #1E3A8A;
+    margin-top: 8px;
 }
 
 /* TABLE */
-.table-container {
-    margin-top: 15px;
-    padding: 15px;
+.appointment-section {
     background: white;
+    padding: 20px;
     border-radius: 8px;
+}
+
+.appointment-section h2 {
+    color: #1e3a8a;
+    margin-bottom: 15px;
+}
+
+.table-container {
     overflow-x: auto;
 }
 
-table {
+.appointment-table {
     width: 100%;
     border-collapse: collapse;
 }
 
-th,
-td {
-    padding: 11px;
+.appointment-table th {
+    background: #1e3a8a;
+    color: white;
+    padding: 12px;
     text-align: left;
-    border-bottom: 1px solid #eee;
 }
 
-th {
-    background: #1E3A8A;
+.appointment-table td {
+    padding: 12px;
+    border-bottom: 1px solid #ddd;
+}
+
+.action-btn {
+    padding: 6px 10px;
+    border: none;
+    border-radius: 5px;
+    background: #1e3a8a;
     color: white;
-}
-
-tr:hover {
-    background: #f7f9fc;
-}
-
-/* ACTION BUTTONS */
-.action-buttons {
-    display: flex;
-    gap: 5px;
-}
-
-.action-buttons button {
-    padding: 6px 9px;
-    border: 0;
-    border-radius: 4px;
-    color: white;
-    font-size: 11px;
     cursor: pointer;
 }
 
-.approve-btn {
-    background: #198754;
-}
-
-.reject-btn {
-    background: #dc3545;
-}
-
-.reschedule-btn {
-    background: #f39c12;
-}
-
-/* STATUS */
-.status {
-    font-weight: bold;
-}
-
-/* EMPTY */
-.empty {
-    padding: 20px;
-    margin-top: 15px;
-    background: white;
-    border-radius: 8px;
+.no-appointments {
     text-align: center;
+    padding: 20px;
     color: #777;
+    display: none;
 }
 
-/* MOBILE */
-@media (max-width: 800px) {
-    .sidebar {
-        width: 190px;
-    }
-
-    .main {
-        margin-left: 190px;
-        width: calc(100% - 190px);
-    }
-
+@media (max-width: 900px) {
     .cards {
         grid-template-columns: repeat(2, 1fr);
-    }
-}
-
-@media (max-width: 600px) {
-    .sidebar {
-        display: none;
-    }
-
-    .main {
-        margin-left: 0;
-        width: 100%;
-    }
-
-    .cards {
-        grid-template-columns: 1fr;
     }
 }

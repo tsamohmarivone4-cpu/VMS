@@ -1,175 +1,112 @@
 document.addEventListener("DOMContentLoaded", () => {
 
-    const currentUser =
-        JSON.parse(localStorage.getItem("currentUser"));
+    const user = JSON.parse(localStorage.getItem("currentUser"));
 
-    if (!currentUser || currentUser.role.toLowerCase() !== "host") {
-        window.location.href = "../index.html";
+    if (!user || user.role.toLowerCase() !== "host") {
+        location.href = "../index.html";
         return;
     }
 
     document.querySelector(".topbar p").textContent =
-        "Welcome, " + currentUser.fullName;
+        "Welcome, " + user.fullName;
 
-    displayAppointments();
-
-
-    // show section
-    window.showSection = function(id) {
-
-        document.querySelectorAll(".section")
-            .forEach(section =>
-                section.classList.remove("active")
-            );
-
-        document.getElementById(id)
-            .classList.add("active");
-
-        displayAppointments();
-    };
+    const get = key =>
+        JSON.parse(localStorage.getItem(key)) || [];
 
 
-    // get the host appointment
-    function getMyAppointments() {
+    window.showSection = type => load(type);
 
-        const appointments =
-            JSON.parse(
-                localStorage.getItem("vmsAppointments")
-            ) || [];
 
-        return appointments.filter(a =>
-            a.host === currentUser.fullName
-        );
+    function load(type = "all") {
+
+        const appointments = get("vmsAppointments")
+            .filter(a => a.host === user.fullName);
+
+        const visits = get("vmsVisits");
+
+        let list = appointments;
+
+        const filters = {
+            pending: a => a.status === "Pending",
+            approved: a => a.status === "Approved",
+            rescheduled: a => a.status === "Rescheduled",
+            current: a => visits.some(v =>
+                v.visitorId == a.visitorId &&
+                v.status === "Checked In"
+            ),
+            completed: a => visits.some(v =>
+                v.visitorId == a.visitorId &&
+                v.status === "Checked Out"
+            )
+        };
+
+        if (filters[type])
+            list = appointments.filter(filters[type]);
+
+        document.getElementById("tableTitle").textContent =
+            type === "all"
+                ? "All Appointments"
+                : type.charAt(0).toUpperCase() + type.slice(1);
+
+        display(list);
+        cards(appointments, visits);
     }
 
 
-    // display appointment
-    function displayAppointments() {
+    function display(list) {
 
-        const appointments = getMyAppointments();
+        const table = document.getElementById("appointmentTableBody");
+        const message = document.getElementById("noAppointments");
 
-        const pending =
-            appointments.filter(a => a.status === "Pending");
+        table.innerHTML = "";
 
-        const approved =
-            appointments.filter(a => a.status === "Approved");
+        message.style.display = list.length ? "none" : "block";
 
-        const rejected =
-            appointments.filter(a => a.status === "Rejected");
+        list.forEach(a => {
 
-
-        document.getElementById("pendingCount").textContent =
-            pending.length;
-
-        document.getElementById("approvedCount").textContent =
-            approved.length;
-
-
-        displayList(
-            "hostAppointments",
-            pending
-        );
-
-        displayList(
-            "pendingAppointments",
-            pending
-        );
-
-        displayList(
-            "approvedAppointments",
-            approved
-        );
-
-        displayList(
-            "rejectedAppointments",
-            rejected
-        );
-    }
-
-
-    // display pending table
-    function displayList(id, list) {
-
-        const box = document.getElementById(id);
-
-        if (!box) return;
-
-        if (!list.length) {
-
-            box.innerHTML =
-                "<p>No appointments found.</p>";
-
-            return;
-        }
-
-
-        if (id === "hostAppointments") {
-
-            box.innerHTML = list.map(a => `
+            table.innerHTML += `
                 <tr>
                     <td>${a.visitorName}</td>
                     <td>${a.purpose}</td>
                     <td>${a.date}</td>
                     <td>${a.time}</td>
-                    <td>
-                        <button onclick="approveAppointment(${a.id})">
-                            Approve
-                        </button>
-
-                        <button onclick="rejectAppointment(${a.id})">
-                            Reject
-                        </button>
-                    </td>
+                    <td>${a.status}</td>
+                    <td>${action(a)}</td>
                 </tr>
-            `).join("");
-
-            return;
-        }
-
-
-        box.innerHTML = list.map(a => `
-            <div class="appointment">
-                <h3>${a.visitorName}</h3>
-                <p><b>Purpose:</b> ${a.purpose}</p>
-                <p><b>Date:</b> ${a.date}</p>
-                <p><b>Time:</b> ${a.time}</p>
-                <p><b>Status:</b> ${a.status}</p>
-            </div>
-        `).join("");
+            `;
+        });
     }
 
 
-    // approve
-    window.approveAppointment = function(id) {
+    function action(a) {
 
-        updateStatus(id, "Approved");
+        if (a.status !== "Pending")
+            return "-";
 
-        alert("Appointment approved.");
-    };
+        return `
+            <button onclick="update(${a.id},'Approved')">
+                Approve
+            </button>
+
+            <button onclick="update(${a.id},'Rejected')">
+                Reject
+            </button>
+
+            <button onclick="update(${a.id},'Rescheduled')">
+                Reschedule
+            </button>
+        `;
+    }
 
 
-    // reject
-    window.rejectAppointment = function(id) {
+    window.update = (id, status) => {
 
-        updateStatus(id, "Rejected");
+        const appointments = get("vmsAppointments");
 
-        alert("Appointment rejected.");
-    };
-
-
-    // update status
-    function updateStatus(id, status) {
-
-        let appointments =
-            JSON.parse(
-                localStorage.getItem("vmsAppointments")
-            ) || [];
-
-        const appointment =
-            appointments.find(a =>
-                a.id == id &&
-                a.host === currentUser.fullName
-            );
+        const appointment = appointments.find(a =>
+            a.id == id &&
+            a.host === user.fullName
+        );
 
         if (!appointment) return;
 
@@ -180,16 +117,46 @@ document.addEventListener("DOMContentLoaded", () => {
             JSON.stringify(appointments)
         );
 
-        displayAppointments();
+        load();
+
+        alert(
+            status === "Approved"
+                ? "Appointment approved."
+                : status === "Rejected"
+                ? "Appointment rejected."
+                : "Appointment rescheduled."
+        );
+    };
+
+
+    function cards(appointments, visits) {
+
+        document.getElementById("pendingCount").textContent =
+            appointments.filter(a => a.status === "Pending").length;
+
+        document.getElementById("approvedCount").textContent =
+            appointments.filter(a => a.status === "Approved").length;
+
+        document.getElementById("currentCount").textContent =
+            visits.filter(v =>
+                v.host === user.fullName &&
+                v.status === "Checked In"
+            ).length;
+
+        document.getElementById("completedCount").textContent =
+            visits.filter(v =>
+                v.host === user.fullName &&
+                v.status === "Checked Out"
+            ).length;
     }
 
 
-    // logout
-    window.logout = function() {
-
+    window.logout = () => {
         localStorage.removeItem("currentUser");
-
-        window.location.href = "../index.html";
+        location.href = "../index.html";
     };
+
+
+    load();
 
 });
