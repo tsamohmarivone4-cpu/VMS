@@ -1,77 +1,163 @@
-// VMS LOGIN
+/* DEFAULT SYSTEM USERS */
 
-const loginForm = document.getElementById("loginForm");
+const defaultUsers = [
 
-loginForm.addEventListener("submit", function (event) {
-    event.preventDefault();
+    {
+        id: 1,
+        fullName: "Administrator",
+        username: "admin",
+        password: "admin123",
+        role: "Administrator",
+        department: "Administration"
+    },
 
-    const username = document.getElementById("username").value.trim();
-    const password = document.getElementById("password").value.trim();
+    {
+        id: 2,
+        fullName: "Receptionist",
+        username: "receptionist",
+        password: "reception123",
+        role: "Receptionist",
+        department: "Reception"
+    },
 
-    let users = JSON.parse(localStorage.getItem("vmsUsers")) || [];
+    {
+        id: 3,
+        fullName: "Host",
+        username: "host",
+        password: "host123",
+        role: "Host",
+        department: "Administration"
+    }
 
-    // Default accounts
-    const defaultUsers = [
-        {
-            id: "admin",
-            fullName: "Administrator",
-            username: "admin",
-            password: "admin123",
-            role: "Administrator",
-            department: "Administration"
-        },
-        {
-            id: "reception",
-            fullName: "Receptionist",
-            username: "reception",
-            password: "reception123",
-            role: "Receptionist",
-            department: "Reception"
-        },
-        {
-            id: "host",
-            fullName: "Host",
-            username: "host",
-            password: "host123",
-            role: "Host",
-            department: "General"
-        }
-    ];
+];
 
-    // Add default accounts if they don't exist
-    defaultUsers.forEach(defaultUser => {
-        if (!users.some(user => user.username === defaultUser.username)) {
-            users.push(defaultUser);
-        }
-    });
 
-    localStorage.setItem("vmsUsers", JSON.stringify(users));
+/* GET USERS */
 
-    // Find account
-    const user = users.find(user =>
-        user.username === username &&
-        user.password === password
+let users =
+    JSON.parse(localStorage.getItem("vmsUsers")) || [];
+
+
+/* ADD / FIX DEFAULT USERS */
+
+defaultUsers.forEach(defaultUser => {
+
+    const existing = users.find(
+        user => user.username === defaultUser.username
     );
 
-    // Invalid login
-    if (!user) {
-        const message = document.getElementById("loginMessage");
-        message.textContent = "Invalid username or password.";
-        message.style.color = "red";
-        return;
+    if (!existing) {
+
+        users.push(defaultUser);
+
+    } else {
+
+        existing.fullName = defaultUser.fullName;
+        existing.role = defaultUser.role;
+        existing.department = defaultUser.department;
+        existing.password = defaultUser.password;
+
     }
 
-    // Save logged-in user
-    localStorage.setItem("currentUser", JSON.stringify(user));
-
-    // Open correct dashboard
-    if (user.role === "Administrator") {
-        window.location.href = "html/admin.html";
-
-    } else if (user.role === "Receptionist") {
-        window.location.href = "html/receptionist.html";
-
-    } else if (user.role === "Host") {
-        window.location.href = "html/Host.html";
-    }
 });
+
+
+/* SAVE USERS */
+
+localStorage.setItem(
+    "vmsUsers",
+    JSON.stringify(users)
+);
+
+
+/* LOGIN */
+
+document
+    .getElementById("loginForm")
+    .addEventListener("submit", function (event) {
+
+        event.preventDefault();
+
+        const username =
+            document.getElementById("username")
+                .value.trim();
+
+        const password =
+            document.getElementById("password")
+                .value.trim();
+
+        const message =
+            document.getElementById("loginMessage");
+
+
+        const users =
+            JSON.parse(
+                localStorage.getItem("vmsUsers")
+            ) || [];
+
+
+        const user = users.find(u =>
+            u.username.toLowerCase() ===
+            username.toLowerCase() &&
+            u.password === password
+        );
+
+
+        if (!user) {
+
+            message.textContent =
+                "Invalid username or password.";
+
+            message.style.color = "red";
+
+            return;
+        }
+
+
+        /* SAVE CURRENT USER */
+
+        localStorage.setItem(
+            "currentUser",
+            JSON.stringify(user)
+        );
+
+
+        /* REDIRECT */
+
+        const role =
+            user.role.toLowerCase();
+
+
+        if (
+            role === "admin" ||
+            role === "administrator"
+        ) {
+
+            window.location.href =
+                "html/admin.html";
+
+        }
+
+        else if (role === "receptionist") {
+
+            window.location.href =
+                "html/receptionist.html";
+
+        }
+
+        else if (role === "host") {
+
+            window.location.href =
+                "html/host.html";
+
+        }
+
+        else {
+
+            message.textContent =
+                "User role is not recognized.";
+
+            message.style.color = "red";
+        }
+
+    });

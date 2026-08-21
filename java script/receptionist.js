@@ -1,7 +1,15 @@
+/* =========================
+   GET DATA
+========================= */
+
 function getData(key) {
     return JSON.parse(localStorage.getItem(key)) || [];
 }
 
+
+/* =========================
+   LOAD PAGES
+========================= */
 
 function loadPage(page, button = null) {
 
@@ -20,37 +28,62 @@ function loadPage(page, button = null) {
             document.getElementById("pageContent").innerHTML = data;
 
 
+            /* Active sidebar button */
+
+            document.querySelectorAll(".nav-btn")
+                .forEach(btn =>
+                    btn.classList.remove("active")
+                );
+
+            if (button) {
+                button.classList.add("active");
+            }
+
+
+            /* Search Visitor */
+
             if (page === "search.html") {
                 setupSearch();
             }
 
+
+            /* Registration */
 
             if (page === "Registration.html") {
                 setupRegistration();
             }
 
 
+            /* Appointment Booking */
+
             if (page === "appointment booking.html") {
                 setupAppointment();
             }
+
+
+            /* Manage Appointments */
+
+            if (page === "manage appointment.html") {
+                setupManageAppointments();
+            }
+
+
+            /* Update dashboard */
+
+            loadStats();
+            loadActivities();
 
         })
 
         .catch(error => {
             console.log("Page loading error:", error);
         });
-
-
-    document.querySelectorAll(".nav-btn")
-        .forEach(btn => btn.classList.remove("active"));
-
-    if (button) {
-        button.classList.add("active");
-    }
 }
 
 
-/* dashboard statistics */
+/* =========================
+   DASHBOARD CARDS
+========================= */
 
 function loadStats() {
 
@@ -59,10 +92,10 @@ function loadStats() {
     const visits = getData("vmsVisits");
 
 
-    const totalVisitors =
+    const total =
         document.getElementById("totalVisitors");
 
-    const pendingAppointments =
+    const pending =
         document.getElementById("pendingAppointments");
 
     const checkedIn =
@@ -72,55 +105,130 @@ function loadStats() {
         document.getElementById("checkedOut");
 
 
-    if (totalVisitors) {
-        totalVisitors.textContent = visitors.length;
+    if (total) {
+        total.textContent = visitors.length;
     }
 
 
-    if (pendingAppointments) {
-
-        pendingAppointments.textContent =
-            appointments.filter(a =>
-                a.status === "Pending"
+    if (pending) {
+        pending.textContent =
+            appointments.filter(
+                a => a.status === "Pending"
             ).length;
-
     }
 
 
     if (checkedIn) {
-
         checkedIn.textContent =
-            visits.filter(v =>
-                v.status === "Checked In"
+            visits.filter(
+                v => v.status === "Checked In"
             ).length;
-
     }
 
 
     if (checkedOut) {
-
         checkedOut.textContent =
-            visits.filter(v =>
-                v.status === "Checked Out"
+            visits.filter(
+                v => v.status === "Checked Out"
             ).length;
-
     }
 }
 
 
-/* s */
+/* =========================
+   DASHBOARD ACTIVITIES
+========================= */
 
-document.addEventListener("DOMContentLoaded", function () {
+function loadActivities() {
 
-    loadStats();
+    const table =
+        document.getElementById("activityTable");
 
-});
+    if (!table) return;
 
 
-/* logout function */
+    const appointments =
+        getData("vmsAppointments");
+
+
+    table.innerHTML = "";
+
+
+    if (!appointments.length) {
+
+        table.innerHTML = `
+            <tr>
+                <td colspan="5">
+                    No appointments available
+                </td>
+            </tr>
+        `;
+
+        return;
+    }
+
+
+    /* Show ALL appointments */
+
+    appointments.forEach(appointment => {
+
+        const row =
+            document.createElement("tr");
+
+
+        row.innerHTML = `
+            <td>
+                ${appointment.visitorName}
+            </td>
+
+            <td>
+                ${appointment.host}
+            </td>
+
+            <td>
+                ${appointment.status}
+            </td>
+
+            <td>
+                ${appointment.date}
+            </td>
+
+            <td>
+                ${appointment.time}
+            </td>
+        `;
+
+
+        table.appendChild(row);
+
+    });
+}
+        
+
+        
+
+
+/* =========================
+   LOGOUT
+========================= */
 
 function logout() {
 
-    window.location.href = "../index.html";
-
+    window.location.href =
+        "../index.html";
 }
+
+
+/* =========================
+   START DASHBOARD
+========================= */
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function () {
+
+        loadStats();
+        loadActivities();
+
+    }
+);

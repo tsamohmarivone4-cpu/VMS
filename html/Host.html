@@ -1,181 +1,172 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Host Dashboard</title>
+
     <link rel="stylesheet" href="../css/Host.css">
 </head>
+
 <body>
 
-    <div class="dashboard">
+<div class="dashboard">
 
-        <!--  -->sidebar
-        <aside class="sidebar">
+    <!-- ================= SIDEBAR ================= -->
+    <aside class="sidebar">
 
-             <div class="logo">
-            <img src="../images/IMG_E6766.JPG"alt="VMS Logo" width="200px" height="150px">
-            
+        <div class="logo">
+            <img
+                src="../images/IMG_E6766.JPG"
+                alt="VMS Logo"
+            >
         </div>
 
-            <nav>
-                <button onclick="showSection('overview')">
-                    Dashboard
-                </button>
-                <br>
+        <nav>
 
-                <button onclick="showSection('pending')">
-                    Pending Appointments
-                </button>
-                <br>
-
-                <button onclick="showSection('approved')">
-                  Approved Appointments
-                </button>
-                <br>
-
-                <button onclick="showSection('rejected')">
-                    Rejected Appointments
-                </button>
-                <br>
-
-
-            </nav>
-
-            <button class="logout" onclick="logout()">
-                Logout
+            <button onclick="showSection('all')">
+                Dashboard
             </button>
 
-        </aside>
+            <button onclick="showSection('pending')">
+                Pending Appointments
+            </button>
+
+            <button onclick="showSection('approved')">
+                Approved Appointments
+            </button>
+
+            <button onclick="showSection('rescheduled')">
+                Rescheduled Appointments
+            </button>
+
+            <button onclick="showSection('current')">
+                Current Visitors
+            </button>
+
+            <button onclick="showSection('completed')">
+                Completed Visits
+            </button>
+
+        </nav>
+
+        <button class="logout" onclick="logout()">
+            Logout
+        </button>
+
+    </aside>
 
 
-        <!-- main content -->
-        <main class="main">
+    <!-- ================= MAIN CONTENT ================= -->
+    <main class="main">
 
-            <header class="topbar">
-                <div>
-                    <h1>Host Dashboard</h1>
-                    <p>Welcome, Host</p>
-                </div>
-            </header>
+        <!-- HEADER -->
+        <header class="topbar">
 
+            <div>
+                <h1>Host Dashboard</h1>
 
-            <!--cards-->
-            <section id="overview" class="section active">
+                <p>
+                    View and manage your visitor appointments.
+                </p>
+            </div>
 
-                <div class="cards">
-
-                    <div class="card pending-card">
-                        <h3>Pending</h3>
-                        <p id="pendingCount">0</p>
-                    </div>
-
-                    <div class="card approved-card">
-                        <h3>Approved</h3>
-                        <p id="approvedCount">0</p>
-                    </div>
-
-                    <div class="card current-card">
-                        <h3>current visitors</h3>
-                        <p id="currentCount">0</p>
-                    </div>
-
-                    <div class="card completed-card">
-                        <h3>completed</h3>
-                        <p id="completedCount">0</p>
-                    </div>
+        </header>
 
 
-                </div>
+        <!-- ================= CARDS ================= -->
+        <section class="cards">
 
-                <h2 class="section-title">
-                    Pending Appointments
+            <div class="card">
+                <h3>Pending</h3>
+                <p id="pendingCount">0</p>
+            </div>
+
+            <div class="card">
+                <h3>Approved</h3>
+                <p id="approvedCount">0</p>
+            </div>
+
+            <div class="card">
+                <h3>Current Visitors</h3>
+                <p id="currentCount">0</p>
+            </div>
+
+            <div class="card">
+                <h3>Completed</h3>
+                <p id="completedCount">0</p>
+            </div>
+
+        </section>
+
+
+        <!-- ================= APPOINTMENT TABLE ================= -->
+
+        <section class="appointment-section">
+
+            <div class="section-header">
+
+                <h2 id="tableTitle">
+                    All Appointments
                 </h2>
-            </section>
 
-            
-                <div class="table-container">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Name</th>
-                                <th>Purpose of visit</th>
-                                <th>Date</th>
-                                <th>Time</th>
-                                <th>Action</th>
-                            </tr>
-                        </thead>
-
-                        <tbody>
-                            <tr>
-                                <td>Mbu Gracious</td>
-                                <td>meeting</td>
-                                <td>20/08/2026</td>
-                                <td>10:00 AM</td>
-                                <td>
-                                    <button onclick="approveappointment(this)">Approve</button>
-                                     <button onclick="rejectappointment(this)">Reject</button>
-                                      <button onclick="rescheduleappointment(this)">Reschedule</button>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
+            </div>
 
 
-               <!--pendingsection -->
-            <section id="pending" class="section">
+            <div class="table-container">
 
-                <h2>Pending Appointments</h2>
+                <table class="appointment-table">
 
-                <div id="pendingAppointments"></div>
+                    <thead>
 
-            </section>
+                        <tr>
 
+                            <th>Visitor</th>
 
-            <!-- aproval section -->
-            <section id="approved" class="section">
+                            <th>Purpose</th>
 
-                <h2>Approved Appointments</h2>
+                            <th>Date</th>
 
-                <div id="approvedAppointments"></div>
+                            <th>Time</th>
 
-            </section>
+                            <th>Status</th>
 
+                            <th>Action</th>
 
-            <!-- rejection section -->
-            <section id="rejected" class="section">
+                        </tr>
 
-                <h2>Rejected Appointments</h2>
-
-                <div id="rejectedAppointments"></div>
-
-            </section>
+                    </thead>
 
 
-            <!-- CURRENT VISITORS -->
-            <section id="current" class="section">
+                    <tbody id="appointmentTableBody">
 
-                <h2>Current Visitors</h2>
+                        <!-- JavaScript loads appointments here -->
 
-                <div id="currentVisitors"></div>
+                    </tbody>
 
-            </section>
+                </table>
+
+            </div>
 
 
-            <!-- completed-->
-            <section id="completed" class="section">
+            <p
+                id="noAppointments"
+                class="no-appointments"
+            >
+                No appointments found.
+            </p>
 
-                <h2>Completed Visits</h2>
+        </section>
 
-                <div id="completedVisits"></div>
+    </main>
 
-            </section>
+</div>
 
-        </main>
 
-    </div>
-
-    <script src="../java script/host.js"></script>
+<script src="../java script/host.js"></script>
 
 </body>
+
 </html>

@@ -90,7 +90,7 @@ body {
 }
 
 .search-box input:focus {
-    border-color: #1e3a8a;
+    border-color: #1e3a;
 }
 
 .search-box button {
@@ -107,6 +107,7 @@ body {
 .search-box button:hover {
     background: #172f70;
 }
+
 
 
 /* visitor table */

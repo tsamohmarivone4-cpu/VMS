@@ -1,24 +1,14 @@
-function setupAppointments() {
+function setupManageAppointments() {
 
-    const table =
-        document.getElementById("appointmentTableBody");
+    const table = document.getElementById("appointmentTableBody");
+    const search = document.getElementById("appointmentSearch");
+    const noAppointments = document.getElementById("noAppointments");
 
-    const search =
-        document.getElementById("appointmentSearch");
-
-    const noAppointments =
-        document.getElementById("noAppointments");
-
-
-    if (!table || !search || !noAppointments) return;
+    if (!table) return;
 
 
     function getData(key) {
-
-        return JSON.parse(
-            localStorage.getItem(key)
-        ) || [];
-
+        return JSON.parse(localStorage.getItem(key)) || [];
     }
 
 
@@ -26,34 +16,22 @@ function setupAppointments() {
 
         table.innerHTML = "";
 
-
         if (!data.length) {
-
             noAppointments.style.display = "block";
-
             return;
         }
 
-
         noAppointments.style.display = "none";
-
 
         data.forEach(appointment => {
 
-            const row =
-                document.createElement("tr");
-
+            const row = document.createElement("tr");
 
             row.innerHTML = `
-
                 <td>${appointment.visitorName}</td>
-
                 <td>${appointment.host}</td>
-
                 <td>${appointment.purpose}</td>
-
                 <td>${appointment.date}</td>
-
                 <td>${appointment.time}</td>
 
                 <td>
@@ -65,231 +43,149 @@ function setupAppointments() {
                 <td>
                     ${getAction(appointment)}
                 </td>
-
             `;
 
-
             table.appendChild(row);
-
         });
-
     }
 
 
     function getAction(appointment) {
 
-        const visits =
-            getData("vmsVisits");
+        const visits = getData("vmsVisits");
+
+        const visit = visits.find(v =>
+            v.visitorId == appointment.visitorId
+        );
 
 
-        const visit =
-            visits.find(v =>
-                v.visitorId == appointment.visitorId
-            );
-
-
-        // Checked in
-
-        if (
-            visit &&
-            visit.status === "Checked In"
-        ) {
+        if (visit && visit.status === "Checked In") {
 
             return `
-
-                <button
-                    class="action-btn"
-                    onclick="appointmentCheckOut(${appointment.visitorId})">
-
+                <button class="action-btn"
+                    onclick="manageCheckOut(${appointment.visitorId})">
                     Check Out
-
                 </button>
-
             `;
-
         }
 
 
-        // Checked out
-
-        if (
-            visit &&
-            visit.status === "Checked Out"
-        ) {
+        if (visit && visit.status === "Checked Out") {
 
             return `
-
-                <button
-                    class="action-btn completed"
-                    disabled>
-
+                <button class="action-btn" disabled>
                     Visit Completed
-
                 </button>
-
             `;
-
         }
 
 
-        // Approved appointment
-
-        if (
-            appointment.status === "Approved"
-        ) {
+        if (appointment.status === "Approved") {
 
             return `
-
-                <button
-                    class="action-btn"
-                    onclick="appointmentCheckIn(${appointment.visitorId})">
-
+                <button class="action-btn"
+                    onclick="manageCheckIn(${appointment.visitorId})">
                     Check In
-
                 </button>
-
             `;
-
         }
 
-
-        // Pending
 
         return `<span>-</span>`;
-
     }
 
 
-    window.appointmentCheckIn =
-        function(visitorId) {
+    window.manageCheckIn = function(visitorId) {
 
-            const appointments =
-                getData("vmsAppointments");
+        const appointments = getData("vmsAppointments");
+        const visits = getData("vmsVisits");
 
-            const visits =
-                getData("vmsVisits");
+        const appointment = appointments.find(a =>
+            a.visitorId == visitorId &&
+            a.status === "Approved"
+        );
 
-
-            const appointment =
-                appointments.find(a =>
-                    a.visitorId == visitorId &&
-                    a.status === "Approved"
-                );
+        if (!appointment) return;
 
 
-            if (!appointment) return;
+        visits.push({
+            id: Date.now(),
+            visitorId: visitorId,
+            visitorName: appointment.visitorName,
+            host: appointment.host,
+            date: new Date().toISOString().split("T")[0],
+            checkInTime: new Date().toLocaleTimeString(),
+            checkOutTime: "",
+            status: "Checked In"
+        });
 
 
-            visits.push({
+        localStorage.setItem(
+            "vmsVisits",
+            JSON.stringify(visits)
+        );
 
-                id: Date.now(),
+        displayAppointments(
+            getData("vmsAppointments")
+        );
 
-                visitorId:
-                    visitorId,
-
-                visitorName:
-                    appointment.visitorName,
-
-                host:
-                    appointment.host,
-
-                date:
-                    new Date()
-                    .toISOString()
-                    .split("T")[0],
-
-                checkInTime:
-                    new Date()
-                    .toLocaleTimeString(),
-
-                checkOutTime: "",
-
-                status:
-                    "Checked In"
-
-            });
+        loadStats();
+    };
 
 
-            localStorage.setItem(
-                "vmsVisits",
-                JSON.stringify(visits)
-            );
+    window.manageCheckOut = function(visitorId) {
+
+        const visits = getData("vmsVisits");
+
+        const visit = visits.find(v =>
+            v.visitorId == visitorId &&
+            v.status === "Checked In"
+        );
+
+        if (!visit) return;
 
 
-            displayAppointments(
-                getData("vmsAppointments")
-            );
+        visit.status = "Checked Out";
 
-        };
-
-
-    window.appointmentCheckOut =
-        function(visitorId) {
-
-            const visits =
-                getData("vmsVisits");
+        visit.checkOutTime =
+            new Date().toLocaleTimeString();
 
 
-            const visit =
-                visits.find(v =>
-                    v.visitorId == visitorId &&
-                    v.status === "Checked In"
-                );
+        localStorage.setItem(
+            "vmsVisits",
+            JSON.stringify(visits)
+        );
+
+        displayAppointments(
+            getData("vmsAppointments")
+        );
+
+        loadStats();
+    };
 
 
-            if (!visit) return;
+    search.oninput = function() {
 
+        const value =
+            search.value.toLowerCase().trim();
 
-            visit.status =
-                "Checked Out";
+        const appointments =
+            getData("vmsAppointments");
 
-
-            visit.checkOutTime =
-                new Date()
-                .toLocaleTimeString();
-
-
-            localStorage.setItem(
-                "vmsVisits",
-                JSON.stringify(visits)
-            );
-
-
-            displayAppointments(
-                getData("vmsAppointments")
-            );
-
-        };
-
-
-    search.addEventListener(
-        "input",
-        () => {
-
-            const value =
-                search.value
-                .toLowerCase()
-                .trim();
-
-
-            const appointments =
-                getData("vmsAppointments");
-
-
-            displayAppointments(
-                appointments.filter(a =>
-                    (a.visitorName || "")
+        displayAppointments(
+            appointments.filter(a =>
+                (a.visitorName || "")
                     .toLowerCase()
-                    .includes(value)
-                )
-            );
+                    .includes(value) ||
 
-        }
-    );
+                (a.phone || "")
+                    .includes(value)
+            )
+        );
+    };
 
 
     displayAppointments(
         getData("vmsAppointments")
     );
-
 }

@@ -16,7 +16,7 @@
 
     <aside class="sidebar">
         <div class="logo">
-            <img src="../images/109126.jpg" alt="VMS Logo">
+            <img src="../images/IMG_E6766.JPG" alt="VMS Logo" width="200px" height="150">
         </div>
 
         <ul>
@@ -72,28 +72,158 @@
         </section>
 
         <!-- Manage Users -->
-        <section id="manageUsersSection" class="page-section">
-            <div class="page-header">
-                <div>
-                    <h1>Manage Users</h1>
-                    <p>Create and manage system users.</p>
+        <!-- Manage Users -->
+<section id="manageUsersSection" class="page-section">
+
+    <div class="page-header">
+        <div>
+            <h1>Manage Users</h1>
+            <p>Create and manage system users.</p>
+        </div>
+
+        <button id="addUserBtn">
+            <i class="fa-solid fa-user-plus"></i>
+            Add User
+        </button>
+    </div>
+
+
+    <!-- Create User Form -->
+    <div id="userFormBox" class="form-box" style="display: none;">
+
+        <h2>Create New User</h2>
+        <p>Enter the user's information below.</p>
+
+        <form id="userForm">
+
+            <div class="form-row">
+
+                <div class="form-group">
+                    <label for="fullName">Full Name</label>
+                    <input
+                        type="text"
+                        id="fullName"
+                        placeholder="Enter full name"
+                        required
+                    >
                 </div>
-                <button id="addUserBtn">Add User</button>
+
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input
+                        type="text"
+                        id="username"
+                        placeholder="Enter username"
+                        required
+                    >
+                </div>
+
             </div>
 
-            <div class="search-box">
-                <input type="text" id="userSearch" placeholder="Search users...">
+
+            <div class="form-row">
+
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input
+                        type="password"
+                        id="password"
+                        placeholder="Enter password"
+                        required
+                    >
+                </div>
+
+
+                <div class="form-group">
+                    <label for="role">Role</label>
+
+                    <select id="role" required>
+                        <option value="">Select role</option>
+                        <option value="Administrator">Administrator</option>
+                        <option value="Receptionist">Receptionist</option>
+                        <option value="Host">Host</option>
+                    </select>
+
+                </div>
+
             </div>
 
-            <div class="table-container">
-                <table>
-                    <thead>
-                        <tr><th>Full Name</th><th>Username</th><th>Role</th><th>Department</th><th>Actions</th></tr>
-                    </thead>
-                    <tbody id="userTableBody"></tbody>
-                </table>
+
+            <div class="form-row">
+
+                <div class="form-group">
+
+                    <label for="department">
+                        Department
+                    </label>
+
+                    <select id="department" required>
+
+                        <option value="">
+                            Select department
+                        </option>
+
+                    </select>
+
+                </div>
+
             </div>
-        </section>
+
+
+            <div class="form-buttons">
+
+                <button type="submit" id="saveUserBtn">
+                    <i class="fa-solid fa-check"></i>
+                    Create User
+                </button>
+
+                <button type="button" id="cancelUserBtn">
+                    Cancel
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+
+    <!-- Search Users -->
+    <div class="search-box">
+
+        <input
+            type="text"
+            id="userSearch"
+            placeholder="Search users..."
+        >
+
+    </div>
+
+
+    <!-- Users Table -->
+    <div class="table-container">
+
+        <table>
+
+            <thead>
+
+                <tr>
+                    <th>Full Name</th>
+                    <th>Username</th>
+                    <th>Role</th>
+                    <th>Department</th>
+                    <th>Actions</th>
+                </tr>
+
+            </thead>
+
+            <tbody id="userTableBody"></tbody>
+
+        </table>
+
+    </div>
+
+</section>
 
         <!-- Manage Departments -->
         <section id="manageDepartmentsSection" class="page-section">
