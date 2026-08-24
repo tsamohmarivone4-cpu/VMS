@@ -2,7 +2,7 @@ const searchData = key =>
     JSON.parse(localStorage.getItem(key)) || [];
 
 
-/* START SEARCH */
+/* start search*/
 
 function setupSearch() {
 
@@ -21,7 +21,7 @@ function setupSearch() {
 }
 
 
-/* SEARCH VISITOR */
+/* search visitor */
 
 function searchVisitor() {
 
@@ -83,7 +83,7 @@ function searchVisitor() {
 }
 
 
-/* ACTION */
+/* action */
 
 function searchGetAction(id) {
 
@@ -115,7 +115,7 @@ function searchGetAction(id) {
 }
 
 
-/* VISITOR ACTION */
+/* visitor action */
 
 function searchVisitorAction(id) {
 
@@ -157,7 +157,7 @@ function searchVisitorAction(id) {
 }
 
 
-/* CHECK IN */
+/* check-in */
 
 function searchCheckIn(id) {
 
@@ -199,7 +199,7 @@ function searchCheckIn(id) {
 }
 
 
-/* CHECK OUT */
+/* check-out */
 
 function searchCheckOut(id) {
 
@@ -226,7 +226,7 @@ function searchCheckOut(id) {
 }
 
 
-/* HOST */
+/* host */
 
 function searchGetHost(id) {
 

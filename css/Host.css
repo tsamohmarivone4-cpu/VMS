@@ -14,7 +14,7 @@ body {
     min-height: 100vh;
 }
 
-/* SIDEBAR */
+/* sidebar */
 .sidebar {
     width: 220px;
     background: #1e3a8a;
@@ -29,8 +29,8 @@ body {
 }
 
 .logo img {
-    width: 140px;
-    height: 90px;
+    width: 150px;
+    height: 100px;
     object-fit: contain;
 }
 
@@ -43,25 +43,26 @@ body {
 .sidebar nav button,
 .logout {
     width: 100%;
-    padding: 12px;
+    padding: 13px 15px;
     border: none;
-    border-radius: 6px;
+    border-radius: 8px;
     color: white;
     background: transparent;
     text-align: left;
     cursor: pointer;
+    gap: 15px;
 }
 
 .sidebar nav button:hover {
-    background: #2949a0;
+    background: #b85619;
 }
 
 .logout {
-    margin-top: 30px;
-    background: #dc2626;
+    margin-top: 100px;
+    background: #1e3a8a;
 }
 
-/* MAIN */
+/* main */
 .main {
     margin-left: 220px;
     width: calc(100% - 220px);
@@ -79,7 +80,7 @@ body {
     color: #1e3a8a;
 }
 
-/* CARDS */
+/* cards */
 .cards {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -106,7 +107,7 @@ body {
     margin-top: 8px;
 }
 
-/* TABLE */
+/* table */
 .appointment-section {
     background: white;
     padding: 20px;

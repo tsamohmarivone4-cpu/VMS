@@ -1,15 +1,11 @@
-/* =========================
-   GET DATA
-========================= */
+
 
 function getData(key) {
     return JSON.parse(localStorage.getItem(key)) || [];
 }
 
 
-/* =========================
-   LOAD PAGES
-========================= */
+/* laod page */
 
 function loadPage(page, button = null) {
 
@@ -81,9 +77,7 @@ function loadPage(page, button = null) {
 }
 
 
-/* =========================
-   DASHBOARD CARDS
-========================= */
+/* dashbaord cards */
 
 function loadStats() {
 
@@ -135,9 +129,7 @@ function loadStats() {
 }
 
 
-/* =========================
-   DASHBOARD ACTIVITIES
-========================= */
+/* dsahboard activities */
 
 function loadActivities() {
 
@@ -208,9 +200,7 @@ function loadActivities() {
         
 
 
-/* =========================
-   LOGOUT
-========================= */
+/* logout */
 
 function logout() {
 
@@ -219,9 +209,7 @@ function logout() {
 }
 
 
-/* =========================
-   START DASHBOARD
-========================= */
+/* start dashboard*/
 
 document.addEventListener(
     "DOMContentLoaded",

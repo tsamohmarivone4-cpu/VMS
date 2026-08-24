@@ -1,281 +1,144 @@
-                                                                                                                                                                   *
-
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-
-/*body*/
-
 body {
-    font-family: Arial, Helvetica, sans-serif;
-    min-height: 100vh;
-    background-color: #f4f6f8;
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    padding: 20px;
+    font-family: Arial, sans-serif;
+    background: white;
 }
-
-
-/* mainconteiner */
 
 .container {
-    width: 100%;
-    max-width: 1400px;
-    min-height: 750px;
-
     display: flex;
-
-    background-color: white;
-
-    border: 2px solid #24418f;
-    border-radius: 15px;
-
-    overflow: hidden;
-
-    box-shadow: 0 5px 25px rgba(0, 0, 0, 0.08);
+    width: 100%;
+    min-height: 100vh;
 }
 
-
-/* left section */
-
+/* LEFT SIDE */
 .left {
-    width: 50%;
-
-    background-color: #03509c;
-
+    width: 60%;
+    background: #07579f;
     display: flex;
     flex-direction: column;
-
-    justify-content: center;
     align-items: center;
-
-    text-align: center;
-
-    padding: 50px;
+    padding: 45px 35px;
 }
-
-
-/* left heading */
 
 .left h1 {
-    font-size: 40px;
-
-    color: #d7d9df;
-
-    margin-bottom: 40px;
-
-    font-weight: 700;
+    color: white;
+    font-size: 38px;
+    margin-bottom: 35px;
+    text-align: center;
 }
-
-
-/* ---------- LOGO ---------- */
 
 .left img {
-    width: 300px;
-    height: 300px;
-
+    width: 85%;
+    height: 500px;
     object-fit: cover;
-
-    display: block;
-
-    border-radius: 2px;
-
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
 }
 
 
-/*right section*/
-
+/* RIGHT SIDE */
 .right {
-    width: 50%;
-
-    background-color: #ffffff;
-
+    width: 40%;
     display: flex;
-
     justify-content: center;
     align-items: center;
-
-    padding: 50px;
+    padding: 30px;
 }
-
-
-/* login box */
 
 .login-box {
     width: 100%;
-    max-width: 500px;
-
-    background-color: #ffffff;
-
-    padding: 45px;
-
-    border-radius: 15px;
-
-    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.10);
+    max-width: 450px;
+    padding: 40px;
+    border-radius: 18px;
+    background: white;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
 }
 
-
-/* login hearding */
-
 .login-box h2 {
-    color: #24418f;
-
+    color: #23428d;
+    font-size: 30px;
     text-align: center;
-
-    font-size: 32px;
-
+    line-height: 1.2;
     margin-bottom: 35px;
 }
 
 
-/* form*/
-
-.login-box form {
-    width: 100%;
+/* FORM */
+#loginForm {
+    display: flex;
+    flex-direction: column;
 }
 
-
-/* labels */
-
-.login-box label {
-    display: block;
-
-    color: #111111;
-
-    font-size: 18px;
-
-    font-weight: 600;
-
-    margin-bottom: 10px;
-
-    margin-top: 20px;
-}
-
-
-/* first label*/
-
-.login-box label:first-of-type {
-    margin-top: 0;
-}
-
-
-/* input */
-
-.login-box input {
-    width: 100%;
-
-    height: 55px;
-
-    padding: 0 15px;
-
-    border: 1px solid #999999;
-
-    border-radius: 7px;
-
-    outline: none;
-
+#loginForm label {
     font-size: 17px;
-
-    color: #333333;
-
-    background-color: #ffffff;
-
-    transition: 0.3s;
+    font-weight: 600;
+    margin-bottom: 8px;
 }
 
-
-/* placeholder for input*/
-
-.login-box input::placeholder {
-    color: #777777;
+#loginForm input {
+    height: 50px;
+    padding: 0 15px;
+    margin-bottom: 20px;
 
     font-size: 16px;
+
+    background: #e8f0fc;
+    border: 1px solid #999;
+    border-radius: 7px;
+    outline: none;
+}
+
+#loginForm input:focus {
+    border-color: #294594;
 }
 
 
+/* BUTTON */
+#loginForm button {
+    height: 52px;
+    margin-top: 5px;
 
-
-.login-box input:focus {
-    border-color: #24418f;
-
-    box-shadow: 0 0 0 3px rgba(36, 65, 143l);
- }
-
- /*login button --*/
-
-.login-box button {
-    width: 100%;
-
-    height: 55px;
-
-    margin-top: 30px;
-
-    border: none;
-
-    border-radius: 7px;
-
-    background-color: #24418f;
-
+    background: #294594;
     color: white;
 
-    font-size: 18px;
+    border: none;
+    border-radius: 7px;
 
+    font-size: 18px;
     font-weight: 600;
 
     cursor: pointer;
+}
 
-    transition: all 0.3s ease;
+#loginForm button:hover {
+    background: #1d367c;
 }
 
 
-/* button hover */
-
-.login-box button:hover {
-    background-color: #1b3478;
-
-    transform: translateY(-1px);
-
-    box-shadow: 0 5px 12px rgba(36, 65, 143, 0.25);
-}
-
-
-/*login button*/
-
-.login-box button:active {
-    transform: translateY(0);
-}
-
-
-/* login massage*/
-
+/* MESSAGE */
 #loginMessage {
     text-align: center;
-
-    font-size: 14px;
-
-    margin-top: 15px;
-
-    min-height: auto;
+    margin-top: 12px;
 }
 
 
-/* --tables-- */
-
-@media screen and (max-width: 900px) {
+/* RESPONSIVE */
+@media (max-width: 900px) {
 
     .container {
-        min-height: auto;
+        flex-direction: column;
+    }
+
+    .left,
+    .right {
+        width: 100%;
     }
 
     .left {
-        padding: 35px;
+        padding: 35px 20px;
     }
 
     .left h1 {
@@ -283,120 +146,11 @@ body {
     }
 
     .left img {
-        width: 250px;
-        height: 250px;
+        width: 80%;
+        height: 300px;
     }
 
     .right {
-        padding: 30px;
-    }
-
-    .login-box {
-        padding: 35px;
-    }
-
-    .login-box h2 {
-        font-size: 27px;
-    }
-}
-
-
-/*--mobile-- */
-
-@media screen and (max-width: 700px) {
-
-    body {
-        padding: 10px;
-    }
-
-    .container {
-        flex-direction: column;
-
-        min-height: auto;
-
-        border-radius: 12px;
-    }
-
-
-    .left {
-        width: 100%;
-
-        padding: 35px 20px;
-    }
-
-
-    .left h1 {
-        font-size: 28px;
-
-        margin-bottom: 25px;
-    }
-
-
-    .left img {
-        width: 220px;
-        height: 220px;
-    }
-
-
-    .right {
-        width: 100%;
-
         padding: 30px 20px;
-    }
-
-
-    .login-box {
-        max-width: 500px;
-
-        padding: 30px 25px;
-    }
-
-
-    .login-box h2 {
-        font-size: 25px;
-
-        margin-bottom: 25px;
-    }
-
-
-    .login-box label {
-        font-size: 16px;
-    }
-
-
-    .login-box input {
-        height: 50px;
-
-        font-size: 16px;
-    }
-
-
-    .login-box button {
-        height: 50px;
-
-        font-size: 17px;
-    }
-}
-
-
-/* --smalp phone-- */
-
-@media screen and (max-width: 400px) {
-
-    .left h1 {
-        font-size: 24px;
-    }
-
-    .left img {
-        width: 180px;
-        height: 180px;
-    }
-
-    .login-box {
-        padding: 25px 20px;
-    }
-
-    .login-box h2 {
-        font-size: 22px;
     }
 }
