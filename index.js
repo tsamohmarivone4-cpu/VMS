@@ -14,7 +14,7 @@ const defaultUsers = [
     {
         id: 2,
         fullName: "Receptionist",
-        username: "receptionist",
+        username: "reception",
         password: "reception123",
         role: "Receptionist",
         department: "Reception"
@@ -32,13 +32,13 @@ const defaultUsers = [
 ];
 
 
-/* GET USERS */
+/* get user*/
 
 let users =
     JSON.parse(localStorage.getItem("vmsUsers")) || [];
 
 
-/* ADD / FIX DEFAULT USERS */
+/* add defult user */
 
 defaultUsers.forEach(defaultUser => {
 
@@ -62,7 +62,7 @@ defaultUsers.forEach(defaultUser => {
 });
 
 
-/* SAVE USERS */
+/* save users */
 
 localStorage.setItem(
     "vmsUsers",
@@ -70,7 +70,7 @@ localStorage.setItem(
 );
 
 
-/* LOGIN */
+/* login */
 
 document
     .getElementById("loginForm")
@@ -114,7 +114,7 @@ document
         }
 
 
-        /* SAVE CURRENT USER */
+        /* save current user */
 
         localStorage.setItem(
             "currentUser",
@@ -122,7 +122,7 @@ document
         );
 
 
-        /* REDIRECT */
+        /* redirect */
 
         const role =
             user.role.toLowerCase();

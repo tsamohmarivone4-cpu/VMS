@@ -9,9 +9,7 @@ document.addEventListener("DOMContentLoaded", () => {
         localStorage.setItem(key, JSON.stringify(data));
 
 
-    /* =========================
-       PAGE NAVIGATION
-    ========================= */
+    /* page navigation */
 
     const pages = [
         "dashboardSection",
@@ -40,9 +38,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
 
-    /* =========================
-       DASHBOARD STATISTICS
-    ========================= */
+    /* dashboard statistics */
 
     function stats() {
 
@@ -65,9 +61,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
 
-    /* =========================
-       SIDEBAR
-    ========================= */
+    /* side bar */
 
     $("dashboardLink").onclick = e => {
         e.preventDefault();
@@ -110,9 +104,7 @@ document.addEventListener("DOMContentLoaded", () => {
     };
 
 
-    /* =========================
-       USERS
-    ========================= */
+    /* users */
 
     function users(list = get("vmsUsers")) {
 
@@ -133,7 +125,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
 
-    /* LOAD DEPARTMENTS */
+    /* load departments */
 
     function loadDepartments() {
 
@@ -159,7 +151,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
 
-    /* OPEN USER FORM */
+    /* open user form */
 
     function openUserForm() {
 
@@ -180,7 +172,7 @@ document.addEventListener("DOMContentLoaded", () => {
     };
 
 
-    /* CLOSE USER FORM */
+    /* close user form */
 
     $("cancelUserBtn").onclick = () => {
 
@@ -190,7 +182,7 @@ document.addEventListener("DOMContentLoaded", () => {
     };
 
 
-    /* CREATE USER */
+    /* create user */
 
     $("userForm").onsubmit = e => {
 
@@ -229,7 +221,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const list = get("vmsUsers");
 
 
-        /* CHECK USERNAME */
+        /* check user name */
 
         if (
             list.some(
@@ -245,7 +237,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
 
-        /* CREATE USER */
+        /* create user */
 
         list.push({
 
@@ -281,7 +273,7 @@ document.addEventListener("DOMContentLoaded", () => {
     };
 
 
-    /* DELETE USER */
+    /* delete user */
 
     window.deleteUser = id => {
 
@@ -297,7 +289,7 @@ document.addEventListener("DOMContentLoaded", () => {
     };
 
 
-    /* SEARCH USERS */
+    /* search user */
 
     $("userSearch").oninput = function () {
 
@@ -323,9 +315,7 @@ document.addEventListener("DOMContentLoaded", () => {
     };
 
 
-    /* =========================
-       DEPARTMENTS
-    ========================= */
+    /* department */
 
     function departments(list = get("vmsDepartments")) {
 
@@ -414,7 +404,7 @@ document.addEventListener("DOMContentLoaded", () => {
     };
 
 
-    /* SEARCH DEPARTMENTS */
+    /* ssearch department */
 
     $("departmentSearch").oninput = function () {
 
@@ -432,9 +422,7 @@ document.addEventListener("DOMContentLoaded", () => {
     };
 
 
-    /* =========================
-       VISITORS
-    ========================= */
+    /* visitors */
 
     function visitors(list = get("vmsVisitors")) {
 
@@ -478,9 +466,7 @@ document.addEventListener("DOMContentLoaded", () => {
     };
 
 
-    /* =========================
-       APPOINTMENTS
-    ========================= */
+    /* appointment */
 
     function appointments(
         list = get("vmsAppointments")
@@ -519,9 +505,7 @@ document.addEventListener("DOMContentLoaded", () => {
     };
 
 
-    /* =========================
-       REPORTS
-    ========================= */
+    /* report */
 
     function report(key) {
 
